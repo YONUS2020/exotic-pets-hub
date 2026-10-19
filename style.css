@@ -1,0 +1,267 @@
+/* ==========================================================================
+   Egzotik Vaha / TerraExotica - Özel Egzotik Doğa Temalı Stiller
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&display=swap');
+
+:root {
+  --primary-glow: rgba(16, 185, 129, 0.25);
+  --accent-glow: rgba(245, 158, 11, 0.2);
+  --jungle-bg: #060e0a;
+  --panel-bg: rgba(13, 26, 20, 0.85);
+  --panel-border: rgba(52, 211, 153, 0.15);
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--jungle-bg);
+  color: #e2e8f0;
+  overflow-x: hidden;
+  font-size: 16px;
+}
+
+h1, h2, h3, .font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.hero-section {
+  isolation: isolate;
+  background: #102219 url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2400&q=90') center 48% / cover no-repeat;
+}
+
+.hero-video {
+  z-index: -2;
+  object-position: center 48%;
+}
+
+.hero-overlay {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(3, 13, 8, 0.9) 0%, rgba(3, 13, 8, 0.72) 58%, rgba(3, 13, 8, 0.42) 100%),
+    linear-gradient(0deg, rgba(3, 13, 8, 0.78) 0%, transparent 55%);
+}
+
+.hero-section .text-gradient-emerald {
+  background-image: linear-gradient(135deg, #d1fae5 0%, #6ee7b7 55%, #34d399 100%);
+}
+
+.catalog-intro {
+  background:
+    radial-gradient(circle at 80% 25%, rgba(16, 185, 129, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(6, 78, 59, 0.18), transparent);
+}
+
+.catalog-controls {
+  position: relative;
+  z-index: 1;
+}
+
+.category-btn,
+.diff-btn {
+  min-height: 42px;
+}
+
+.text-xs {
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.text-sm {
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+#tracker {
+  font-size: 1rem;
+}
+
+#tracker .text-xs {
+  font-size: 0.92rem;
+}
+
+/* Terrarium & Jungle Glow Background */
+.bg-terrarium {
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(245, 158, 11, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(6, 78, 59, 0.1) 0%, transparent 60%),
+    #060e0a;
+}
+
+/* Glassmorphism Panel */
+.glass-panel {
+  background: rgba(11, 23, 17, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(52, 211, 153, 0.18);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  border-color: rgba(52, 211, 153, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px -10px rgba(16, 185, 129, 0.2);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #060e0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #064e3b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #10b981;
+}
+
+/* Glowing text and borders */
+.glow-emerald {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+}
+
+.glow-amber {
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
+}
+
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #a7f3d0 0%, #34d399 50%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #b45309 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Checkbox Style for Daily Checklist */
+.custom-checkbox {
+  appearance: none;
+  background-color: rgba(6, 78, 59, 0.3);
+  border: 2px solid rgba(52, 211, 153, 0.3);
+  border-radius: 6px;
+  width: 1.35rem;
+  height: 1.35rem;
+  cursor: pointer;
+  display: inline-grid;
+  place-content: center;
+  transition: all 0.2s ease;
+}
+
+.custom-checkbox:checked {
+  background-color: #10b981;
+  border-color: #34d399;
+}
+
+.custom-checkbox:checked::before {
+  content: "";
+  width: 0.65rem;
+  height: 0.65rem;
+  transform: scale(1);
+  background-color: white;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+/* Modal Animation */
+.modal-backdrop {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.25s ease;
+}
+
+.modal-backdrop.active .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+/* Pulse badge animation */
+@keyframes bioPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+.bio-pulse {
+  animation: bioPulse 2.5s infinite;
+}
+
+/* Hide scrollbar for category pills bar on mobile */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (max-width: 639px) {
+  .hero-section {
+    min-height: 580px;
+  }
+
+  .hero-section h1 {
+    font-size: clamp(2.45rem, 11vw, 3.1rem);
+    overflow-wrap: anywhere;
+  }
+
+  #featuredAnimalGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    padding: 1.25rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  #featuredAnimalGrid,
+  #animalGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    display: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

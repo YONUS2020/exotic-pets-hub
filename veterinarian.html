@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#060e0a">
+  <link rel="icon" type="image/svg+xml" href="assets/dragon.svg">
+  <title>Egzotik Hayvan Veteriner Sağlığı & Klinik Rehberi | TerraExotica</title>
+  <meta name="description" content="Sürüngenler, tarantulalar ve amfibiler için acil durum belirtileri, ilk yardım, parazit kontrolü ve Türkiye egzotik veteriner hekim danışma rehberi.">
+  <link rel="canonical" href="https://terraexotica.vercel.app/veterinarian.html">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-terrarium text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+  <header class="sticky top-0 z-40 border-b border-emerald-900/30 bg-slate-950/90 backdrop-blur-md">
+    <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <a href="index.html" class="flex items-center gap-3" aria-label="Terra Exotica ana sayfa">
+        <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-800 shadow-lg">
+          <img src="assets/dragon.svg" alt="" class="h-7 w-7 brightness-0 invert">
+        </span>
+        <span>
+          <span class="block text-lg font-bold tracking-wider text-emerald-300 sm:text-2xl">TERRA EXOTICA</span>
+          <span class="block text-xs uppercase tracking-widest text-emerald-400/80">Veteriner sağlık merkezi</span>
+        </span>
+      </a>
+      <nav class="hidden items-center gap-6 text-sm font-semibold md:flex" aria-label="Ana gezinme">
+        <a href="index.html" class="text-slate-300 hover:text-emerald-300">Ana sayfa</a>
+        <a href="animals.html" class="text-slate-300 hover:text-emerald-300">Tür rehberi</a>
+        <a href="index.html#tracker" class="text-slate-300 hover:text-emerald-300">Bakım takibi</a>
+      </nav>
+      <a href="animals.html" class="rounded-xl border border-emerald-700/60 px-3 py-2 text-sm font-semibold text-emerald-200 hover:bg-emerald-950 sm:px-4">Türleri keşfet</a>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <section class="border-b border-emerald-950 bg-slate-950/50 py-14 sm:py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <p class="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-emerald-300">Sağlık, koruyucu bakım ve doğru yönlendirme</p>
+        <h1 class="max-w-4xl text-4xl font-extrabold leading-tight text-white sm:text-6xl">Egzotik hayvan sağlığı</h1>
+        <p class="mt-5 max-w-3xl text-lg leading-relaxed text-slate-300">
+          Sürüngenler ve omurgasızlar hastalık belirtilerini gizleyebilir. Bu merkez, gözlem ve veterinerle iletişim için genel bir başlangıç rehberidir; tanı veya tedavi yerine geçmez.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#urgent" class="inline-flex min-h-12 items-center gap-2 rounded-xl bg-rose-700 px-5 py-3 font-bold text-white hover:bg-rose-600">
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Acil belirtiler
+          </a>
+          <a href="#prevention" class="inline-flex min-h-12 items-center gap-2 rounded-xl border border-emerald-700/60 px-5 py-3 font-bold text-emerald-200 hover:bg-emerald-950">
+            <i class="fa-solid fa-shield-heart" aria-hidden="true"></i> Koruyucu bakım
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-10 sm:py-14">
+      <div class="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
+        <article class="glass-panel rounded-2xl border border-rose-800/50 p-5 sm:p-6">
+          <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-rose-950 text-rose-300"><i class="fa-solid fa-lungs" aria-hidden="true"></i></div>
+          <h2 class="text-xl font-bold text-white">Solunum ve genel durum</h2>
+          <p class="mt-3 leading-relaxed text-slate-300">Ağız açık veya eforlu soluma, hırıltı, burun/ağız akıntısı, belirgin halsizlik, dengesizlik ya da nöbet benzeri hareketler gecikmeden veteriner değerlendirmesi gerektirir.</p>
+        </article>
+        <article class="glass-panel rounded-2xl border border-amber-800/50 p-5 sm:p-6">
+          <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-amber-950 text-amber-300"><i class="fa-solid fa-bandage" aria-hidden="true"></i></div>
+          <h2 class="text-xl font-bold text-white">Yara, şişlik ve ağız</h2>
+          <p class="mt-3 leading-relaxed text-slate-300">Kanama, yanık, ısırık, açıklanamayan şişlik, ağızda plak/akıntı, prolapsus veya tekrarlayan kusma/regürjitasyon için veterinerle aynı gün iletişime geçin. Canlı yem kaynaklı yılan yaraları acil değerlendirilmelidir.</p>
+        </article>
+        <article class="glass-panel rounded-2xl border border-cyan-800/50 p-5 sm:p-6">
+          <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-950 text-cyan-300"><i class="fa-solid fa-eye" aria-hidden="true"></i></div>
+          <h2 class="text-xl font-bold text-white">Deri ve göz kapağı</h2>
+          <p class="mt-3 leading-relaxed text-slate-300">Göz üzerindeki deri kalıntısı, parmakları/kuyruğu sıkan deri, tekrarlayan tamamlanmamış deri değişimi veya gözde şişme/açılmama veteriner görüşü gerektirir. Deriyi ya da göz kapağını zorla çekmeyin.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="urgent" class="py-8 sm:py-12">
+      <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
+        <div class="glass-panel rounded-3xl border border-rose-800/40 p-6 sm:p-8">
+          <p class="text-sm font-bold uppercase tracking-widest text-rose-300">Önce güvenlik</p>
+          <h2 class="mt-2 text-2xl font-extrabold text-white sm:text-3xl">Ne zaman acil yardım aranmalı?</h2>
+          <ul class="mt-6 space-y-4 text-slate-200">
+            <li class="flex gap-3"><i class="fa-solid fa-circle-exclamation mt-1 text-rose-400" aria-hidden="true"></i><span>Nefes almada güçlük, çökme, ciddi kanama, nöbet, felç benzeri bulgular, prolapsus veya büyük travma varsa beklemeyin; acil veteriner kliniğini arayın.</span></li>
+            <li class="flex gap-3"><i class="fa-solid fa-circle-exclamation mt-1 text-rose-400" aria-hidden="true"></i><span>Yılan canlı kemirgen tarafından ısırıldıysa ya da herhangi bir hayvanda derin yara/yanık varsa gecikmeden veteriner desteği alın.</span></li>
+            <li class="flex gap-3"><i class="fa-solid fa-circle-exclamation mt-1 text-rose-400" aria-hidden="true"></i><span>Bir çıyan veya akrep insanı soktu/ısırdıysa yerel acil sağlık hizmetine başvurun. Hayvanı çıplak elle yakalamaya çalışmayın.</span></li>
+          </ul>
+          <div class="mt-6 rounded-xl border border-rose-900/50 bg-rose-950/40 p-4 text-sm leading-relaxed text-rose-100">
+            Kliniği ararken türü, olayın zamanını, gözlenen belirtileri, hayvanın yaklaşık boyutunu ve bilinen sıcaklık/nem ölçümlerini iletin. Zehirli veya hızlı omurgasızları taşımak için kendinizi riske atmayın.
+          </div>
+        </div>
+
+        <aside class="rounded-3xl border border-emerald-800/40 bg-emerald-950/30 p-6 sm:p-8">
+          <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-900/70 text-emerald-300"><i class="fa-solid fa-user-doctor text-xl" aria-hidden="true"></i></div>
+          <h2 class="text-2xl font-bold text-white">Egzotik hayvan veterineri bulun</h2>
+          <p class="mt-3 leading-relaxed text-slate-300">Kliniği arayıp veterinerin ilgili hayvan grubunda (sürüngen, amfibi veya omurgasız) deneyimini ve acil kabul imkânını önceden doğrulayın. ARAV'ın dizini özellikle sürüngen ve amfibi veterinerleri içindir; bulunduğunuz ülkede hizmet ve uygunluk değişebilir.</p>
+          <a href="https://arav.org/find-a-vet/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex min-h-12 items-center gap-2 rounded-xl bg-emerald-700 px-4 py-3 font-bold text-white hover:bg-emerald-600">
+            ARAV veteriner dizini <i class="fa-solid fa-arrow-up-right-from-square text-sm" aria-hidden="true"></i>
+          </a>
+          <p class="mt-3 text-sm text-slate-400">Omurgasızlar için kliniğe telefon ederek akrep/çıyan/tarantula kabul edip etmediklerini ayrıca sorun.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="prevention" class="py-12 sm:py-16">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mb-8 max-w-3xl">
+          <p class="text-sm font-bold uppercase tracking-widest text-emerald-300">Her gün gözlem, erken iletişim</p>
+          <h2 class="mt-2 text-3xl font-extrabold text-white sm:text-4xl">Hastalık riskini azaltmaya yardımcı alışkanlıklar</h2>
+          <p class="mt-3 leading-relaxed text-slate-300">İhtiyaçlar tür, yaş, sağlık geçmişi ve kurulumla değişir. Evrensel sıcaklık/nem reçetesi yerine ölçüm ve düzenli kayıt kullanın.</p>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <article class="glass-panel rounded-2xl p-5">
+            <h3 class="font-bold text-white"><i class="fa-solid fa-temperature-half mr-2 text-amber-300" aria-hidden="true"></i>İklimi ölçün</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-300">Kurulumun farklı noktalarındaki sıcaklık ve nemi uygun cihazlarla kaydedin. Lambaların/UVB ekipmanının üretici talimatlarını ve veterinerin kurulum önerilerini izleyin.</p>
+          </article>
+          <article class="glass-panel rounded-2xl p-5">
+            <h3 class="font-bold text-white"><i class="fa-solid fa-notes-medical mr-2 text-cyan-300" aria-hidden="true"></i>Değişimleri yazın</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-300">İştah, dışkı, deri değişimi, aktivite, ağırlık ve ölçüm kayıtlarını tarihleriyle tutun. Tek bir belirtiyle çevrimiçi tanı koymaya çalışmayın.</p>
+          </article>
+          <article class="glass-panel rounded-2xl p-5">
+            <h3 class="font-bold text-white"><i class="fa-solid fa-hand-sparkles mr-2 text-emerald-300" aria-hidden="true"></i>Hijyeni koruyun</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-300">Sürüngenler belirti göstermeden Salmonella taşıyabilir. Hayvana, yeme veya yaşam alanına dokunduktan sonra ellerinizi sabunla yıkayın; ekipmanı gıda hazırlama alanlarından ayrı tutun.</p>
+          </article>
+          <article class="glass-panel rounded-2xl p-5">
+            <h3 class="font-bold text-white"><i class="fa-solid fa-pills mr-2 text-violet-300" aria-hidden="true"></i>Kendi kendinize ilaç vermeyin</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-300">İnsan ilacı, antibiyotik, parazit ilacı, vitamin dozu, zorla besleme veya yara tedavisi veteriner önerisi olmadan uygulanmamalıdır. Yanlış ürün/doz zarar verebilir.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-emerald-950 bg-slate-950/50 py-12 sm:py-16">
+      <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-widest text-emerald-300">Türüne özgü bakım şart</p>
+          <h2 class="mt-2 text-3xl font-extrabold text-white">Bir türün bakımını diğerine kopyalamayın</h2>
+          <p class="mt-4 leading-relaxed text-slate-300">Boa ve pitonlar, geckolar, tarantulalar, akrepler ve çıyanlar farklı biyolojiye ve güvenlik ihtiyaçlarına sahiptir. Katalogdaki temel bilgiler tanıtım amaçlıdır; sıcaklık, nem, beslenme, UVB, ilaç ve tedavi önerisi olarak kullanılmamalıdır.</p>
+          <p class="mt-4 leading-relaxed text-slate-300">Yeni bir hayvan edinmeden önce bilimsel tür adını doğrulayın, uygun yaşam alanını hazırlayın ve o türü gerçekten gören bir veteriner bulabileceğinizi teyit edin. Omurgasızlarda yaygın klinik standartlar sınırlı olabilir; türe özgü kabulü kliniğe sorun.</p>
+          <a href="animals.html" class="mt-6 inline-flex items-center gap-2 font-bold text-emerald-300 hover:text-white">Tür rehberine git <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold text-white">Kaynaklar ve ileri okuma</h2>
+          <p class="mt-2 text-sm text-slate-400">Aşağıdaki İngilizce veterinerlik ve hayvan refahı kaynakları bilgilendirme metninin hazırlanmasında kullanılmıştır. Kaynaklardaki yönlendirmeler de profesyonel muayenenin yerini tutmaz.</p>
+          <ul class="mt-5 space-y-4">
+            <li class="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+              <a class="font-semibold text-emerald-300 hover:text-white" href="https://vcahospitals.com/know-your-pet/snakes-problems" target="_blank" rel="noopener noreferrer">VCA Animal Hospitals — Common Problems in Pet Snakes <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs" aria-hidden="true"></i></a>
+              <p class="mt-1 text-sm text-slate-400">Yılanlarda iştahsızlık, deri değişimi sorunları, Salmonella ve canlı yem kaynaklı yaralanmalara ilişkin veteriner bilgilendirmesi.</p>
+            </li>
+            <li class="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+              <a class="font-semibold text-emerald-300 hover:text-white" href="https://www.rspca.org.uk/adviceandwelfare/pets/other/beardeddragon" target="_blank" rel="noopener noreferrer">RSPCA — Bearded dragon care <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs" aria-hidden="true"></i></a>
+              <p class="mt-1 text-sm text-slate-400">Sakallı ejderlerde UVB, kalsiyum ve metabolik kemik hastalığı hakkında bakım ve refah bilgisi.</p>
+            </li>
+            <li class="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+              <a class="font-semibold text-emerald-300 hover:text-white" href="https://arav.org/resources/" target="_blank" rel="noopener noreferrer">Association of Reptile and Amphibian Veterinarians (ARAV) — Resources <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs" aria-hidden="true"></i></a>
+              <p class="mt-1 text-sm text-slate-400">Sürüngen ve amfibi veterinerliği için mesleki kaynaklar; ayrıca <a class="underline hover:text-white" href="https://arav.org/find-a-vet/" target="_blank" rel="noopener noreferrer">veteriner bulma dizini</a>.</p>
+            </li>
+            <li class="rounded-xl border border-slate-800 bg-slate-900/70 p-4">
+              <a class="font-semibold text-emerald-300 hover:text-white" href="https://aemv.org/" target="_blank" rel="noopener noreferrer">Association of Exotic Mammal Veterinarians (AEMV) <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs" aria-hidden="true"></i></a>
+              <p class="mt-1 text-sm text-slate-400">Egzotik memeli tıbbı için veterinerlik eğitim materyalleri sunan meslek kuruluşu.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-auto border-t border-emerald-950 bg-black/80 py-7 text-sm text-slate-400">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6 lg:px-8">
+      <a href="index.html" class="font-bold text-slate-200">Terra Exotica</a>
+      <p class="text-center">Bu sayfa genel eğitim amaçlıdır; tanı, tedavi veya acil veteriner hizmeti değildir.</p>
+      <a href="animals.html" class="text-emerald-300 hover:text-white">Tür rehberi</a>
+    </div>
+  </footer>
+</body>
+</html>

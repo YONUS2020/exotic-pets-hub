@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://terraexotica.vercel.app/sitemap.xml

@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="assets/dragon.svg">
+  
+  <!-- SEO & Arama Motoru Meta Etiketleri -->
+  <title>Egzotik Hayvan Rehberi: Tarantula, Gecko ve Sürüngen Bakımı | TerraExotica</title>
+  <meta name="description" content="Tarantula, gecko, yılan ve diğer egzotik canlılar için kaynaklı tür rehberleri, bilimsel taksonomi araması, veteriner sağlık bilgisi ve günlük bakım takibi.">
+  <meta name="author" content="TerraExotica">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="theme-color" content="#064e3b">
+  <link rel="canonical" href="https://terraexotica.vercel.app/">
+
+  <!-- Open Graph / Facebook & WhatsApp Önizleme -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://terraexotica.vercel.app/">
+  <meta property="og:title" content="Egzotik Hayvan Rehberi | TerraExotica">
+  <meta property="og:description" content="Tarantula, gecko ve sürüngenler için kaynaklı tür rehberleri, bilimsel taksonomi araması ve hobici bakım takibi.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1509937528035-ad76254b0356?auto=format&fit=crop&w=1200&q=80">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:site_name" content="TerraExotica">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://terraexotica.vercel.app/">
+  <meta name="twitter:title" content="Egzotik Hayvan Rehberi | TerraExotica">
+  <meta name="twitter:description" content="Tarantula, gecko, sürüngen ve amfibiler için kaynaklı tür rehberleri ve günlük bakım takibi.">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1509937528035-ad76254b0356?auto=format&fit=crop&w=1200&q=80">
+
+  <!-- Google Structured Data (JSON-LD) - SEO ve Zengin Arama Sonuçları -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://terraexotica.vercel.app/#website",
+        "url": "https://terraexotica.vercel.app/",
+        "name": "TerraExotica",
+        "description": "Egzotik hayvanlar için kaynaklı tür rehberleri, bilimsel taksonomi keşfi ve hobici bakım takibi",
+        "inLanguage": "tr-TR"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://terraexotica.vercel.app/#app",
+        "name": "TerraExotica Egzotik Takip Sistemi",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "TRY"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://terraexotica.vercel.app/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Yeni başlayanlar için en uygun egzotik hayvan hangisidir?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sürüngenler arasında Leopard Gecko ve Mısır Yılanı uysallıkları ve toleranslı bakım şartlarıyla sık önerilen canlılardır. Canlı böcek beslemek istemeyenler için hazır meyve püresi yiyen Tepeli Gecko (Crested Gecko) bir seçenek olabilir. Her hayvanın bakım koşullarını ve uzun vadeli ihtiyaçlarını sahiplenmeden önce araştırın."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Yılanıma canlı fare vermeli miyim?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Genel olarak uygun biçimde çözündürülmüş, tür ve yılanın boyutuna uygun yem tercih edilir; canlı kemirgen yılanı ciddi biçimde yaralayabilir. Yılan yemi kabul etmezse canlı yemi içeride bırakmayın. Beslenme planı veya uzun süren iştahsızlık için egzotik hayvan veterinerine danışın."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Günlük takip verilerim kaybolur mu?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Bakım ve takip kayıtları bu tarayıcıda yerel olarak saklanır. Tarayıcı verileri silinirse kayıtlar kaybolabilir; yedekleme özelliğini kullanın. Topluluk hesabı ve paylaşım verileri ise Supabase hizmetinde tutulur."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Sürüngenim deri değiştirirken ne yapmalıyım?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Deri değişimi yaklaşırken bazı türlerde renkler matlaşabilir. Nem ve saklanma alanı gereksinimleri türe göre değiştiğinden, ortamı yalnızca türe özgü güvenilir bakım rehberi veya veteriner önerisine göre ayarlayın. Deriyi, göz kapağını ya da parmaklardaki kalıntıları çekmeyin; kalıntı sürerse veya göz etkilenmişse egzotik hayvan veterinerine başvurun."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            jungle: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              800: '#065f46',
+              900: '#064e3b',
+              950: '#022c22',
+            },
+            amberEx: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-terrarium text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+
+  <!-- =========================================================================
+       ÜST MENÜ / NAVBAR
+       ========================================================================= -->
+  <header class="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-emerald-900/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-3 group">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-800 flex items-center justify-center text-white shadow-lg shadow-emerald-900/40 group-hover:scale-105 transition-transform">
+              <img src="assets/dragon.svg" alt="" class="h-7 w-7 brightness-0 invert">
+          </div>
+          <div>
+            <span class="whitespace-nowrap text-lg sm:text-2xl font-bold tracking-wider font-cinzel text-gradient-emerald">TERRA EXOTICA</span>
+            <span class="block text-xs uppercase tracking-widest text-emerald-400/80 font-medium">Egzotik Hobici Portalı</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden xl:flex items-center gap-5 text-sm font-medium">
+          <a href="animals.html" class="text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-2">
+            <i class="fa-solid fa-book-atlas text-emerald-500"></i> Hayvanlar
+          </a>
+          <a href="community.html" class="text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-2">
+            <i class="fa-solid fa-camera text-emerald-500"></i> Topluluk
+          </a>
+          <a href="news.html" class="text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-2">
+            <i class="fa-solid fa-newspaper text-emerald-500"></i> Haberler
+          </a>
+          <a href="veterinarian.html" class="text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-2">
+            <i class="fa-solid fa-user-doctor text-rose-400"></i> Veteriner Sağlığı
+          </a>
+          <a href="#tracker" class="text-slate-300 hover:text-amber-400 transition-colors flex items-center gap-2 relative">
+            <i class="fa-solid fa-clipboard-check text-amber-500"></i> Bakım Takibi
+          </a>
+          <a href="#care-guide" class="text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-2">
+            <i class="fa-solid fa-temperature-half text-emerald-500"></i> Bakım Rehberi
+          </a>
+          <a href="#faq" class="text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-2">
+            <i class="fa-solid fa-circle-question text-emerald-500"></i> SSS
+          </a>
+        </nav>
+
+        <!-- CTA & Quick Action Button -->
+        <div class="flex items-center gap-3">
+          <button onclick="document.getElementById('tracker').scrollIntoView({behavior:'smooth'}); openAddPetModal();" class="hidden xl:inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-semibold text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-lg shadow-emerald-900/30 border border-emerald-400/30 transition-all hover:scale-105">
+            <i class="fa-solid fa-plus-circle"></i> Hayvan Ekle
+          </button>
+          
+          <!-- Mobile Menu Toggle Button -->
+          <button id="mobileMenuBtn" class="xl:hidden p-2 rounded-lg bg-emerald-950/60 text-emerald-400 border border-emerald-800/40 focus:outline-none">
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Nav Menu Panel -->
+    <div id="mobileMenu" class="hidden xl:hidden bg-slate-950/95 border-b border-emerald-900/40 px-4 pt-3 pb-6 space-y-3">
+      <a href="animals.html" class="mobile-nav-link block text-slate-200 hover:text-emerald-400 py-2 text-base font-medium flex items-center gap-3">
+        <i class="fa-solid fa-book-atlas text-emerald-500"></i> Hayvanlar
+      </a>
+      <a href="community.html" class="mobile-nav-link block text-slate-200 hover:text-emerald-400 py-2 text-base font-medium flex items-center gap-3">
+        <i class="fa-solid fa-camera text-emerald-500"></i> Topluluk
+      </a>
+      <a href="news.html" class="mobile-nav-link block text-slate-200 hover:text-emerald-400 py-2 text-base font-medium flex items-center gap-3">
+        <i class="fa-solid fa-newspaper text-emerald-500"></i> Haberler
+      </a>
+      <a href="veterinarian.html" class="mobile-nav-link block text-slate-200 hover:text-rose-300 py-2 text-base font-medium flex items-center gap-3">
+        <i class="fa-solid fa-user-doctor text-rose-400"></i> Veteriner Sağlığı
+      </a>
+      <a href="#tracker" class="mobile-nav-link block text-slate-200 hover:text-amber-400 py-2 text-base font-medium flex items-center gap-3">
+        <i class="fa-solid fa-clipboard-check text-amber-500"></i> Hobici Günlük Takip
+      </a>
+      <a href="#care-guide" class="mobile-nav-link block text-slate-200 hover:text-emerald-400 py-2 text-base font-medium flex items-center gap-3">
+        <i class="fa-solid fa-temperature-half text-emerald-500"></i> Bakım & İklim Rehberi
+      </a>
+      <button onclick="openAddPetModal()" class="w-full mt-3 flex items-center justify-center gap-2 bg-emerald-600 text-white font-semibold text-sm py-2.5 rounded-xl">
+        <i class="fa-solid fa-plus-circle"></i> Yeni Hayvan Ekle
+      </button>
+    </div>
+  </header>
+
+
+  <!-- =========================================================================
+       HERO BÖLÜMÜ / TANITIM
+       ========================================================================= -->
+  <section id="hero" class="hero-section relative flex min-h-[620px] items-center overflow-hidden sm:min-h-[720px]">
+    <video class="hero-video absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline preload="metadata" poster="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2400&q=90" aria-hidden="true">
+      <source src="assets/hero-exotic.mp4" type="video/mp4">
+      <source src="assets/hero-forest.webm" type="video/webm">
+    </video>
+    <div class="hero-overlay absolute inset-0"></div>
+
+    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 py-20">
+      <div class="max-w-4xl">
+        <div class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/25 px-4 py-2 text-sm font-semibold text-emerald-100 backdrop-blur-sm mb-7">
+          <span class="w-2 h-2 rounded-full bg-emerald-300 bio-pulse"></span>
+          Doğayı keşfet, bilinçli bakım yap
+        </div>
+
+        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-cinzel font-extrabold tracking-tight text-white mb-6 leading-[1.08]">
+          Küçük bir dünya,<br>
+          <span class="text-gradient-emerald">büyük bir keşif.</span>
+        </h1>
+
+        <p class="max-w-2xl text-lg sm:text-xl text-white/90 mb-9 leading-relaxed">
+          Tarantulalardan kırkayaklara, renkli böceklerden sürüngenlere kadar egzotik canlıların büyüleyici dünyasını keşfet. Her canlıya doğru ve özenli bakım.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="animals.html" class="px-7 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-base sm:text-lg shadow-lg shadow-black/30 transition-all hover:-translate-y-0.5 flex items-center gap-3">
+            <i class="fa-solid fa-compass"></i> Türleri keşfet
+          </a>
+          <a href="#tracker" class="px-7 py-4 rounded-xl border border-white/35 bg-black/25 hover:bg-black/40 text-white font-bold text-base sm:text-lg backdrop-blur-sm transition-all hover:-translate-y-0.5 flex items-center gap-3">
+            <i class="fa-solid fa-list-check"></i> Bakım takibi
+          </a>
+          <a href="veterinarian.html" class="px-7 py-4 rounded-xl border border-rose-300/50 bg-rose-950/40 hover:bg-rose-900/60 text-white font-bold text-base sm:text-lg backdrop-blur-sm transition-all hover:-translate-y-0.5 flex items-center gap-3">
+            <i class="fa-solid fa-user-doctor"></i> Sağlık merkezi
+          </a>
+        </div>
+
+        <p class="mt-8 text-sm sm:text-base font-medium text-white/85">
+          <span id="statSpeciesCount">70</span> kaynaklı bakım rehberi
+          <span class="mx-2 text-emerald-300">·</span> <a href="animals.html#taxonomyExplorer" class="underline decoration-emerald-500 underline-offset-4 hover:text-emerald-200">1000'lerce bilimsel tür kaydı</a>
+          <span class="mx-2 text-emerald-300">·</span> Örümcekler
+          <span class="mx-2 text-emerald-300">·</span> Akrepler
+          <span class="mx-2 text-emerald-300">·</span> Böcekler
+          <span class="mx-2 text-emerald-300">·</span> Sürüngenler
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       ÖNE ÇIKAN TÜRLER
+       ========================================================================= -->
+  <section id="encyclopedia" class="py-16 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 mb-8">
+        <div>
+          <div class="text-emerald-400 text-sm font-bold uppercase tracking-widest mb-2">
+            <i class="fa-solid fa-leaf"></i> İlk keşif
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold font-cinzel text-white">Öne çıkan canlılar</h2>
+          <p class="text-slate-300 text-base mt-2 max-w-2xl">Tarantula, akrep, zıplayan örümcek ve daha fazlasını tanı.</p>
+        </div>
+        <a href="animals.html" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-emerald-500/40 text-emerald-300 hover:bg-emerald-600 hover:text-white transition-colors font-bold">
+          Tüm türleri gör <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+      <div id="featuredAnimalGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5"></div>
+
+    </div>
+  </section>
+
+  <section id="news" class="border-y border-emerald-900/30 bg-slate-950/60 py-14">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-widest text-emerald-300">Dünyadan ve Türkiye'den</p>
+          <h2 class="mt-2 text-3xl font-extrabold text-white">Egzotik canlılar ve yaban hayatı haberleri</h2>
+          <p class="mt-2 max-w-2xl text-sm text-slate-400">Solda dünyadan güncel doğa haberleri (Türkçe yayınlar öncelikli), sağda Türkiye'den Türkçe haberler ve yayın tarihleri.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="news.html" class="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-700/60 px-4 py-2.5 text-sm font-semibold text-emerald-200 hover:bg-emerald-950/50">Haber arşivi <i class="fa-solid fa-arrow-right"></i></a>
+          <button id="refreshNewsButton" type="button" class="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-700/60 px-4 py-2.5 text-sm font-semibold text-emerald-200 hover:bg-emerald-950/50">
+            <i class="fa-solid fa-rotate"></i> Haberleri yenile
+          </button>
+        </div>
+      </div>
+      <p id="newsStatus" class="mt-4 text-sm text-slate-400" role="status" aria-live="polite">Haber kaynakları yükleniyor...</p>
+      <div class="mt-5 grid gap-6 lg:grid-cols-2">
+        <section aria-labelledby="worldNewsHeading">
+          <h3 id="worldNewsHeading" class="mb-3 text-xl font-bold text-white">Güncel dünyadan <span class="text-sm font-normal text-slate-400">· Türkçe öncelikli</span></h3>
+          <div id="worldNewsFeed" data-news-limit="3" class="grid gap-4" aria-live="polite"></div>
+        </section>
+        <section aria-labelledby="turkeyNewsHeading">
+          <h3 id="turkeyNewsHeading" class="mb-3 text-xl font-bold text-white">Türkiye'den <span class="text-sm font-normal text-slate-400">· Türkçe, tarihli haberler</span></h3>
+          <div id="turkeyNewsFeed" data-news-limit="3" class="grid gap-4" aria-live="polite"></div>
+        </section>
+      </div>
+      <div id="newsSourceLinks" class="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-xs text-slate-500"></div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       BÖLÜM 2: HOBİCİLERE ÖZEL GÜNLÜK TAKİP VE BAKIM MERKEZİ (DASHBOARD)
+       ========================================================================= -->
+  <section id="tracker" class="py-16 bg-slate-950/70 border-t border-b border-emerald-900/30 relative overflow-hidden">
+    
+    <!-- Dekoratif Arka Plan Işığı -->
+    <div class="absolute bottom-10 left-10 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Bölüm Başlığı & Açıklama -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">
+            <i class="fa-solid fa-shield-cat"></i> Hobici Yönetim Paneli
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold font-cinzel text-white">
+            Egzotik Günlük Takip Sistemi
+          </h2>
+          <p class="text-slate-400 text-sm mt-1 max-w-2xl">
+            Beslediğiniz egzotik dostlarınızın günlük yemleme takvimini, son deri dökümünü, büyüme eğrisini (kilo takibi) ve teraryum sıcaklık/nem değerlerini anlık kaydedin.
+          </p>
+        </div>
+
+        <!-- Üst Yönetim Araçları -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <button onclick="openAddPetModal()" class="px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-semibold text-sm rounded-xl shadow-md flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i> Yeni Hayvan Ekle
+          </button>
+          <button onclick="loadDemoData()" title="Örnek hayvan ve kayıtlar yükle" class="px-3.5 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-amber-300 border border-slate-800 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5">
+            <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Demo Yükle
+          </button>
+          <button onclick="exportData()" title="Verileri JSON olarak yedekle" class="px-3 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5">
+            <i class="fa-solid fa-download"></i> Yedekle
+          </button>
+          <label class="cursor-pointer px-3 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5" title="Yedek JSON dosyası yükle">
+            <i class="fa-solid fa-upload"></i> İçe Aktar
+            <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="importData(event)">
+          </label>
+        </div>
+      </div>
+
+      <!-- Evcil Hayvan Seçici Kartları -->
+      <div class="mb-8">
+        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <i class="fa-solid fa-paw text-emerald-400"></i> Takip Edilen Canlılarım:
+        </label>
+        
+        <div id="petsListContainer" class="flex items-center gap-4 overflow-x-auto pb-3 no-scrollbar" aria-label="Takip edilen hayvanlar">
+          <!-- Dinamik Pet Butonları/Kartları -->
+        </div>
+      </div>
+
+      <!-- SEÇİLİ HAYVANIN DETAY VE TAKİP PANELİ -->
+      <div id="activePetDashboard" class="space-y-8">
+        <div class="glass-panel flex flex-wrap items-center gap-3 rounded-2xl p-4">
+          <span class="mr-1 text-base font-bold text-slate-100">Hızlı kayıt:</span>
+          <button type="button" onclick="openAddFeedingModal()" class="min-h-11 rounded-xl bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-600"><i class="fa-solid fa-bowl-food mr-2"></i>Yemleme ekle</button>
+          <button type="button" onclick="openAddSheddingModal()" class="min-h-11 rounded-xl bg-amber-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-amber-600"><i class="fa-solid fa-scroll mr-2"></i>Deri değişimi ekle</button>
+          <button type="button" onclick="openAddWeightModal()" class="min-h-11 rounded-xl bg-cyan-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-cyan-700"><i class="fa-solid fa-weight-scale mr-2"></i>Tartım ekle</button>
+          <button type="button" onclick="switchTrackerSubTab('climate'); document.getElementById('subtab-climate').scrollIntoView({behavior:'smooth',block:'center'})" class="min-h-11 rounded-xl bg-purple-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-purple-700"><i class="fa-solid fa-temperature-half mr-2"></i>Isı / nem kaydet</button>
+        </div>
+        
+        <!-- ÜST HAYVAN KÜNYESİ & HIZLI İSTATİSTİKLER -->
+        <div class="glass-panel rounded-3xl p-6 lg:p-8 relative overflow-hidden border border-emerald-500/20">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            
+            <!-- Sol: Fotoğraf ve İsim -->
+            <div class="flex items-center gap-5">
+              <div class="relative">
+                <img id="activePetAvatar" src="" alt="Pet" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-2 border-emerald-500/40 shadow-xl shadow-emerald-950">
+                <span id="activePetCategoryBadge" class="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-emerald-600 text-white shadow">
+                  Sürüngen
+                </span>
+              </div>
+              <div>
+                <div class="flex items-center gap-3">
+                  <h3 id="activePetName" class="text-2xl sm:text-3xl font-bold font-cinzel text-white">Canlı Adı</h3>
+                  <span id="activePetGender" class="text-sm font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">Erkek</span>
+                </div>
+                <p id="activePetSpecies" class="text-emerald-400 font-medium text-sm mt-0.5">Tür Adı</p>
+                <p id="activePetAge" class="text-slate-400 text-xs mt-1">Yaş: Hesaplanıyor...</p>
+              </div>
+            </div>
+
+            <!-- Sağ: Hızlı Parametreler & Düzenle Butonu -->
+            <div class="flex flex-wrap items-center gap-3 w-full md:w-auto justify-start md:justify-end">
+              <div class="px-4 py-2.5 rounded-xl bg-slate-900/90 border border-emerald-900/40 text-center">
+                <span class="block text-[10px] uppercase tracking-wider text-slate-400">Son Ağırlık</span>
+                <span id="activePetWeightDisplay" class="text-base font-bold text-amber-400">0 gr</span>
+              </div>
+              <div class="px-4 py-2.5 rounded-xl bg-slate-900/90 border border-emerald-900/40 text-center">
+                <span class="block text-[10px] uppercase tracking-wider text-slate-400">Ortam Sıcaklık</span>
+                <span id="activePetTempDisplay" class="text-base font-bold text-emerald-400">-- °C</span>
+              </div>
+              <div class="px-4 py-2.5 rounded-xl bg-slate-900/90 border border-emerald-900/40 text-center">
+                <span class="block text-[10px] uppercase tracking-wider text-slate-400">Ortam Nem</span>
+                <span id="activePetHumidityDisplay" class="text-base font-bold text-cyan-400">-- %</span>
+              </div>
+              <button onclick="editCurrentPet()" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition-colors" title="Bilgileri Düzenle">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button onclick="deleteCurrentPet()" class="p-2.5 rounded-xl bg-rose-950/40 hover:bg-rose-900/60 text-rose-400 hover:text-rose-200 border border-rose-900/40 transition-colors" title="Hayvanı Sil">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Canlı Notu -->
+          <div id="activePetNotesBox" class="mt-4 pt-4 border-t border-emerald-950/60 text-xs text-slate-400 flex items-start gap-2">
+            <i class="fa-solid fa-sticky-note text-amber-400 mt-0.5"></i>
+            <span id="activePetNotes">Özel not girilmemiş.</span>
+          </div>
+        </div>
+
+
+        <!-- GÜNLÜK BAKIM KONTROL LİSTESİ & BUGÜNÜN RUTİNİ -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Sol 1 Kolon: Günlük Rutin Kontrolü (Daily Checklist) -->
+          <div class="glass-panel rounded-3xl p-6 border border-emerald-900/30">
+            <div class="flex items-center justify-between mb-4">
+              <h4 class="text-base font-bold text-slate-100 flex items-center gap-2">
+                <i class="fa-solid fa-calendar-check text-emerald-400"></i> Günlük Bakım Rutini
+              </h4>
+              <span id="dailyProgressText" class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800">
+                0 / 5 Yapıldı
+              </span>
+            </div>
+            
+            <!-- İlerleme Çubuğu -->
+            <div class="w-full bg-slate-900 rounded-full h-2 mb-6 overflow-hidden">
+              <div id="dailyProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+
+            <!-- Kontrol Maddeleri -->
+            <div class="space-y-3.5 text-sm" id="checklistContainer">
+              <label class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 cursor-pointer transition-all">
+                <input type="checkbox" id="check-water" class="custom-checkbox" onchange="toggleRoutineCheck('water')">
+                <span class="text-slate-300 font-medium select-none">Su kabı temizlendi & tazelendi</span>
+              </label>
+
+              <label class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 cursor-pointer transition-all">
+                <input type="checkbox" id="check-temp" class="custom-checkbox" onchange="toggleRoutineCheck('temp')">
+                <span class="text-slate-300 font-medium select-none">Sıcaklık ve Nem ölçüldü</span>
+              </label>
+
+              <label class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 cursor-pointer transition-all">
+                <input type="checkbox" id="check-cleaning" class="custom-checkbox" onchange="toggleRoutineCheck('cleaning')">
+                <span class="text-slate-300 font-medium select-none">Dışkı/Kalıntı temizliği (Spot clean)</span>
+              </label>
+
+              <label class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 cursor-pointer transition-all">
+                <input type="checkbox" id="check-mist" class="custom-checkbox" onchange="toggleRoutineCheck('mist')">
+                <span class="text-slate-300 font-medium select-none">Sisleme / Nemlendirme yapıldı</span>
+              </label>
+
+              <label class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-900 border border-slate-800/80 cursor-pointer transition-all">
+                <input type="checkbox" id="check-uvb" class="custom-checkbox" onchange="toggleRoutineCheck('uvb')">
+                <span class="text-slate-300 font-medium select-none">Işık & UVB lambası döngüsü kontrolü</span>
+              </label>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-500">
+              <span>Tarih: <strong id="todayDateStr" class="text-slate-400">Bugün</strong></span>
+              <button onclick="resetTodayChecklist()" class="text-emerald-400 hover:underline">Sıfırla</button>
+            </div>
+          </div>
+
+          <!-- Sağ 2 Kolon: Sekmeli Takip Paneli (Yemleme, Kabuk, Kilo, Teraryum Ortamı) -->
+          <div class="lg:col-span-2 glass-panel rounded-3xl p-6 border border-emerald-900/30 flex flex-col justify-between">
+            
+            <!-- Sekme Başlıkları -->
+            <div>
+              <div class="flex items-center gap-2 border-b border-emerald-950 pb-3 mb-6 overflow-x-auto no-scrollbar text-xs font-semibold">
+                <button onclick="switchTrackerSubTab('feeding')" class="tracker-subtab active px-4 py-2 rounded-xl transition-all flex items-center gap-2 bg-emerald-950 text-emerald-300 border border-emerald-700" data-subtab="feeding">
+                  <i class="fa-solid fa-bowl-food text-emerald-400"></i> Yemleme Takibi
+                </button>
+                <button onclick="switchTrackerSubTab('shedding')" class="tracker-subtab px-4 py-2 rounded-xl transition-all flex items-center gap-2 bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200" data-subtab="shedding">
+                  <i class="fa-solid fa-scroll text-amber-400"></i> Kabuk / Molt
+                </button>
+                <button onclick="switchTrackerSubTab('weight')" class="tracker-subtab px-4 py-2 rounded-xl transition-all flex items-center gap-2 bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200" data-subtab="weight">
+                  <i class="fa-solid fa-chart-line text-cyan-400"></i> Kilo & Büyüme
+                </button>
+                <button onclick="switchTrackerSubTab('climate')" class="tracker-subtab px-4 py-2 rounded-xl transition-all flex items-center gap-2 bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200" data-subtab="climate">
+                  <i class="fa-solid fa-temperature-arrow-up text-purple-400"></i> İklim Ölçümü
+                </button>
+              </div>
+
+              <!-- SEKME 1: YEMLEME TAKİBİ İÇERİĞİ -->
+              <div id="subtab-feeding" class="subtab-content space-y-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h5 class="text-sm font-bold text-slate-200">Son Yemleme Kayıtları</h5>
+                    <p class="text-xs text-slate-400">Verilen böcek, kemirgen veya yeşillik ve kalsiyum takviyeleri.</p>
+                  </div>
+                  <button onclick="openAddFeedingModal()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-plus"></i> Yemleme Kaydet
+                  </button>
+                </div>
+
+                <div id="feedingLogsContainer" class="space-y-2 max-h-72 overflow-y-auto pr-1">
+                  <!-- JS ile beslenme logları basılır -->
+                </div>
+              </div>
+
+              <!-- SEKME 2: KABUK / DERİ DÖKÜMÜ İÇERİĞİ -->
+              <div id="subtab-shedding" class="subtab-content hidden space-y-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h5 class="text-sm font-bold text-slate-200">Kabuk Değişim Takvimi</h5>
+                    <p class="text-xs text-slate-400">Sürüngen ve eklem bacaklıların büyüme göstergesi.</p>
+                  </div>
+                  <button onclick="openAddSheddingModal()" class="px-3.5 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-plus"></i> Kabuk Kaydet
+                  </button>
+                </div>
+
+                <div id="sheddingLogsContainer" class="space-y-2 max-h-72 overflow-y-auto pr-1">
+                  <!-- JS ile kabuk logları basılır -->
+                </div>
+              </div>
+
+              <!-- SEKME 3: KİLO & BÜYÜME GRAFİĞİ -->
+              <div id="subtab-weight" class="subtab-content hidden space-y-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h5 class="text-sm font-bold text-slate-200">Ağırlık Eğrisi (Gram)</h5>
+                    <p class="text-xs text-slate-400">Düzenli tartım canlınızın sağlıklı büyüdüğünü gösterir.</p>
+                  </div>
+                  <button onclick="openAddWeightModal()" class="px-3.5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-plus"></i> Tartım Ekle
+                  </button>
+                </div>
+
+                <div class="bg-slate-900/80 rounded-2xl p-4 border border-slate-800 h-64">
+                  <canvas id="weightChart"></canvas>
+                </div>
+              </div>
+
+              <!-- SEKME 4: TERARYUM İKLİM KAYDI -->
+              <div id="subtab-climate" class="subtab-content hidden space-y-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h5 class="text-sm font-bold text-slate-200">Güncel Teraryum Değerleri</h5>
+                    <p class="text-xs text-slate-400">Termometre ve higrometre verilerini girin, ideal değerlerle kıyaslayın.</p>
+                  </div>
+                </div>
+
+                <form id="climateForm" onsubmit="saveClimateValues(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-900/70 p-4 rounded-2xl border border-slate-800">
+                  <div>
+                    <label class="block text-xs font-medium text-slate-300 mb-1">Ölçülen Sıcaklık (°C)</label>
+                    <input type="number" step="0.1" id="inputClimateTemp" required placeholder="Örn: 31.5" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-medium text-slate-300 mb-1">Ölçülen Nem Oranı (%)</label>
+                    <input type="number" step="1" id="inputClimateHumidity" required placeholder="Örn: 40" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100">
+                  </div>
+                  <div class="sm:col-span-2 flex items-center justify-between pt-2">
+                    <div id="climateFeedback" class="text-xs font-medium text-slate-400">Değerleri kaydederek canlının ihtiyaçlarıyla eşleştirin.</div>
+                    <button type="submit" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-xs font-semibold">
+                      Değerleri Güncelle
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Hiç Evcil Hayvan Eklenmediğinde Gösterilecek Bölüm -->
+      <div id="emptyPetsState" class="hidden text-center py-16 glass-panel rounded-3xl border border-emerald-900/40">
+        <div class="w-20 h-20 rounded-2xl bg-emerald-950/80 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mx-auto mb-4">
+          <i class="fa-solid fa-dragon text-3xl"></i>
+        </div>
+        <h3 class="text-xl font-bold font-cinzel text-white">Henüz Takip Ettiğiniz Bir Canlı Yok</h3>
+        <p class="text-sm text-slate-400 max-w-md mx-auto mt-2">
+          Teraryumunuzdaki sürüngen, amfibi veya eklem bacaklınızı ekleyerek günlük yemleme ve bakım serüvenine hemen başlayın.
+        </p>
+        <div class="mt-6 flex items-center justify-center gap-3">
+          <button onclick="openAddPetModal()" class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg">
+            <i class="fa-solid fa-plus-circle mr-1"></i> İlk Hayvanımı Ekle
+          </button>
+          <button onclick="loadDemoData()" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 text-xs font-semibold">
+            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Demo Verisi Yükle
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       BÖLÜM 3: SORUMLU HOBİCİ & BAKIM REHBERİ (TERARYUM VE BESLENME İPUÇLARI)
+       ========================================================================= -->
+  <section id="care-guide" class="py-16 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="text-emerald-400 text-xs font-bold uppercase tracking-widest mb-2">
+          <i class="fa-solid fa-lightbulb"></i> Bilinçli Hobici Altın Kuralları
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold font-cinzel text-white">
+          Egzotik Canlı Bakımının 4 Temel Direği
+        </h2>
+        <p class="text-slate-400 text-sm mt-2">
+          Egzotik dostlarımızın sağlıklı ve uzun bir ömür sürmesi için bilmeniz gereken hayati parametreler.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Kart 1: UVB ve D3 Vitamini -->
+        <div class="glass-panel rounded-3xl p-6 border border-emerald-900/30 relative group hover:border-emerald-500/50 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-4 text-xl">
+            <i class="fa-solid fa-sun"></i>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">UVB & D3 Dengesi</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            UVB gereksinimi türe ve kuruluma göre değişir. Gereksinimi olan türlerde yetersiz UVB, kalsiyum metabolizmasını bozup metabolik kemik hastalığı riskini artırabilir.
+          </p>
+          <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-amber-400 font-medium">
+            UVB ekipmanını üretici talimatı ve türe özgü rehbere göre kontrol edin; sabit değiştirme süresi varsaymayın.
+          </div>
+        </div>
+
+        <!-- Kart 2: Sıcaklık Gradiyenti -->
+        <div class="glass-panel rounded-3xl p-6 border border-emerald-900/30 relative group hover:border-emerald-500/50 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 mb-4 text-xl">
+            <i class="fa-solid fa-temperature-arrow-up"></i>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Sıcaklık Gradiyenti</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Birçok sürüngen, vücut sıcaklığını davranışla ayarlayabilmek için farklı sıcaklık bölgelerine ihtiyaç duyar. Gerekli aralık ve ölçüm noktaları türe göre doğrulanmalıdır.
+          </p>
+          <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-rose-400 font-medium">
+            💡 Asla termostatsız ısıtıcı kaya kullanmayın.
+          </div>
+        </div>
+
+        <!-- Kart 3: Gut Loading & Besin Kalitesi -->
+        <div class="glass-panel rounded-3xl p-6 border border-emerald-900/30 relative group hover:border-emerald-500/50 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4 text-xl">
+            <i class="fa-solid fa-wheat-awn"></i>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Gut Loading Sanatı</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Yem böceklerinin besin kalitesi önemlidir; uygun yem ve takviye programı canlı türüne göre değişir. Türe ve veteriner beslenme önerisine uygun içerik kullanın.
+          </p>
+          <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-emerald-400 font-medium">
+            Takviye planı tür, yaş, diyet ve UVB kurulumuna göre değişir; dozu egzotik hayvan veterineriyle doğrulayın.
+          </div>
+        </div>
+
+        <!-- Kart 4: Nem & Havalandırma -->
+        <div class="glass-panel rounded-3xl p-6 border border-emerald-900/30 relative group hover:border-emerald-500/50 transition-all">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4 text-xl">
+            <i class="fa-solid fa-droplet"></i>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Nem ve Hava Akımı</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Uygun nem ve havalandırma türden türe değişir. Ölçüm alın; bir türün nem değerini başka türe uygulamayın ve klinik sorunlarda veterinerden destek alın.
+          </p>
+          <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-cyan-400 font-medium">
+            💡 Nem kutusu (saklanma alanı) kabuk atmayı kolaylaştırır.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       BÖLÜM 4: SIK SORULAN SORULAR (SSS)
+       ========================================================================= -->
+  <section id="faq" class="py-16 bg-slate-950/60 border-t border-emerald-950">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-2xl sm:text-3xl font-extrabold font-cinzel text-white">
+          Sık Sorulan Sorular
+        </h2>
+        <p class="text-slate-400 text-xs sm:text-sm mt-1">Egzotik hayvan beslemek isteyen hobicilerin en çok merak ettikleri</p>
+      </div>
+
+      <div class="space-y-4">
+        
+        <details class="group glass-panel rounded-2xl p-5 border border-emerald-900/30 cursor-pointer">
+          <summary class="flex items-center justify-between font-semibold text-slate-200 text-sm list-none">
+            <span>Yeni başlayanlar için en uygun egzotik hayvan hangisidir?</span>
+            <i class="fa-solid fa-chevron-down text-emerald-400 text-xs group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="text-xs text-slate-400 mt-3 leading-relaxed border-t border-slate-800/80 pt-3">
+            Sürüngenler arasında <strong>Leopard Gecko</strong> ve <strong>Mısır Yılanı</strong> uysallıkları ve toleranslı bakım şartlarıyla en çok önerilen canlılardır. Canlı böcek beslemek istemeyenler için hazır meyve püresi yiyen <strong>Tepeli Gecko (Crested Gecko)</strong> harika bir seçenektir. Eklem bacaklılarda ise karasal yeni dünya tarantulaları (Brachypelma / Grammostola türleri) idealdir.
+          </p>
+        </details>
+
+        <details class="group glass-panel rounded-2xl p-5 border border-emerald-900/30 cursor-pointer">
+          <summary class="flex items-center justify-between font-semibold text-slate-200 text-sm list-none">
+            <span>Yılanıma canlı fare vermeli miyim?</span>
+            <i class="fa-solid fa-chevron-down text-emerald-400 text-xs group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="text-xs text-slate-400 mt-3 leading-relaxed border-t border-slate-800/80 pt-3">
+            Genel olarak uygun biçimde çözündürülmüş, tür ve yılanın boyutuna uygun yem tercih edilir; canlı kemirgen yılanı ciddi biçimde yaralayabilir. Yılan yemi kabul etmezse canlı yemi içeride bırakmayın. Beslenme planı veya uzun süren iştahsızlık için egzotik hayvan veterinerine danışın.
+          </p>
+        </details>
+
+        <details class="group glass-panel rounded-2xl p-5 border border-emerald-900/30 cursor-pointer">
+          <summary class="flex items-center justify-between font-semibold text-slate-200 text-sm list-none">
+            <span>Günlük takip verilerim internete yükleniyor mu? Kaybolur mu?</span>
+            <i class="fa-solid fa-chevron-down text-emerald-400 text-xs group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="text-xs text-slate-400 mt-3 leading-relaxed border-t border-slate-800/80 pt-3">
+            Hayvan ve günlük takip kayıtları kullandığınız tarayıcıda yerel olarak saklanır; bu kayıtlar topluluk paylaşım verilerinden ayrıdır. Tarayıcı verileri temizlenirse kaybolabilir, bu nedenle <strong>"Yedekle"</strong> özelliğini kullanın. Topluluk hesabı ve gönderiler yapılandırılmış Supabase hizmetinde tutulur.
+          </p>
+        </details>
+
+        <details class="group glass-panel rounded-2xl p-5 border border-emerald-900/30 cursor-pointer">
+          <summary class="flex items-center justify-between font-semibold text-slate-200 text-sm list-none">
+            <span>Sürüngenim kabuk atarken ne yapmalıyım?</span>
+            <i class="fa-solid fa-chevron-down text-emerald-400 text-xs group-open:rotate-180 transition-transform"></i>
+          </summary>
+          <p class="text-xs text-slate-400 mt-3 leading-relaxed border-t border-slate-800/80 pt-3">
+            Deri değişimi yaklaşırken bazı türlerde renkler matlaşabilir. Nem ve saklanma alanı gereksinimleri türe göre değiştiğinden, ortamı yalnızca türe özgü güvenilir bakım rehberi veya veteriner önerisine göre ayarlayın. Deriyi, göz kapağını ya da parmaklardaki kalıntıları çekmeyin; kalıntı sürerse veya göz etkilenmişse egzotik hayvan veterinerine başvurun.
+          </p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       BÖLÜM 5: HOBİCİ SÖZLÜĞÜ & GOOGLE ARAMA REHBERİ (SEO & DOĞAL BİLGİ ALANI)
+       ========================================================================= -->
+  <section id="glossary" class="py-16 bg-slate-950/80 border-t border-emerald-950/80 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div>
+          <div class="text-amber-400 text-xs font-bold uppercase tracking-widest mb-1">
+            <i class="fa-solid fa-book-bookmark"></i> Hobici Terimleri
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold font-cinzel text-white">
+            Egzotik Canlı Sözlüğü
+          </h2>
+          <p class="text-slate-400 text-xs sm:text-sm mt-1 max-w-2xl">
+            Türkiye'deki egzotik sürüngen, amfibi ve tarantula hobicilerinin günlük bakımda en çok kullandığı terimler ve kritik tanımlar.
+          </p>
+        </div>
+        <div class="text-xs text-slate-500 bg-slate-900 px-3.5 py-2 rounded-xl border border-slate-800">
+          <i class="fa-solid fa-book-open text-emerald-400 mr-1.5"></i> Kaynak ve belirsizlik bilgileri rehberlerde belirtilir
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 text-xs">
+        
+        <!-- Terim 1 -->
+        <article class="glass-panel p-5 rounded-2xl border border-emerald-900/40 hover:border-emerald-500/40 transition-colors">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-bold text-emerald-300 font-cinzel">Gut-Loading Nedir?</h3>
+            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800">Beslenme</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Canlı yem olarak kullanılan un kurdu, dubia veya cırcır böceklerinin sürüngene verilmeden önceki 24-48 saat boyunca havuç, karahindiba, yulaf ve kalsiyum takviyeleriyle beslenerek besin değerinin en üst düzeye çıkarılması işlemidir. Boş canlı yem, hayvana sadece içi boş kitin verir.
+          </p>
+        </article>
+
+        <!-- Terim 2 -->
+        <article class="glass-panel p-5 rounded-2xl border border-emerald-900/40 hover:border-emerald-500/40 transition-colors">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-bold text-amber-300 font-cinzel">MBD (Metabolik Kemik Hastalığı)</h3>
+            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-950 text-amber-400 border border-amber-800">Sağlık</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Gündüzcül sürüngenlerde (özellikle Sakallı Ejderha ve Bukalemun) yetersiz UVB ışığı ve D3 vitamini eksikliğinde kalsiyumun emilememesi sonucu kemiklerin yumuşaması, çene eğriliği ve felce yol açan önlenebilir ancak geri dönüşü zor bir hastalıktır.
+          </p>
+        </article>
+
+        <!-- Terim 3 -->
+        <article class="glass-panel p-5 rounded-2xl border border-emerald-900/40 hover:border-emerald-500/40 transition-colors">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-bold text-purple-300 font-cinzel">Premolt & Molt (Kabuk Atımı)</h3>
+            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-purple-950 text-purple-400 border border-purple-800">Eklem Bacaklı</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Tarantulaların dış iskeletlerini yenileme sürecidir. Premolt döneminde canlı yem yemeyi keser, abdomen karlaşır ve matlaşır. Molt anında sırtüstü yatar. Bu esnada canlıya ASLA dokunulmamalı ve teraryumdaki canlı yemler yaralama riskine karşı acilen çıkarılmalıdır.
+          </p>
+        </article>
+
+        <!-- Terim 4 -->
+        <article class="glass-panel p-5 rounded-2xl border border-emerald-900/40 hover:border-emerald-500/40 transition-colors">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-bold text-cyan-300 font-cinzel">Biyolojik Döngü (Bioaktif Teraryum)</h3>
+            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-cyan-950 text-cyan-400 border border-cyan-800">Yaşam Alanı</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Canlı bitkiler, doğal drenaj tabakası ve "Clean-up Crew" denilen yaykuyruklar (springtails) ile tespih böceklerinin (isopods) teraryuma eklenmesiyle oluşan kendi kendini temizleyen doğal mikro ekosistemdir. Küf ve dışkı birikimini doğal yolla önler.
+          </p>
+        </article>
+
+        <!-- Terim 5 -->
+        <article class="glass-panel p-5 rounded-2xl border border-emerald-900/40 hover:border-emerald-500/40 transition-colors">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-bold text-rose-300 font-cinzel">Termoregülasyon & Isı Gradiyenti</h3>
+            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-950 text-rose-400 border border-rose-800">İklim</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            Soğukkanlı hayvanlar kendi vücut ısılarını üretemezler. Teraryumun bir tarafının sıcak (baskı alanı), diğer tarafının ise serin tutulması şarttır. Canlı sindirim için sıcağa geçer, serinlemek istediğinde soğuk alana sığınır.
+          </p>
+        </article>
+
+        <!-- Terim 6 -->
+        <article class="glass-panel p-5 rounded-2xl border border-emerald-900/40 hover:border-emerald-500/40 transition-colors">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-sm font-bold text-emerald-300 font-cinzel">CB (Captive Bred) vs WC (Wild Caught)</h3>
+            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800">Etik & Yasal</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            <strong>CB (Captive Bred):</strong> Esaret altında üretilmiş, parazitsiz ve ev ortamına adapte canlıdır (Hobicilerin tek tercihi olmalıdır). <br>
+            <strong>WC (Wild Caught):</strong> Doğadan koparılmış, yüksek parazit taşıyan ve kaçak avcılığı teşvik eden etik dışı yöntemdir; kesinlikle reddedilmelidir.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       BÖLÜM 6: TÜRKİYE EGZOTİK HOBİCİLİK ETİK MANİFESTOSU
+       ========================================================================= -->
+  <section class="py-12 bg-black/60 border-t border-emerald-950">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-emerald-950/40 via-slate-900/60 to-black border border-emerald-500/30 text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-emerald-900/40 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-3xl shrink-0 shadow-lg">
+          <i class="fa-solid fa-hand-holding-heart"></i>
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 block mb-1">
+            TerraExotica Sorumlu Hobicilik İlkesi
+          </span>
+          <h3 class="text-lg sm:text-xl font-bold font-cinzel text-white mb-2">
+            Doğadan Canlı Toplamıyoruz, Esaret Üretimini ve Bilinçli Bakımı Destekliyoruz
+          </h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Bu platform, Türkiye'deki egzotik canlı severlerin doğru bilgiye ulaşması, yanlış bakım kaynaklı canlı kayıplarının önüne geçilmesi ve CITES sözleşmesine uygun yasal/etik hobiciliğin yaygınlaştırılması amacıyla bağımsız hobici deneyimiyle hazırlanmıştır. Egzotik canlı sahiplenmeden önce mutlaka bölgenizdeki uzman egzotik veteriner hekim imkanlarını araştırınız.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       FOOTER / ALT BİLGİ
+       ========================================================================= -->
+  <footer class="bg-black/95 border-t border-emerald-950 py-12 text-slate-400 text-xs mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10 pb-10 border-b border-emerald-950/80">
+        
+        <!-- Sütun 1: Marka & Hakkında -->
+        <div class="md:col-span-2 space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-800 flex items-center justify-center text-white shadow">
+              <img src="assets/dragon.svg" alt="TerraExotica" class="h-5 w-5 brightness-0 invert">
+            </div>
+            <div>
+              <span class="font-cinzel font-bold text-slate-100 text-base tracking-wider">TERRA EXOTICA</span>
+              <span class="block text-[10px] text-emerald-400 font-medium">Türkiye Egzotik Canlı Severler Topluluğu</span>
+            </div>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed max-w-md">
+            Sürüngen, amfibi, eklem bacaklı ve egzotik memeli dostlarımız için bilimsel gerçeklere ve saha deneyimine dayalı ücretsiz bakım rehberi & interaktif günlük takip portalı.
+          </p>
+          <div class="flex items-center gap-3 pt-2 text-slate-400">
+            <span class="text-[11px]"><i class="fa-solid fa-heart text-rose-500 mr-1"></i> Hobiciler tarafından hobiciler için geliştirildi.</span>
+          </div>
+        </div>
+
+        <!-- Sütun 2: Hızlı Bağlantılar -->
+        <div>
+          <h4 class="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3 font-cinzel">Hızlı Gezinti</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#encyclopedia" class="hover:text-emerald-400 transition-colors">Tür Ansiklopedisi</a></li>
+            <li><a href="#tracker" class="hover:text-amber-400 transition-colors">Günlük Hobici Takip Paneli</a></li>
+            <li><a href="#care-guide" class="hover:text-emerald-400 transition-colors">Teraryum & İklim Rehberi</a></li>
+            <li><a href="#glossary" class="hover:text-emerald-400 transition-colors">Hobici Terimler Sözlüğü</a></li>
+            <li><a href="#faq" class="hover:text-emerald-400 transition-colors">Sıkça Sorulan Sorular</a></li>
+          </ul>
+        </div>
+
+        <!-- Sütun 3: Etik & Yasal Uyarı -->
+        <div>
+          <h4 class="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3 font-cinzel">Yasal & Sağlık Uyarısı</h4>
+          <p class="text-[11px] text-slate-400 leading-relaxed">
+            Sitede yer alan bakım verileri genel bilgilendirme amaçlıdır; profesyonel veteriner muayenesinin yerine geçmez. CITES kapsamındaki canlıların yerel mevzuatlara uygun belgeleriyle bulundurulması hobici sorumluluğundadır.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Alt Telif & Bilgi Çubuğu -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
+        <p>© 2026 TerraExotica. Tüm hakları saklıdır. Ticari amaç gütmeyen bağımsız eğitim ve hobi projesidir.</p>
+        <div class="flex items-center gap-4 text-slate-400">
+          <span>Sürüm: 2.1 (Canlı Takip Sürümü)</span>
+          <span>•</span>
+          <span>%100 Yerel Veri (Local Storage)</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- =========================================================================
+       MODAL 1: HAYVAN DETAY ANSİKLOPEDİ MODAL'I
+       ========================================================================= -->
+  <div id="animalDetailModal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="modal-content bg-slate-950 border border-emerald-500/30 rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl relative text-slate-200 p-6 sm:p-8">
+      
+      <!-- Kapat Butonu -->
+      <button onclick="closeAnimalModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-900 border border-slate-700 hover:border-emerald-500 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <!-- Modal İçeriği Dinamik Doldurulur -->
+      <div id="modalBody"></div>
+
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       MODAL 2: YENİ EVCİL HAYVAN EKLE / DÜZENLE MODAL'I
+       ========================================================================= -->
+  <div id="petFormModal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="modal-content bg-slate-950 border border-emerald-500/30 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl relative text-slate-200 p-6 sm:p-8">
+      
+      <button onclick="closePetFormModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-900 border border-slate-700 hover:border-emerald-500 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="mb-6">
+        <h3 id="petFormTitle" class="text-2xl font-bold font-cinzel text-white">Yeni Egzotik Canlı Ekle</h3>
+        <p class="text-base text-slate-300 mt-1">Önce hayvanınıza ad ve tür seçin; diğer bilgiler isteğe bağlı.</p>
+      </div>
+
+      <form id="petForm" onsubmit="handlePetFormSubmit(event)" class="space-y-5 text-sm">
+        <input type="hidden" id="petFormId">
+
+        <div>
+          <label for="petInputName" class="block font-semibold text-slate-200 mb-2">Hayvanının adı *</label>
+          <input type="text" id="petInputName" required autocomplete="off" placeholder="Örn: Smaug, Ziggy, Rex..." class="w-full min-h-12 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-base text-slate-100 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="min-w-0">
+            <label for="petSpeciesSearch" class="block font-semibold text-slate-200 mb-2">Türünü bul *</label>
+            <input id="petSpeciesSearch" type="search" autocomplete="off" placeholder="Tür adı yazıp listede ara..." class="mb-2 w-full min-h-11 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-base text-slate-100 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30" aria-describedby="petSpeciesHelp">
+            <select id="petInputSpecies" required class="w-full min-h-12 bg-slate-900 border border-slate-700 rounded-xl px-3 py-3 text-base text-slate-100 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30" onchange="onSpeciesSelectChange()">
+              <option value="">Önce türünü seç</option>
+            </select>
+            <p id="petSpeciesHelp" class="mt-2 text-sm text-slate-400">Listede yoksa “Türüm listede yok” seçeneğini kullan.</p>
+          </div>
+          <div>
+            <label for="petInputGender" class="block font-semibold text-slate-200 mb-2">Cinsiyet</label>
+            <select id="petInputGender" class="w-full min-h-12 bg-slate-900 border border-slate-700 rounded-xl px-3 py-3 text-base text-slate-100 focus:outline-none focus:border-emerald-500">
+              <option value="Erkek">Erkek</option>
+              <option value="Dişi">Dişi</option>
+              <option value="Bilinmiyor">Bilinmiyor</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="customSpeciesFields" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-2xl border border-emerald-700/50 bg-emerald-950/30 p-4">
+          <div>
+            <label for="customSpeciesName" class="mb-2 block font-semibold text-slate-200">Türün adı *</label>
+            <input id="customSpeciesName" type="text" maxlength="100" placeholder="Örn: Mavi bacaklı babun tarantulası" class="w-full min-h-11 rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-base text-white focus:border-emerald-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="customSpeciesScientificName" class="mb-2 block font-semibold text-slate-200">Bilimsel adı <span class="font-normal text-slate-400">(isteğe bağlı)</span></label>
+            <input id="customSpeciesScientificName" type="text" maxlength="120" placeholder="Biliyorsan yaz" class="w-full min-h-11 rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-base text-white focus:border-emerald-500 focus:outline-none">
+          </div>
+          <div class="sm:col-span-2">
+            <label for="customSpeciesCategory" class="mb-2 block font-semibold text-slate-200">Hayvan grubu *</label>
+            <select id="customSpeciesCategory" class="w-full min-h-11 rounded-xl border border-slate-700 bg-slate-950 px-4 py-2.5 text-base text-white focus:border-emerald-500 focus:outline-none">
+              <option value="reptile">Sürüngen (yılan, gecko, kertenkele, kaplumbağa)</option>
+              <option value="invertebrate">Eklem bacaklı (tarantula, akrep, çıyan, böcek)</option>
+              <option value="amphibian">İkiyaşamlı (kurbağa, semender)</option>
+              <option value="mammal">Memeli</option>
+              <option value="aquatic">Akuatik / balık</option>
+            </select>
+          </div>
+          <p class="sm:col-span-2 text-sm leading-relaxed text-emerald-100/80">Tür adı kendi tarayıcında kaydedilir. Bakım sıcaklığı ve nemi varsayılmaz; türe özel bilgileri güvenilir bir kaynakla ayrıca doğrula.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="petInputBirthDate" class="block font-semibold text-slate-200 mb-2">Doğum / sahiplenme tarihi</label>
+            <input type="date" id="petInputBirthDate" class="w-full min-h-11 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-base text-slate-100 focus:outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label for="petInputWeight" class="block font-semibold text-slate-200 mb-2">İlk ağırlık <span class="font-normal text-slate-400">(gram, isteğe bağlı)</span></label>
+            <input type="number" min="0" step="0.1" id="petInputWeight" placeholder="Örn: 150" class="w-full min-h-11 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-base text-slate-100 focus:outline-none focus:border-emerald-500">
+          </div>
+        </div>
+
+        <div>
+          <label for="petInputEnclosure" class="block font-semibold text-slate-200 mb-2">Teraryum / kafes ölçüsü <span class="font-normal text-slate-400">(isteğe bağlı)</span></label>
+          <input type="text" id="petInputEnclosure" placeholder="Örn: 90x45x45 cm teraryum" class="w-full min-h-11 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-base text-slate-100 focus:outline-none focus:border-emerald-500">
+        </div>
+
+        <div>
+          <label for="petInputAvatar" class="block font-semibold text-slate-200 mb-2">Fotoğraf URL’si <span class="font-normal text-slate-400">(isteğe bağlı)</span></label>
+          <input type="url" id="petInputAvatar" placeholder="Boş bırakılırsa tür görseli kullanılır" class="w-full min-h-11 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-base text-slate-100 focus:outline-none focus:border-emerald-500">
+        </div>
+
+        <div>
+          <label for="petInputNotes" class="block font-semibold text-slate-200 mb-2">Notlar <span class="font-normal text-slate-400">(isteğe bağlı)</span></label>
+          <textarea id="petInputNotes" rows="2" placeholder="Bakımı, iştahı veya sağlık durumu hakkında not ekle..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-base text-slate-100 focus:outline-none focus:border-emerald-500"></textarea>
+        </div>
+
+        <div class="pt-3 flex items-center justify-end gap-3">
+          <button type="button" onclick="closePetFormModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 text-xs font-semibold">
+            Vazgeç
+          </button>
+          <button type="submit" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-bold text-sm shadow">
+            Kaydet
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       MODAL 3: YEMLEME KAYDET MODAL'I
+       ========================================================================= -->
+  <div id="feedingModal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="modal-content bg-slate-950 border border-emerald-500/30 rounded-3xl w-full max-w-md shadow-2xl relative text-slate-200 p-6 sm:p-8">
+      
+      <button onclick="closeFeedingModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-900 border border-slate-700 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="mb-4">
+        <h3 class="text-lg font-bold font-cinzel text-white flex items-center gap-2">
+          <i class="fa-solid fa-bowl-food text-emerald-400"></i> Yemleme Kaydet
+        </h3>
+        <p class="text-xs text-slate-400">Seçili hayvanınız için yemleme detayını girin.</p>
+      </div>
+
+      <form id="feedingForm" onsubmit="handleFeedingSubmit(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-medium text-slate-300 mb-1">Verilen Yem ve Miktar *</label>
+          <input type="text" id="feedInputFood" required placeholder="Örn: 5x Dubia Hamamböceği + Kalsiyum D3" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100">
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1">Yemleme Tarihi ve Saati</label>
+          <input type="datetime-local" id="feedInputDate" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100">
+        </div>
+
+        <div class="flex items-center gap-2 p-2 bg-slate-900/60 rounded-xl border border-slate-800">
+          <input type="checkbox" id="feedInputEaten" checked class="custom-checkbox">
+          <label for="feedInputEaten" class="text-slate-300 cursor-pointer font-medium select-none">Yemi başarıyla tüketti mi?</label>
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1">Not / İştah Durumu</label>
+          <input type="text" id="feedInputNote" placeholder="Örn: Hemen saldırdı, çok iştahlıydı." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100">
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeFeedingModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold">Vazgeç</button>
+          <button type="submit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       MODAL 4: KABUK KAYDET MODAL'I
+       ========================================================================= -->
+  <div id="sheddingModal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="modal-content bg-slate-950 border border-amber-500/30 rounded-3xl w-full max-w-md shadow-2xl relative text-slate-200 p-6 sm:p-8">
+      
+      <button onclick="closeSheddingModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-900 border border-slate-700 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="mb-4">
+        <h3 class="text-lg font-bold font-cinzel text-white flex items-center gap-2">
+          <i class="fa-solid fa-scroll text-amber-400"></i> Kabuk Değişimi Kaydet
+        </h3>
+        <p class="text-xs text-slate-400">Deri dökümü / kabuk atma kaydı ekleyin.</p>
+      </div>
+
+      <form id="sheddingForm" onsubmit="handleSheddingSubmit(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-medium text-slate-300 mb-1">Kabuk Atım Tarihi *</label>
+          <input type="date" id="shedInputDate" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100">
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1">Kabuğun Durumu *</label>
+          <select id="shedInputStatus" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100">
+            <option value="Tam ve Kusursuz (Tek Parça)">Tam ve Kusursuz (Tek Parça)</option>
+            <option value="Parçalı / Kısmi (Nem Takviyesi Gerekebilir)">Parçalı / Kısmi (Nem Takviyesi Gerekebilir)</option>
+            <option value="Zorlu / Parmaklarda Parça Kaldı">Zorlu / Parmaklarda Parça Kaldı</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1">Ek Notlar</label>
+          <input type="text" id="shedInputNote" placeholder="Örn: Göz kapakları ve kuyruk ucu temiz döküldü." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100">
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeSheddingModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold">Vazgeç</button>
+          <button type="submit" class="px-5 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       MODAL 5: TARTIM / KİLO KAYDET MODAL'I
+       ========================================================================= -->
+  <div id="weightModal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="modal-content bg-slate-950 border border-cyan-500/30 rounded-3xl w-full max-w-md shadow-2xl relative text-slate-200 p-6 sm:p-8">
+      
+      <button onclick="closeWeightModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-900 border border-slate-700 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="mb-4">
+        <h3 class="text-lg font-bold font-cinzel text-white flex items-center gap-2">
+          <i class="fa-solid fa-weight-scale text-cyan-400"></i> Ağırlık / Tartım Kaydet
+        </h3>
+        <p class="text-xs text-slate-400">Canlının hassas terazi ölçümünü girin.</p>
+      </div>
+
+      <form id="weightForm" onsubmit="handleWeightSubmit(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-medium text-slate-300 mb-1">Ağırlık (Gram) *</label>
+          <input type="number" step="0.1" id="weightInputVal" required placeholder="Örn: 425.5" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100">
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-300 mb-1">Tartım Tarihi *</label>
+          <input type="date" id="weightInputDate" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-100">
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeWeightModal()" class="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl text-xs font-semibold">Vazgeç</button>
+          <button type="submit" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-bold uppercase tracking-wider">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Toast Bildirim Konteyneri -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Javascript Kodları -->
+  <script src="catalog-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="data.js"></script>
+  <script src="additional-species.js"></script>
+  <script src="catalog-db.js"></script>
+  <script src="app.js"></script>
+  <script src="news.js"></script>
+</body>
+</html>

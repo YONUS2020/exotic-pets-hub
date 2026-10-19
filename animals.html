@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#060e0a">
+  <link rel="icon" type="image/svg+xml" href="assets/dragon.svg">
+  <title>Hayvan Rehberi | Terra Exotica</title>
+  <meta name="description" content="Egzotik hayvan türlerini bilimsel adlarıyla keşfet. Tarantula, akrep, yılan, gecko ve amfibiler için kaynaklı temel bakım notları ve güvenilir taksonomi araması.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://terraexotica.vercel.app/animals.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:site_name" content="TerraExotica">
+  <meta property="og:title" content="Egzotik Hayvan Tür Rehberi | TerraExotica">
+  <meta property="og:description" content="Bakım bilgisi kaynaklarıyla birlikte verilen seçili tür rehberlerini ve binlerce taksonomik kaydı keşfet.">
+  <meta property="og:url" content="https://terraexotica.vercel.app/animals.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": "https://terraexotica.vercel.app/animals.html#catalog",
+    "url": "https://terraexotica.vercel.app/animals.html",
+    "name": "Egzotik Hayvan Tür Rehberi",
+    "description": "Kaynakları belirtilen editoryal hayvan rehberleri ve iNaturalist üzerinden bilimsel taksonomi keşfi.",
+    "inLanguage": "tr-TR",
+    "isPartOf": {
+      "@type": "WebSite",
+      "url": "https://terraexotica.vercel.app/",
+      "name": "TerraExotica"
+    }
+  }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-terrarium text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+  <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-emerald-900/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a href="index.html" class="flex items-center gap-3 group" aria-label="Terra Exotica ana sayfa">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-800 flex items-center justify-center text-white shadow-lg shadow-emerald-900/40 group-hover:scale-105 transition-transform">
+            <img src="assets/dragon.svg" alt="" class="h-7 w-7 brightness-0 invert">
+          </div>
+          <div>
+            <span class="text-xl sm:text-2xl font-bold tracking-wider font-cinzel text-gradient-emerald">TERRA EXOTICA</span>
+            <span class="block text-xs uppercase tracking-widest text-emerald-400/80 font-medium">Hayvan Rehberi</span>
+          </div>
+        </a>
+        <nav class="hidden xl:flex items-center gap-6 text-sm font-semibold" aria-label="Ana gezinme">
+          <a href="index.html" class="text-slate-300 hover:text-emerald-400 transition-colors">Ana sayfa</a>
+          <a href="#animalCatalog" class="text-emerald-300">Hayvanlar</a>
+          <a href="community.html" class="text-slate-300 hover:text-emerald-400 transition-colors">Topluluk</a>
+          <a href="news.html" class="text-slate-300 hover:text-emerald-400 transition-colors">Haberler</a>
+          <a href="veterinarian.html" class="text-slate-300 hover:text-rose-300 transition-colors">Veteriner Sağlığı</a>
+          <a href="index.html#tracker" class="text-slate-300 hover:text-emerald-400 transition-colors">Bakım takibi</a>
+        </nav>
+        <button id="mobileMenuBtn" class="xl:hidden p-2.5 rounded-xl bg-emerald-950/60 text-emerald-300 border border-emerald-800/40" aria-label="Menüyü aç/kapat" aria-controls="mobileMenu" aria-expanded="false">
+          <i class="fa-solid fa-bars text-lg" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <nav id="mobileMenu" class="hidden xl:hidden bg-slate-950 border-t border-emerald-900/40 px-4 py-3 space-y-1" aria-label="Mobil gezinme">
+      <a href="index.html" class="mobile-nav-link block rounded-lg px-3 py-3 text-slate-200 hover:bg-emerald-950">Ana sayfa</a>
+      <a href="#animalCatalog" class="mobile-nav-link block rounded-lg px-3 py-3 text-emerald-300 hover:bg-emerald-950">Hayvanlar</a>
+      <a href="community.html" class="mobile-nav-link block rounded-lg px-3 py-3 text-slate-200 hover:bg-emerald-950">Topluluk</a>
+      <a href="news.html" class="mobile-nav-link block rounded-lg px-3 py-3 text-slate-200 hover:bg-emerald-950">Haberler</a>
+      <a href="veterinarian.html" class="mobile-nav-link block rounded-lg px-3 py-3 text-slate-200 hover:bg-emerald-950">Veteriner Sağlığı</a>
+      <a href="index.html#tracker" class="mobile-nav-link block rounded-lg px-3 py-3 text-slate-200 hover:bg-emerald-950">Bakım takibi</a>
+    </nav>
+  </header>
+
+  <main class="flex-1">
+    <section class="catalog-intro py-12 sm:py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 hover:text-white mb-6">
+          <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Ana sayfaya dön
+        </a>
+        <div class="max-w-3xl">
+          <p class="text-sm font-bold uppercase tracking-[0.18em] text-emerald-300 mb-3">Keşfet ve tanı</p>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-cinzel font-extrabold leading-tight text-white">Egzotik hayvanlar</h1>
+          <p class="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">Her canlının fotoğrafı, tür bilgisi ve temel bakım notları tek yerde. Arama ve filtrelerle ilgini çeken türü kolayca bul.</p>
+          <p class="mt-4 rounded-xl border border-amber-700/40 bg-amber-950/30 p-4 text-sm leading-relaxed text-amber-100">Sıcaklık, nem ve beslenme bilgileri başlangıç niteliğindedir; alt tür, yaş, sağlık durumu ve kurulumla değişebilir. Sağlık kararı veya tedavi için kullanmayın; türü egzotik hayvan veterineriyle doğrulayın. <a href="veterinarian.html" class="font-bold underline hover:text-white">Sağlık merkezine git</a>.</p>
+          <p class="text-sm text-slate-400 mt-4"><strong id="statSpeciesCount" class="text-emerald-300">70</strong> kaynaklı bakım rehberi</p>
+          <p class="mt-2 text-sm text-slate-400"><a href="#taxonomyExplorer" class="font-semibold text-emerald-300 underline underline-offset-4 hover:text-white">1000'lerce taksonomik tür kaydını keşfet</a> · Bilimsel kayıtlar bakım rehberi veya evcil hayvan önerisi değildir.</p>
+          <p id="catalogDataStatus" class="hidden mt-2 text-sm text-amber-200" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="taxonomyExplorer" class="pb-12" aria-labelledby="taxonomyHeading">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="glass-panel rounded-2xl border border-emerald-800/50 p-5 sm:p-7">
+          <div class="max-w-3xl">
+            <p class="text-sm font-bold uppercase tracking-widest text-emerald-300">Bilimsel keşif · iNaturalist taksonomisi</p>
+            <h2 id="taxonomyHeading" class="mt-2 text-2xl font-extrabold text-white sm:text-3xl">Binlerce tür kaydında ara</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-300">Sürüngen, örümceğimsiler, böcekler ve iki yaşamlılar arasından 1000'lerce türü bilimsel adıyla ara; sonraki sayfalarla daha fazlasını keşfet. Bunlar iNaturalist taksonomi kayıtlarıdır, bakım rehberi veya evcil hayvan önerisi değildir; pek çok tür evde tutulmaya uygun olmayabilir. Hayvanları doğadan toplamayın. Kaynak: <a href="https://www.inaturalist.org/" target="_blank" rel="noopener noreferrer" class="font-semibold text-emerald-300 underline">iNaturalist</a>.</p>
+          </div>
+          <form id="taxonomySearchForm" class="mt-5 grid gap-3 sm:grid-cols-[minmax(12rem,0.7fr)_minmax(12rem,1fr)_auto]">
+            <label class="block">
+              <span class="mb-1 block text-sm font-semibold text-slate-200">Canlı grubu</span>
+              <select id="taxonomyGroup" class="min-h-12 w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-base text-white">
+                <option value="26036">Sürüngenler</option>
+                <option value="47118">Örümceğimsiler</option>
+                <option value="47158">Böcekler</option>
+                <option value="20978">İki yaşamlılar</option>
+              </select>
+            </label>
+            <label class="block">
+              <span class="mb-1 block text-sm font-semibold text-slate-200">İsteğe bağlı ad veya arama</span>
+              <input id="taxonomyQuery" type="search" maxlength="100" placeholder="Örn. tarantula, gecko, Brachypelma" class="min-h-12 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-base text-white placeholder-slate-500">
+            </label>
+            <button id="taxonomySearchButton" class="self-end rounded-xl bg-emerald-700 px-5 py-3 font-bold text-white hover:bg-emerald-600">Taksonomide ara</button>
+          </form>
+          <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+            <p id="taxonomyStatus" class="text-sm text-slate-300" role="status" aria-live="polite">Bir grup seçip arayarak iNaturalist taksonomisini sorgula.</p>
+            <div class="flex gap-2">
+              <button id="taxonomyPrevious" type="button" disabled class="rounded-lg border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-300 disabled:opacity-40">Önceki</button>
+              <button id="taxonomyNext" type="button" disabled class="rounded-lg border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-300 disabled:opacity-40">Sonraki</button>
+            </div>
+          </div>
+          <div id="taxonomyResults" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-live="polite"></div>
+          <p class="mt-4 text-xs leading-relaxed text-slate-500">Bilimsel ad, yaygın ad, fotoğraf atfı ve gözlem sayıları iNaturalist API'sinden alınır. Buradaki sonuç sayısı taksonomik veri tabanındaki kayıtları gösterir; TerraExotica tarafından doğrulanmış bakım türü sayısını veya edinilebilir hayvanları göstermez.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="animalCatalog" class="pb-16 sm:pb-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="catalog-controls glass-panel rounded-2xl p-4 sm:p-5 mb-8 space-y-5">
+          <label class="relative block">
+            <span class="sr-only">Hayvan veya bilimsel ad ara</span>
+            <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true"></i>
+            <input type="search" id="searchInput" placeholder="Hayvan veya bilimsel ad ara..." class="w-full min-h-12 bg-slate-950 border border-slate-700 rounded-xl pl-11 pr-4 py-3 text-base text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30">
+          </label>
+
+          <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar" role="group" aria-label="Hayvan kategorileri">
+            <button onclick="setCategoryFilter('all')" class="category-btn active px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-emerald-600 text-white border-emerald-500" data-category="all">Tümü (<span id="count-all">0</span>)</button>
+            <button onclick="setCategoryFilter('reptile')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="reptile">Sürüngenler (<span id="count-reptile">0</span>)</button>
+            <button onclick="setCategoryFilter('amphibian')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="amphibian">İkiyaşamlılar (<span id="count-amphibian">0</span>)</button>
+            <button onclick="setCategoryFilter('invertebrate')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="invertebrate">Eklem bacaklılar (<span id="count-invertebrate">0</span>)</button>
+            <button onclick="setCategoryFilter('mammal')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="mammal">Memeliler (<span id="count-mammal">0</span>)</button>
+            <button onclick="setCategoryFilter('aquatic')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="aquatic">Akuatik (<span id="count-aquatic">0</span>)</button>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2" role="group" aria-label="Bakım zorluğuna göre filtrele">
+            <span class="text-sm text-slate-300 font-semibold mr-1">Bakım seviyesi:</span>
+            <button onclick="setDifficultyFilter('all')" class="diff-btn px-3 py-2 rounded-lg border border-emerald-500/40 bg-emerald-950/60 text-emerald-300 font-medium transition-all" data-diff="all">Tümü</button>
+            <button onclick="setDifficultyFilter('1')" class="diff-btn px-3 py-2 rounded-lg border border-slate-800 bg-slate-900/60 text-slate-300 font-medium" data-diff="1">Başlangıç</button>
+            <button onclick="setDifficultyFilter('2')" class="diff-btn px-3 py-2 rounded-lg border border-slate-800 bg-slate-900/60 text-slate-300 font-medium" data-diff="2">Orta</button>
+            <button onclick="setDifficultyFilter('3')" class="diff-btn px-3 py-2 rounded-lg border border-slate-800 bg-slate-900/60 text-slate-300 font-medium" data-diff="3">İleri</button>
+            <button onclick="setDifficultyFilter('4')" class="diff-btn px-3 py-2 rounded-lg border border-slate-800 bg-slate-900/60 text-slate-300 font-medium" data-diff="4">Uzman</button>
+          </div>
+        </div>
+
+        <div id="animalGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6" aria-live="polite"></div>
+        <div id="noResults" class="hidden text-center py-16">
+          <div class="w-16 h-16 rounded-full bg-slate-900 text-slate-500 flex items-center justify-center mx-auto mb-4 border border-slate-800">
+            <i class="fa-solid fa-magnifying-glass text-2xl" aria-hidden="true"></i>
+          </div>
+          <h2 class="text-xl font-bold text-slate-100">Bu aramada tür bulunamadı</h2>
+          <p class="text-base text-slate-400 mt-2">Başka bir kelime deneyebilir veya filtreleri sıfırlayabilirsin.</p>
+          <button onclick="resetFilters()" class="mt-5 px-5 py-3 bg-emerald-700 hover:bg-emerald-600 text-white rounded-xl text-sm font-bold">Filtreleri sıfırla</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-emerald-950 bg-black/60 py-7">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-400">
+      <a href="index.html" class="flex items-center gap-2 text-slate-200 font-semibold">
+        <img src="assets/dragon.svg" alt="" class="h-5 w-5 brightness-0 invert"> Terra Exotica
+      </a>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <p>Her türün görsel kaynağı ve lisansı, kartındaki fotoğraf bağlantısında belirtilmiştir.</p>
+        <a href="veterinarian.html" class="text-xs text-emerald-300 hover:text-white">Veteriner sağlık merkezi</a>
+        <a href="admin.html" class="text-xs text-slate-500 hover:text-emerald-300">Yönetici girişi</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="animalDetailModal" class="modal-backdrop fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Hayvan bakım rehberi">
+    <div class="modal-content bg-slate-950 border border-emerald-500/30 rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-2xl relative text-slate-200 p-5 sm:p-8">
+      <button onclick="closeAnimalModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-slate-900 border border-slate-700 hover:border-emerald-500 text-slate-300 hover:text-white flex items-center justify-center" aria-label="Rehberi kapat">
+        <i class="fa-solid fa-xmark text-lg" aria-hidden="true"></i>
+      </button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="catalog-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="data.js"></script>
+  <script src="additional-species.js"></script>
+  <script src="catalog-db.js"></script>
+  <script src="app.js"></script>
+  <script src="taxonomy.js"></script>
+</body>
+</html>

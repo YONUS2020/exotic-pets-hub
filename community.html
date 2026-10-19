@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#060e0a">
+  <link rel="icon" type="image/svg+xml" href="assets/dragon.svg">
+  <title>Egzotik Hobici Topluluğu & Teraryum Paylaşımları | TerraExotica</title>
+  <meta name="description" content="Türkiye'nin dört bir yanından egzotik canlı hobicileriyle tanışın, teraryum kurulumlarınızı paylaşın, soru sorun ve canlı deneyimlerini keşfedin.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://terraexotica.vercel.app/community.html">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-terrarium min-h-screen text-slate-100">
+  <header class="border-b border-emerald-900/40 bg-slate-950/90">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4">
+      <a href="index.html" class="flex items-center gap-3 font-semibold text-emerald-200">
+        <img src="assets/dragon.svg" alt="" class="h-8 w-8">
+        <span>Terra Exotica <span class="text-slate-400">/ Topluluk</span></span>
+      </a>
+      <nav class="flex flex-wrap items-center gap-4 text-sm">
+        <a href="animals.html" class="text-slate-300 hover:text-emerald-300">Tür kataloğu</a>
+        <a href="veterinarian.html" class="text-slate-300 hover:text-emerald-300">Veteriner sağlık</a>
+        <a href="index.html" class="text-slate-300 hover:text-emerald-300">Ana sayfa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl space-y-6 px-4 py-8 sm:py-12">
+    <section class="glass-panel rounded-3xl p-6 sm:p-8">
+      <p class="text-sm font-bold uppercase tracking-widest text-emerald-300">Türkiye'deki egzotik hayvan meraklıları için</p>
+      <h1 class="mt-2 text-3xl font-extrabold text-white sm:text-4xl">Fotoğraf paylaş, kısa bir soru sor</h1>
+      <p class="mt-3 max-w-3xl text-base leading-relaxed text-slate-300">Toplulukta yalnızca fotoğraf ve kısa soru paylaşılır. Gönderi ve yorumlar, herkese görünmeden önce yönetici tarafından incelenir. Hakaret, argo, kişisel bilgi ve hayvana zarar verebilecek içerikler yayımlanmaz.</p>
+    </section>
+
+    <section id="communitySetupNotice" class="glass-panel rounded-2xl border border-amber-700/40 p-5" hidden>
+      <h2 class="text-lg font-bold text-amber-200">Topluluk henüz yapılandırılmadı</h2>
+      <p class="mt-2 text-sm text-slate-300">Bu özelliği açmak için Supabase projesini yapılandırın ve <code>supabase-schema.sql</code> dosyasını çalıştırın. Kurulum adımları <a href="README.md#supabase-kurulumu" class="text-emerald-300 underline">README'de</a>.</p>
+    </section>
+
+    <section id="communityAuthPanel" class="glass-panel rounded-2xl p-5 sm:p-7" hidden>
+      <h2 class="text-xl font-bold">E-posta ile güvenli giriş</h2>
+      <p class="mt-2 text-sm text-slate-300">Giriş bağlantısı e-postana gönderilir. E-posta adresin herkese açık profilinde gösterilmez.</p>
+      <form id="communityLoginForm" class="mt-4 flex flex-col gap-3 sm:flex-row">
+        <label for="communityEmail" class="sr-only">E-posta adresi</label>
+        <input id="communityEmail" type="email" autocomplete="email" required maxlength="254" placeholder="ornek@eposta.com" class="min-w-0 flex-1 rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white">
+        <button class="rounded-xl bg-emerald-700 px-5 py-3 font-bold text-white hover:bg-emerald-600">Giriş bağlantısı gönder</button>
+      </form>
+    </section>
+
+    <section id="communityMemberPanel" class="space-y-6" hidden>
+      <div class="glass-panel flex flex-wrap items-center justify-between gap-3 rounded-2xl p-5">
+        <div>
+          <p class="text-sm text-slate-400">Toplulukta görünen adın</p>
+          <p id="communitySignedInLabel" class="font-semibold text-emerald-200"></p>
+        </div>
+        <button id="communitySignOutButton" type="button" class="rounded-lg border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:border-emerald-500">Çıkış yap</button>
+      </div>
+
+      <section class="glass-panel rounded-2xl p-5 sm:p-7">
+        <h2 class="text-xl font-bold">Fotoğraflı soru paylaş</h2>
+        <p class="mt-2 text-sm text-slate-400">Bir fotoğraf (JPG, PNG veya WebP; en fazla 8 MB) ve en fazla 240 karakter. Fotoğraf yüklenirken konum gibi EXIF üst verileri kaldırılır ve görüntü 2560 piksel sınırına küçültülebilir.</p>
+        <form id="communityPostForm" class="mt-5 space-y-4">
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label for="communityDisplayName" class="mb-1 block text-sm font-semibold">Takma ad</label>
+              <input id="communityDisplayName" required minlength="2" maxlength="32" autocomplete="nickname" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white">
+            </div>
+            <div>
+              <label for="communitySpeciesName" class="mb-1 block text-sm font-semibold">Hayvan / tür (isteğe bağlı)</label>
+              <input id="communitySpeciesName" maxlength="100" placeholder="Örn. Grammostola pulchra" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white">
+            </div>
+          </div>
+          <div>
+            <label for="communityQuestion" class="mb-1 block text-sm font-semibold">Kısa sorun</label>
+            <textarea id="communityQuestion" required minlength="5" maxlength="240" rows="3" class="w-full resize-y rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white" placeholder="Fotoğraftaki davranış veya bakım hakkında sorun..."></textarea>
+            <p class="mt-1 text-right text-xs text-slate-500"><span id="communityQuestionCount">0</span>/240</p>
+          </div>
+          <div>
+            <label for="communityPhoto" class="mb-1 block text-sm font-semibold">Fotoğraf</label>
+            <input id="communityPhoto" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" required class="block w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-slate-200 file:mr-4 file:rounded-lg file:border-0 file:bg-emerald-800 file:px-4 file:py-2 file:font-semibold file:text-white">
+          </div>
+          <label class="flex items-start gap-3 text-sm text-slate-300">
+            <input id="communityGuidelinesConsent" type="checkbox" required class="mt-1 accent-emerald-500">
+            <span>Fotoğrafın bana ait olduğunu veya paylaşma iznim bulunduğunu ve gönderinin moderasyon kurallarına uyduğunu onaylıyorum.</span>
+          </label>
+          <button id="communityPostSubmit" class="rounded-xl bg-emerald-700 px-5 py-3 font-bold text-white hover:bg-emerald-600">İncelemeye gönder</button>
+        </form>
+        <div id="communityOwnQueue" class="mt-5 space-y-2" aria-live="polite"></div>
+      </section>
+    </section>
+
+    <p id="communityStatus" class="text-sm text-slate-300" role="status" aria-live="polite"></p>
+
+    <section class="space-y-4">
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-widest text-emerald-300">Onaylanmış paylaşımlar</p>
+          <h2 class="text-2xl font-bold text-white">Topluluktan</h2>
+        </div>
+        <p class="text-xs text-slate-500">Yalnızca onaylanan fotoğraf ve yorumlar burada görünür.</p>
+      </div>
+      <div id="communityFeed" class="grid gap-5 md:grid-cols-2" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script src="catalog-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="catalog-db.js"></script>
+  <script src="community.js"></script>
+</body>
+</html>
