@@ -7,6 +7,43 @@
 let currentCategoryFilter = 'all';
 let currentDifficultyFilter = 'all';
 let currentSearchQuery = '';
+let currentSpeciesGroupFilter = 'all';
+
+const SPECIES_GROUPS = {
+  tarantula: {
+    category: 'invertebrate',
+    ids: new Set([
+      'red-knee-tarantula', 'chilean-rose-tarantula', 'curly-hair-tarantula',
+      'chaco-golden-knee', 'pink-toe-tarantula', 'indian-ornamental-tarantula',
+      'zebra-knee-tarantula', 'mexican-fireleg-tarantula', 'brazilian-whiteknee-tarantula',
+      'greenbottle-blue-tarantula', 'salmon-pink-birdeater', 'brazilian-black-tarantula',
+      'mexican-redleg-tarantula', 'mexican-red-rump-tarantula', 'arizona-blonde-tarantula',
+      'guyana-pinktoe-tarantula', 'venezuelan-suntiger-tarantula', 'gooty-sapphire-tarantula',
+      'orange-baboon-tarantula'
+    ])
+  },
+  snake: {
+    category: 'reptile',
+    ids: new Set([
+      'corn-snake', 'ball-python', 'milk-snake', 'common-boa', 'carpet-python',
+      'hognose-snake', 'green-tree-python', 'childrens-python', 'bredls-python',
+      'dumerils-boa', 'kenyan-sand-boa', 'brazilian-rainbow-boa'
+    ])
+  },
+  scorpion: {
+    category: 'invertebrate',
+    ids: new Set([
+      'emperor-scorpion', 'asian-forest-scorpion', 'red-claw-scorpion', 'desert-hairy-scorpion'
+    ])
+  },
+  insect: {
+    category: 'invertebrate',
+    ids: new Set([
+      'orchid-mantis', 'blue-death-feigning-beetle',
+      'madagascar-hissing-cockroach', 'giant-prickly-stick-insect'
+    ])
+  }
+};
 
 let pets = [];
 let activePetId = null;
@@ -247,6 +284,13 @@ function initSpeciesCounts() {
     const el = document.getElementById(`count-${cat}`);
     if (el) el.innerText = counts[cat];
   });
+
+  Object.entries(SPECIES_GROUPS).forEach(([group, config]) => {
+    const element = document.getElementById(`count-group-${group}`);
+    if (element) {
+      element.textContent = EXOTIC_ANIMALS_DATA.filter(animal => config.ids.has(animal.id)).length.toLocaleString('tr-TR');
+    }
+  });
 }
 
 function populateSpeciesSelectOptions() {
@@ -366,6 +410,7 @@ function createCustomSpecies(name, scientificName, category) {
 
 function setCategoryFilter(category) {
   currentCategoryFilter = category;
+  currentSpeciesGroupFilter = 'all';
   document.querySelectorAll('.category-btn').forEach(btn => {
     if (btn.getAttribute('data-category') === category) {
       btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-500');
@@ -375,6 +420,37 @@ function setCategoryFilter(category) {
       btn.classList.add('bg-slate-900/80', 'text-slate-300', 'border-slate-800');
     }
   });
+  updateSpeciesGroupButtons();
+  renderEncyclopedia();
+}
+
+function updateSpeciesGroupButtons() {
+  document.querySelectorAll('.species-group-btn').forEach(button => {
+    const isActive = button.dataset.speciesGroup === currentSpeciesGroupFilter;
+    button.setAttribute('aria-pressed', String(isActive));
+    button.classList.toggle('bg-emerald-600', isActive);
+    button.classList.toggle('text-white', isActive);
+    button.classList.toggle('border-emerald-500', isActive);
+    button.classList.toggle('bg-slate-900/80', !isActive);
+    button.classList.toggle('text-slate-300', !isActive);
+    button.classList.toggle('border-slate-800', !isActive);
+  });
+}
+
+function setSpeciesGroupFilter(group) {
+  currentSpeciesGroupFilter = SPECIES_GROUPS[group] ? group : 'all';
+  currentCategoryFilter = SPECIES_GROUPS[currentSpeciesGroupFilter]?.category || 'all';
+
+  document.querySelectorAll('.category-btn').forEach(button => {
+    const isActive = button.dataset.category === currentCategoryFilter;
+    button.classList.toggle('bg-emerald-600', isActive);
+    button.classList.toggle('text-white', isActive);
+    button.classList.toggle('border-emerald-500', isActive);
+    button.classList.toggle('bg-slate-900/80', !isActive);
+    button.classList.toggle('text-slate-300', !isActive);
+    button.classList.toggle('border-slate-800', !isActive);
+  });
+  updateSpeciesGroupButtons();
   renderEncyclopedia();
 }
 
@@ -411,6 +487,8 @@ function renderEncyclopedia() {
 
   const filtered = EXOTIC_ANIMALS_DATA.filter(animal => {
     const matchesCategory = currentCategoryFilter === 'all' || animal.category === currentCategoryFilter;
+    const matchesSpeciesGroup = currentSpeciesGroupFilter === 'all'
+      || SPECIES_GROUPS[currentSpeciesGroupFilter].ids.has(animal.id);
     const matchesDifficulty = currentDifficultyFilter === 'all' || animal.difficultyLevel.toString() === currentDifficultyFilter;
     const matchesSearch = query === '' || 
       animal.name.toLowerCase().includes(query) || 
@@ -419,7 +497,7 @@ function renderEncyclopedia() {
       animal.habitat.toLowerCase().includes(query) ||
       animal.favoriteFood.toLowerCase().includes(query);
 
-    return matchesCategory && matchesDifficulty && matchesSearch;
+    return matchesCategory && matchesSpeciesGroup && matchesDifficulty && matchesSearch;
   });
 
   if (filtered.length === 0) {

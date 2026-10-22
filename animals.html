@@ -95,6 +95,12 @@
             <p class="text-sm font-bold uppercase tracking-widest text-emerald-300">Bilimsel keşif · iNaturalist taksonomisi</p>
             <h2 id="taxonomyHeading" class="mt-2 text-2xl font-extrabold text-white sm:text-3xl">Fotoğraflı tür kataloğu</h2>
             <p class="mt-2 text-sm leading-relaxed text-slate-300">Yılan, tarantula ve akrepler dahil binlerce türü bilimsel adları ve fotoğraflarıyla sayfalar halinde keşfet. Bunlar iNaturalist taksonomi kayıtlarıdır; bakım rehberi veya evcil hayvan önerisi değildir. Doğadan hayvan toplamayın. Kaynak: <a href="https://www.inaturalist.org/" target="_blank" rel="noopener noreferrer" class="font-semibold text-emerald-300 underline">iNaturalist</a>.</p>
+            <nav class="mt-4 flex flex-wrap gap-2" aria-label="Kaynaklı bakım rehberlerine hızlı geçiş">
+              <a href="#animalCatalog" onclick="setSpeciesGroupFilter('tarantula')" class="min-h-11 rounded-xl border border-emerald-700/60 bg-emerald-950/40 px-3 py-2 text-sm font-semibold text-emerald-200 hover:border-emerald-400">Tarantula bakım rehberleri</a>
+              <a href="#animalCatalog" onclick="setSpeciesGroupFilter('snake')" class="min-h-11 rounded-xl border border-emerald-700/60 bg-emerald-950/40 px-3 py-2 text-sm font-semibold text-emerald-200 hover:border-emerald-400">Yılan bakım rehberleri</a>
+              <a href="#animalCatalog" onclick="setSpeciesGroupFilter('scorpion')" class="min-h-11 rounded-xl border border-emerald-700/60 bg-emerald-950/40 px-3 py-2 text-sm font-semibold text-emerald-200 hover:border-emerald-400">Akrep bakım rehberleri</a>
+              <a href="#animalCatalog" onclick="setSpeciesGroupFilter('insect')" class="min-h-11 rounded-xl border border-emerald-700/60 bg-emerald-950/40 px-3 py-2 text-sm font-semibold text-emerald-200 hover:border-emerald-400">Böcek bakım rehberleri</a>
+            </nav>
           </div>
           <form id="taxonomySearchForm" class="mt-5 grid gap-3 sm:grid-cols-[minmax(12rem,0.7fr)_minmax(12rem,1fr)_auto]">
             <label class="block">
@@ -142,6 +148,16 @@
             <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" aria-hidden="true"></i>
             <input type="search" id="searchInput" placeholder="Hayvan veya bilimsel ad ara..." class="w-full min-h-12 bg-slate-950 border border-slate-700 rounded-xl pl-11 pr-4 py-3 text-base text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30">
           </label>
+
+          <div class="space-y-2" role="group" aria-label="Özel tür grupları">
+            <p class="text-sm font-semibold text-slate-200">Aradığın türü hızlıca bul</p>
+            <div class="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+              <button type="button" onclick="setSpeciesGroupFilter('tarantula')" class="species-group-btn min-h-11 rounded-xl border border-slate-800 bg-slate-900/80 px-3 py-2 text-sm font-semibold text-slate-300" data-species-group="tarantula" aria-pressed="false">Tarantulalar <span class="ml-1 text-xs opacity-75">(<span id="count-group-tarantula">19</span>)</span></button>
+              <button type="button" onclick="setSpeciesGroupFilter('snake')" class="species-group-btn min-h-11 rounded-xl border border-slate-800 bg-slate-900/80 px-3 py-2 text-sm font-semibold text-slate-300" data-species-group="snake" aria-pressed="false">Yılanlar <span class="ml-1 text-xs opacity-75">(<span id="count-group-snake">12</span>)</span></button>
+              <button type="button" onclick="setSpeciesGroupFilter('scorpion')" class="species-group-btn min-h-11 rounded-xl border border-slate-800 bg-slate-900/80 px-3 py-2 text-sm font-semibold text-slate-300" data-species-group="scorpion" aria-pressed="false">Akrepler <span class="ml-1 text-xs opacity-75">(<span id="count-group-scorpion">4</span>)</span></button>
+              <button type="button" onclick="setSpeciesGroupFilter('insect')" class="species-group-btn min-h-11 rounded-xl border border-slate-800 bg-slate-900/80 px-3 py-2 text-sm font-semibold text-slate-300" data-species-group="insect" aria-pressed="false">Böcekler <span class="ml-1 text-xs opacity-75">(<span id="count-group-insect">4</span>)</span></button>
+            </div>
+          </div>
 
           <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar" role="group" aria-label="Hayvan kategorileri">
             <button onclick="setCategoryFilter('all')" class="category-btn active px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-emerald-600 text-white border-emerald-500" data-category="all">Tüm rehberler</button>
@@ -202,7 +218,7 @@
   <script src="data.js"></script>
   <script src="additional-species.js"></script>
   <script src="catalog-db.js"></script>
-  <script src="app.js"></script>
+  <script src="app.js?v=care-groups-2026-10-22"></script>
   <script src="taxonomy.js?v=mobile-fallback-2026-10-22"></script>
 </body>
 </html>

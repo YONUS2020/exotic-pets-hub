@@ -69,7 +69,7 @@ Yönetici girişi veritabanı RLS politikalarıyla da sınırlandırılır; aray
 
 - `index.html`: Ana sayfa, öne çıkan türler, haber akışı, günlük takip paneli ve modallar.
 - `news.html`: Dünyadan güncel ve Türkiye'den tarihli haberler için ayrı akış ve tarayıcı tabanlı arşiv sayfası.
-- `animals.html`: Arama, kategori ve bakım seviyesi filtreleri olan tam tür kataloğu.
+- `animals.html`: Arama, kategori ve bakım seviyesi filtreleri olan tam tür kataloğu; tarantula, yılan, akrep ve böcek türleri için ayrı hızlı filtreler sunar.
 - `taxonomy.js`: iNaturalist API üzerinden taksonomik tür araması; yalnızca CC0/CC BY/CC BY-SA fotoğrafları atıf ve lisans bağlantısıyla gösterilir.
 - `community.html`, `community.js`: E-posta ile giriş, fotoğraflı soru gönderimi, yayımlanmış akış ve moderasyon bekleyen kendi içeriklerinin durumu.
 - `news.js`: İki haber akışı, RSS ayrıştırma, günlük ziyaret kontrolü ve tarayıcıya özel arşivleme.
