@@ -8,25 +8,25 @@
   <title>Hayvan Rehberi | Terra Exotica</title>
   <meta name="description" content="Egzotik hayvan türlerini bilimsel adlarıyla keşfet. Tarantula, akrep, yılan, gecko ve amfibiler için kaynaklı temel bakım notları ve güvenilir taksonomi araması.">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <link rel="canonical" href="https://terraexotica.vercel.app/animals.html">
+  <link rel="canonical" href="https://exotic-pets-hub.vercel.app/animals">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="tr_TR">
   <meta property="og:site_name" content="TerraExotica">
   <meta property="og:title" content="Egzotik Hayvan Tür Rehberi | TerraExotica">
   <meta property="og:description" content="Bakım bilgisi kaynaklarıyla birlikte verilen seçili tür rehberlerini ve binlerce taksonomik kaydı keşfet.">
-  <meta property="og:url" content="https://terraexotica.vercel.app/animals.html">
+  <meta property="og:url" content="https://exotic-pets-hub.vercel.app/animals">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "@id": "https://terraexotica.vercel.app/animals.html#catalog",
-    "url": "https://terraexotica.vercel.app/animals.html",
+    "@id": "https://exotic-pets-hub.vercel.app/animals#catalog",
+    "url": "https://exotic-pets-hub.vercel.app/animals",
     "name": "Egzotik Hayvan Tür Rehberi",
     "description": "Kaynakları belirtilen editoryal hayvan rehberleri ve iNaturalist üzerinden bilimsel taksonomi keşfi.",
     "inLanguage": "tr-TR",
     "isPartOf": {
       "@type": "WebSite",
-      "url": "https://terraexotica.vercel.app/",
+      "url": "https://exotic-pets-hub.vercel.app/",
       "name": "TerraExotica"
     }
   }
@@ -80,10 +80,9 @@
         <div class="max-w-3xl">
           <p class="text-sm font-bold uppercase tracking-[0.18em] text-emerald-300 mb-3">Keşfet ve tanı</p>
           <h1 class="text-4xl sm:text-5xl lg:text-6xl font-cinzel font-extrabold leading-tight text-white">Egzotik hayvanlar</h1>
-          <p class="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">Her canlının fotoğrafı, tür bilgisi ve temel bakım notları tek yerde. Arama ve filtrelerle ilgini çeken türü kolayca bul.</p>
+          <p class="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">Binlerce türü fotoğrafları, bilimsel adları ve gözlem bilgileriyle keşfet. Kaynaklı bakım rehberleri ayrı olarak işaretlenir.</p>
           <p class="mt-4 rounded-xl border border-amber-700/40 bg-amber-950/30 p-4 text-sm leading-relaxed text-amber-100">Sıcaklık, nem ve beslenme bilgileri başlangıç niteliğindedir; alt tür, yaş, sağlık durumu ve kurulumla değişebilir. Sağlık kararı veya tedavi için kullanmayın; türü egzotik hayvan veterineriyle doğrulayın. <a href="veterinarian.html" class="font-bold underline hover:text-white">Sağlık merkezine git</a>.</p>
-          <p class="text-sm text-slate-400 mt-4"><strong id="statSpeciesCount" class="text-emerald-300">70</strong> kaynaklı bakım rehberi</p>
-          <p class="mt-2 text-sm text-slate-400"><a href="#taxonomyExplorer" class="font-semibold text-emerald-300 underline underline-offset-4 hover:text-white">1000'lerce taksonomik tür kaydını keşfet</a> · Bilimsel kayıtlar bakım rehberi veya evcil hayvan önerisi değildir.</p>
+          <p class="mt-4 text-sm text-slate-400"><a href="#taxonomyExplorer" class="font-semibold text-emerald-300 underline underline-offset-4 hover:text-white">Fotoğraflı tür kataloğuna göz at</a> · Tür sayısı seçilen canlı grubuna göre anlık gösterilir.</p>
           <p id="catalogDataStatus" class="hidden mt-2 text-sm text-amber-200" role="status"></p>
         </div>
       </div>
@@ -94,40 +93,49 @@
         <div class="glass-panel rounded-2xl border border-emerald-800/50 p-5 sm:p-7">
           <div class="max-w-3xl">
             <p class="text-sm font-bold uppercase tracking-widest text-emerald-300">Bilimsel keşif · iNaturalist taksonomisi</p>
-            <h2 id="taxonomyHeading" class="mt-2 text-2xl font-extrabold text-white sm:text-3xl">Binlerce tür kaydında ara</h2>
-            <p class="mt-2 text-sm leading-relaxed text-slate-300">Sürüngen, örümceğimsiler, böcekler ve iki yaşamlılar arasından 1000'lerce türü bilimsel adıyla ara; sonraki sayfalarla daha fazlasını keşfet. Bunlar iNaturalist taksonomi kayıtlarıdır, bakım rehberi veya evcil hayvan önerisi değildir; pek çok tür evde tutulmaya uygun olmayabilir. Hayvanları doğadan toplamayın. Kaynak: <a href="https://www.inaturalist.org/" target="_blank" rel="noopener noreferrer" class="font-semibold text-emerald-300 underline">iNaturalist</a>.</p>
+            <h2 id="taxonomyHeading" class="mt-2 text-2xl font-extrabold text-white sm:text-3xl">Fotoğraflı tür kataloğu</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-300">Yılan, tarantula ve akrepler dahil binlerce türü bilimsel adları ve fotoğraflarıyla sayfalar halinde keşfet. Bunlar iNaturalist taksonomi kayıtlarıdır; bakım rehberi veya evcil hayvan önerisi değildir. Doğadan hayvan toplamayın. Kaynak: <a href="https://www.inaturalist.org/" target="_blank" rel="noopener noreferrer" class="font-semibold text-emerald-300 underline">iNaturalist</a>.</p>
           </div>
           <form id="taxonomySearchForm" class="mt-5 grid gap-3 sm:grid-cols-[minmax(12rem,0.7fr)_minmax(12rem,1fr)_auto]">
             <label class="block">
               <span class="mb-1 block text-sm font-semibold text-slate-200">Canlı grubu</span>
               <select id="taxonomyGroup" class="min-h-12 w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-base text-white">
                 <option value="26036">Sürüngenler</option>
+                <option value="85553">Yılanlar</option>
                 <option value="47118">Örümceğimsiler</option>
+                <option value="47424">Tarantulalar</option>
+                <option value="48894">Akrepler</option>
                 <option value="47158">Böcekler</option>
                 <option value="20978">İki yaşamlılar</option>
+                <option value="49556">Çıyanlar</option>
+                <option value="47735">Kırkayaklar</option>
               </select>
             </label>
             <label class="block">
               <span class="mb-1 block text-sm font-semibold text-slate-200">İsteğe bağlı ad veya arama</span>
-              <input id="taxonomyQuery" type="search" maxlength="100" placeholder="Örn. tarantula, gecko, Brachypelma" class="min-h-12 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-base text-white placeholder-slate-500">
+              <input id="taxonomyQuery" type="search" maxlength="100" placeholder="Örn. Brachypelma, boa, piton" class="min-h-12 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-2 text-base text-white placeholder-slate-500">
             </label>
-            <button id="taxonomySearchButton" class="self-end rounded-xl bg-emerald-700 px-5 py-3 font-bold text-white hover:bg-emerald-600">Taksonomide ara</button>
+            <button id="taxonomySearchButton" type="submit" class="min-h-12 w-full self-end rounded-xl bg-emerald-700 px-5 py-3 font-bold text-white hover:bg-emerald-600 sm:w-auto">Taksonomide ara</button>
           </form>
-          <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
-            <p id="taxonomyStatus" class="text-sm text-slate-300" role="status" aria-live="polite">Bir grup seçip arayarak iNaturalist taksonomisini sorgula.</p>
-            <div class="flex gap-2">
-              <button id="taxonomyPrevious" type="button" disabled class="rounded-lg border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-300 disabled:opacity-40">Önceki</button>
-              <button id="taxonomyNext" type="button" disabled class="rounded-lg border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-300 disabled:opacity-40">Sonraki</button>
+          <div class="mt-4 grid gap-3 sm:flex sm:flex-wrap sm:items-center sm:justify-between">
+            <p id="taxonomyStatus" class="min-w-0 break-words text-sm text-slate-300" role="status" aria-live="polite">Bir grup seçip arayarak iNaturalist taksonomisini sorgula.</p>
+            <div class="grid grid-cols-2 gap-2 sm:flex">
+              <button id="taxonomyPrevious" type="button" disabled class="min-h-11 rounded-lg border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-300 disabled:opacity-40">Önceki</button>
+              <button id="taxonomyNext" type="button" disabled class="min-h-11 rounded-lg border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-300 disabled:opacity-40">Sonraki</button>
             </div>
           </div>
-          <div id="taxonomyResults" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" aria-live="polite"></div>
-          <p class="mt-4 text-xs leading-relaxed text-slate-500">Bilimsel ad, yaygın ad, fotoğraf atfı ve gözlem sayıları iNaturalist API'sinden alınır. Buradaki sonuç sayısı taksonomik veri tabanındaki kayıtları gösterir; TerraExotica tarafından doğrulanmış bakım türü sayısını veya edinilebilir hayvanları göstermez.</p>
+          <div id="taxonomyResults" class="mt-5 grid min-w-0 auto-rows-fr gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" aria-live="polite"></div>
+          <p class="mt-4 text-xs leading-relaxed text-slate-500">Tür adı, varsa yaygın ad ve gözlem sayısı iNaturalist'ten alınır. Fotoğraflar katkıcı atfı ve lisansıyla gösterilir; CC BY-NC lisanslı görseller yalnızca ticari olmayan kullanım içindir. Taksonomi kaydı, TerraExotica tarafından doğrulanmış bakım bilgisi veya sahiplenme önerisi değildir.</p>
         </div>
       </div>
     </section>
 
     <section id="animalCatalog" class="pb-16 sm:pb-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-5">
+          <h2 class="text-2xl font-bold text-white sm:text-3xl">Kaynaklı bakım rehberleri</h2>
+          <p class="mt-2 text-sm text-slate-400">Bu bölümdeki türler için seçilmiş bakım notları bulunur. Daha geniş fotoğraflı tür kataloğu yukarıdadır.</p>
+        </div>
         <div class="catalog-controls glass-panel rounded-2xl p-4 sm:p-5 mb-8 space-y-5">
           <label class="relative block">
             <span class="sr-only">Hayvan veya bilimsel ad ara</span>
@@ -136,12 +144,12 @@
           </label>
 
           <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar" role="group" aria-label="Hayvan kategorileri">
-            <button onclick="setCategoryFilter('all')" class="category-btn active px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-emerald-600 text-white border-emerald-500" data-category="all">Tümü (<span id="count-all">0</span>)</button>
-            <button onclick="setCategoryFilter('reptile')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="reptile">Sürüngenler (<span id="count-reptile">0</span>)</button>
-            <button onclick="setCategoryFilter('amphibian')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="amphibian">İkiyaşamlılar (<span id="count-amphibian">0</span>)</button>
-            <button onclick="setCategoryFilter('invertebrate')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="invertebrate">Eklem bacaklılar (<span id="count-invertebrate">0</span>)</button>
-            <button onclick="setCategoryFilter('mammal')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="mammal">Memeliler (<span id="count-mammal">0</span>)</button>
-            <button onclick="setCategoryFilter('aquatic')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="aquatic">Akuatik (<span id="count-aquatic">0</span>)</button>
+            <button onclick="setCategoryFilter('all')" class="category-btn active px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-emerald-600 text-white border-emerald-500" data-category="all">Tüm rehberler</button>
+            <button onclick="setCategoryFilter('reptile')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="reptile">Sürüngenler</button>
+            <button onclick="setCategoryFilter('amphibian')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="amphibian">İkiyaşamlılar</button>
+            <button onclick="setCategoryFilter('invertebrate')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="invertebrate">Eklem bacaklılar</button>
+            <button onclick="setCategoryFilter('mammal')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="mammal">Memeliler</button>
+            <button onclick="setCategoryFilter('aquatic')" class="category-btn px-4 py-2.5 rounded-xl border transition-all flex items-center gap-2 whitespace-nowrap bg-slate-900/80 text-slate-300 border-slate-800" data-category="aquatic">Akuatik</button>
           </div>
 
           <div class="flex flex-wrap items-center gap-2" role="group" aria-label="Bakım zorluğuna göre filtrele">
@@ -195,6 +203,6 @@
   <script src="additional-species.js"></script>
   <script src="catalog-db.js"></script>
   <script src="app.js"></script>
-  <script src="taxonomy.js"></script>
+  <script src="taxonomy.js?v=mobile-fallback-2026-10-22"></script>
 </body>
 </html>
