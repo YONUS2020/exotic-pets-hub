@@ -168,7 +168,12 @@ async function saveCommunityProfile(displayName) {
       display_name: displayName,
       updated_at: new Date().toISOString()
     });
-  if (error) throw error;
+  if (error) {
+    if (/permission denied.*community_profiles|not authorized/i.test(error.message || '')) {
+      throw new Error('Topluluk profili yetkisi Supabase’te eksik. Supabase Dashboard → SQL Editor’da güncel supabase-schema.sql dosyasını tamamen çalıştırıp sayfayı yenileyin.');
+    }
+    throw error;
+  }
 }
 
 async function loadOwnCommunityQueue() {
@@ -357,7 +362,7 @@ async function submitCommunityPost(event) {
     const safeImage = await sanitizeCommunityImage(file, inputType);
     await saveCommunityProfile(displayName);
 
-    const extension = { 'image/jpeg': 'jpg', 'image/png': 'png' }[safeImage.type];
+    const extension = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[safeImage.type];
     const imagePath = `community/${crypto.randomUUID()}.${extension}`;
     const { error: uploadError } = await communityClient.storage
       .from(COMMUNITY_BUCKET)

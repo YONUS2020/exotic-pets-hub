@@ -226,64 +226,6 @@ function loadDemoData() {
   }
 }
 
-function exportData() {
-  const exportObject = {
-    exportDate: new Date().toISOString(),
-    version: '1.0',
-    customSpecies: EXOTIC_ANIMALS_DATA.filter(species => species.isUserDefined),
-    pets,
-    feedingLogs,
-    sheddingLogs,
-    weightLogs
-  };
-
-  const blob = new Blob([JSON.stringify(exportObject, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `exoticpetshub-yedek-${getTodayKey()}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-  showToast('Tüm verileriniz JSON dosyası olarak indirildi.', 'info');
-}
-
-function importData(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      const data = JSON.parse(e.target.result);
-      if (Array.isArray(data.pets)) {
-        const importedCustomSpecies = Array.isArray(data.customSpecies)
-          ? data.customSpecies.filter(species => species && species.isUserDefined)
-          : [];
-        localStorage.setItem('terra_custom_species', JSON.stringify(importedCustomSpecies));
-        EXOTIC_ANIMALS_DATA = [
-          ...EXOTIC_ANIMALS_DATA.filter(species => !species.isUserDefined),
-          ...importedCustomSpecies
-        ];
-        pets = data.pets;
-        feedingLogs = Array.isArray(data.feedingLogs) ? data.feedingLogs : [];
-        sheddingLogs = Array.isArray(data.sheddingLogs) ? data.sheddingLogs : [];
-        weightLogs = Array.isArray(data.weightLogs) ? data.weightLogs : [];
-        activePetId = pets.length > 0 ? pets[0].id : null;
-        saveAllToStorage();
-        renderPetsTabs();
-        renderActivePetDashboard();
-        showToast('Yedek başarıyla içe aktarıldı!', 'success');
-      } else {
-        showToast('Geçersiz yedek dosyası formatı!', 'error');
-      }
-    } catch (err) {
-      showToast('Dosya okunurken bir hata oluştu: ' + err.message, 'error');
-    }
-  };
-  reader.readAsText(file);
-  event.target.value = '';
-}
-
 // =========================================================================
 // 2. ANSİKLOPEDİ & TÜR REHBERİ İŞLEMLERİ
 // =========================================================================
@@ -814,7 +756,7 @@ function renderPetsTabs() {
       <button type="button" onclick="openAddPetModal()" class="col-span-1 flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-emerald-700/60 bg-emerald-950/20 px-4 py-3 text-sm font-semibold text-emerald-200 hover:border-emerald-400">
         <i class="fa-solid fa-plus" aria-hidden="true"></i> İlk canlımı ekle
       </button>
-      <span class="col-span-1 self-center text-xs text-slate-400">Kayıtların bu tarayıcıda kalır; cihaz değiştirirken yedek al.</span>
+      <span class="col-span-1 self-center text-xs text-slate-400">Kayıtların yalnızca bu tarayıcıda kalır.</span>
     `;
     return;
   }

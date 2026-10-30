@@ -142,6 +142,8 @@ create table if not exists public.community_profiles (
 
 alter table public.community_profiles enable row level security;
 revoke all on public.community_profiles from public, anon, authenticated;
+grant usage on schema public to anon, authenticated;
+grant select, insert, update on public.community_profiles to authenticated;
 grant select (user_id, display_name) on public.community_profiles to authenticated;
 grant insert (user_id, display_name, updated_at) on public.community_profiles to authenticated;
 grant update (user_id, display_name, updated_at) on public.community_profiles to authenticated;

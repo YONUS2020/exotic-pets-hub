@@ -7,7 +7,8 @@
   
   <!-- SEO & Arama Motoru Meta Etiketleri -->
   <title>Egzotik Hayvan Rehberi: Tarantula, Gecko ve Sürüngen Bakımı | exoticpetshub</title>
-  <meta name="description" content="Tarantula, gecko, yılan ve diğer egzotik canlılar için kaynaklı tür rehberleri, bilimsel taksonomi araması, veteriner sağlık bilgisi ve günlük bakım takibi.">
+  <meta name="description" content="Egzotik hayvanlar ve egzotik canlılar için Türkçe bakım rehberi: tarantula, akrep, yılan, gecko, sürüngen, amfibi ve balık türleri; tür ansiklopedisi, topluluk ve hobici takip paneli.">
+  <meta name="keywords" content="egzotik hayvan, egzotik hayvanlar, egzotik canlılar, tarantula bakımı, akrep bakımı, yılan bakımı, gecko bakımı, sürüngen bakımı, teraryum">
   <meta name="author" content="exoticpetshub">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta name="theme-color" content="#064e3b">
@@ -80,7 +81,7 @@
             "name": "Günlük takip verilerim kaybolur mu?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Bakım ve takip kayıtları bu tarayıcıda yerel olarak saklanır. Tarayıcı verileri silinirse kayıtlar kaybolabilir; yedekleme özelliğini kullanın. Topluluk hesabı ve paylaşım verileri ise Supabase hizmetinde tutulur."
+              "text": "Bakım ve takip kayıtları yalnızca bu tarayıcıda yerel olarak saklanır. Tarayıcı verileri silinirse kayıtlar kaybolabilir. Topluluk hesabı ve paylaşım verileri ise Supabase hizmetinde tutulur."
             }
           },
           {
@@ -178,6 +179,9 @@
           <a href="#faq" class="text-slate-300 hover:text-emerald-400 transition-colors flex items-center gap-2">
             <i class="fa-solid fa-circle-question text-emerald-500"></i> SSS
           </a>
+          <a href="https://www.instagram.com/exoticpets.hub/" target="_blank" rel="noopener me" aria-label="Instagram: exoticpets.hub" title="Instagram" class="text-slate-300 hover:text-pink-400 transition-colors text-lg">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
         </nav>
 
         <!-- CTA & Quick Action Button -->
@@ -214,6 +218,9 @@
       </a>
       <a href="#care-guide" class="mobile-nav-link block text-slate-200 hover:text-emerald-400 py-2 text-base font-medium flex items-center gap-3">
         <i class="fa-solid fa-temperature-half text-emerald-500"></i> Bakım & İklim Rehberi
+      </a>
+      <a href="https://www.instagram.com/exoticpets.hub/" target="_blank" rel="noopener me" class="mobile-nav-link block text-slate-200 hover:text-pink-400 py-2 text-base font-medium flex items-center gap-3">
+        <i class="fa-brands fa-instagram text-pink-400"></i> Instagram: @exoticpets.hub
       </a>
       <button onclick="openAddPetModal()" class="w-full mt-3 flex items-center justify-center gap-2 bg-emerald-600 text-white font-semibold text-sm py-2.5 rounded-xl">
         <i class="fa-solid fa-plus-circle"></i> Yeni Hayvan Ekle
@@ -314,7 +321,7 @@
             Egzotik Canlı Takip Defterim
           </h2>
           <p class="text-slate-300 text-sm mt-2 max-w-2xl leading-relaxed">
-            Sürüngen, tarantula, akrep, amfibi ve diğer egzotik canlıların bakım kayıtlarını canlı başına tut. Kayıtlar bu cihazdaki tarayıcıda saklanır; yedek alarak cihazlar arasında taşıyabilirsin.
+            Sürüngen, tarantula, akrep, amfibi ve diğer egzotik canlıların bakım kayıtlarını canlı başına tut. Kayıtlar yalnızca bu cihazdaki tarayıcıda saklanır.
           </p>
         </div>
 
@@ -326,13 +333,6 @@
           <button onclick="loadDemoData()" title="Örnek hayvan ve kayıtlar yükle" class="min-h-11 justify-center px-3 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-amber-300 border border-slate-800 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5">
             <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Demo Yükle
           </button>
-          <button type="button" onclick="exportData()" title="Verileri güvenli dosya olarak indir" class="min-h-11 justify-center px-3 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5">
-            <i class="fa-solid fa-download"></i> Yedekle
-          </button>
-          <label class="min-h-11 cursor-pointer justify-center px-3 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5" title="Yedek JSON dosyası yükle">
-            <i class="fa-solid fa-upload"></i> İçe Aktar
-            <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="importData(event)">
-          </label>
         </div>
       </div>
 
@@ -399,6 +399,13 @@
               <button onclick="deleteCurrentPet()" class="min-h-11 rounded-xl bg-rose-950/40 p-2.5 text-rose-400 hover:bg-rose-900/60 hover:text-rose-200 border border-rose-900/40 transition-colors" title="Hayvanı Sil" aria-label="Canlıyı sil">
                 <i class="fa-solid fa-trash-can"></i>
               </button>
+            </div>
+
+            <div class="md:col-span-4 flex flex-wrap items-center gap-3 border-t border-emerald-950/80 pt-5">
+              <span class="text-[11px] text-slate-500">Sosyal medya:</span>
+              <a href="https://www.instagram.com/exoticpets.hub/" target="_blank" rel="noopener me" class="inline-flex items-center gap-2 rounded-lg border border-pink-400/30 px-3 py-2 text-[12px] font-semibold text-pink-300 hover:bg-pink-500/10">
+                <i class="fa-brands fa-instagram"></i> @exoticpets.hub
+              </a>
             </div>
 
           </div>
@@ -580,7 +587,7 @@
         <p class="text-sm text-slate-400 max-w-md mx-auto mt-2">
           İlk egzotik canlı profilini ekle; yemleme, günlük bakım, deri değişimi, tartım ve yaşam alanı ölçümlerini onun altında ayrı ayrı kaydet.
         </p>
-        <p class="mx-auto mt-3 max-w-md text-xs leading-relaxed text-slate-500">Bakım kayıtların bu cihazdaki tarayıcıda kalır. Cihaz değiştirirken üstteki <strong>Yedekle</strong> ve <strong>İçe Aktar</strong> araçlarını kullan.</p>
+        <p class="mx-auto mt-3 max-w-md text-xs leading-relaxed text-slate-500">Bakım kayıtların yalnızca bu cihazdaki tarayıcıda kalır; tarayıcı verilerini temizlersen kayıtlar silinebilir.</p>
         <div class="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
           <button onclick="openAddPetModal()" class="min-h-12 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-bold text-white shadow-lg hover:bg-emerald-500">
             <i class="fa-solid fa-plus-circle mr-1"></i> İlk canlımı ekle
@@ -717,7 +724,7 @@
             <i class="fa-solid fa-chevron-down text-emerald-400 text-xs group-open:rotate-180 transition-transform"></i>
           </summary>
           <p class="text-xs text-slate-400 mt-3 leading-relaxed border-t border-slate-800/80 pt-3">
-            Hayvan ve günlük takip kayıtları kullandığınız tarayıcıda yerel olarak saklanır; bu kayıtlar topluluk paylaşım verilerinden ayrıdır. Tarayıcı verileri temizlenirse kaybolabilir, bu nedenle <strong>"Yedekle"</strong> özelliğini kullanın. Topluluk hesabı ve gönderiler yapılandırılmış Supabase hizmetinde tutulur.
+            Hayvan ve günlük takip kayıtları yalnızca kullandığınız tarayıcıda yerel olarak saklanır; bu kayıtlar topluluk paylaşım verilerinden ayrıdır. Tarayıcı verileri temizlenirse kaybolabilir. Topluluk hesabı ve gönderiler Supabase hizmetinde tutulur.
           </p>
         </details>
 

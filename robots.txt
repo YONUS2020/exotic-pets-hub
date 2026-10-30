@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://exotic-pets-hub.vercel.app/sitemap.xml
+Sitemap: https://exoticpetshub.com.tr/sitemap.xml
