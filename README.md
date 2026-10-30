@@ -1,4 +1,4 @@
-# 🌿 TerraExotica - Egzotik Hayvan Ansiklopedisi ve Hobici Takip Portalı
+# 🌿 exoticpetshub - Egzotik Hayvan Ansiklopedisi ve Hobici Takip Portalı
 
 Egzotik hayvan tutkunları ve hobicileri için özel olarak tasarlanmış, doğa/teraryum temalı modern web platformu.
 Ana sayfada yüksek çözünürlüklü doğa videosu ve seçili türler; tam filtrelenebilir hayvan kataloğu ise ayrı bir sayfada bulunur.
@@ -9,7 +9,7 @@ Ana sayfada yüksek çözünürlüklü doğa videosu ve seçili türler; tam fil
 
 ### 1. Kapsamlı Egzotik Canlı Ansiklopedisi
 - **Tüm Egzotik Kategoriler:** Sürüngenler, İkiyaşamlılar, örümcekler, tarantulalar, akrepler, kırkayaklar, çıyanlar, böcekler, egzotik memeliler ve akuatik canlılar.
-- **Bakım rehberleri:** 70 kaynaklı tür rehberi; Bredl ve Dumeril gibi boa/pitonlar, geckolar ve tarantulalar dahil. Kaynağı eklenmiş türlerde bakım referansı ve fotoğraf lisans atfı gösterilir; referansı henüz doğrulanmamış türlerde bu eksik açıkça belirtilir.
+- **Bakım rehberleri:** 77 tür rehberi; tarantula, yılan, akrep ve böcek grupları genişletilmiştir. Türe özgü bakım kaynağı doğrulanmamış kayıtlarda bu eksik açıkça belirtilir; her görselin lisans atfı kartta gösterilir.
 - **Canlı Kartları & Filtreleme:** Kategoriye, bakım zorluğuna (Başlangıç, Orta, İleri, Uzman) ve anlık arama kelimesine göre filtreleme.
 - **Detaylı Bakım Kartı (Modal):**
   - Bilimsel Ad & Doğal Habitat
@@ -21,16 +21,16 @@ Ana sayfada yüksek çözünürlüklü doğa videosu ve seçili türler; tam fil
 
 ### 2. Hobicilere Özel Günlük Takip Paneli (Keeper Dashboard)
 - **Evcil Hayvanlarım Yönetimi:** Kendi canlılarınızı ekleyin, yaşını, türünü ve teraryum boyutunu takip edin.
-- **Günlük Bakım Rutini (Checklist):** Su tazeleme, sıcaklık/nem kontrolü, dışkı temizliği (spot cleaning), sisleme ve UVB kontrolünü her gün işaretleyin.
+- **Günlük Bakım Rutini (Checklist):** Su tazeleme, sıcaklık/nem kontrolü, temizlik ve türe göre gerekli olabilecek nemlendirme/aydınlatma adımlarını işaretleyin; tüm görevler her türe zorunlu bakım gibi sunulmaz.
 - **Yemleme Takibi (Feeding Log):** Verilen yem türü (Dubia, un kurdu, kemirgen vb.), kalsiyum/vitamin takviyesi, iştah durumu ve tarih/saat kaydı.
 - **Kabuk Değişimi & Deri Dökümü (Shedding / Molt Tracker):** Sürüngen ve eklem bacaklılar için kritik deri döküm periyodu ve kabuk kalitesi takibi.
 - **Kilo & Büyüme Grafiği (Weight Chart):** Chart.js ile dinamik interaktif büyüme eğrisi.
 - **Teraryum İklimi & Akıllı Uyarılar:** Termometre ve higrometre ölçümlerini girin; canlının ihtiyaçlarıyla otomatik kıyaslansın.
-- **Yerel bakım kayıtları:** Hobi takip verileri tarayıcı `localStorage` alanında saklanır; katalog veritabanı erişiminden bağımsızdır.
-- **Yönetici kataloğu:** Supabase Auth, e-posta bağlantılı giriş ve PostgreSQL Row Level Security ile tür kataloğunu yönet.
-- **Fotoğraflı topluluk:** E-posta bağlantısıyla oturum açan üyeler tek fotoğraf ve kısa sorular paylaşabilir; yorumlar ve gönderiler yönetici onayına kadar herkese kapalı kalır. Özel görseller imzalı bağlantılarla sunulur.
-- **Bilimsel tür keşfi:** Bakım rehberlerinden ayrı olarak, iNaturalist taksonomisi üzerinden sürüngen, örümceğimsi, böcek ve iki yaşamlı gruplarında binlerce türü arayabilir ve sayfalar arasında gezebilirsin. Sonuçlar sayfa açıldığında yüklenir. Bu taksonomik kayıtlar bakım tavsiyesi veya evcil hayvan uygunluğu iddiası değildir.
-- **İki akışlı haber sayfası:** Ana sayfa ve `news.html`; Mongabay, Phys.org, BBC News Türkçe ve DW Türkçe RSS kaynaklarından güncel dünya haberleri ile Türkiye'den tarihli, Türkçe doğa/yaban hayatı haberlerini gösterir. İngilizce haberler çevrilmez; kaynak bağlantısı korunur. Akışlar ziyaret sırasında günde bir kez yenilenir, arşiv 180 güne kadar yalnızca ilgili ziyaretçinin tarayıcısında saklanır. Bu statik sitede ortak/merkezi arşiv veya ziyaret edilmeden çalışan zamanlanmış görev bulunmaz.
+- **Yerel bakım kayıtları:** İlk açılışta sahte demo canlıları otomatik eklenmez. Hobi takip verileri cihazdaki tarayıcı `localStorage` alanında saklanır; katalog veritabanı erişiminden bağımsızdır. JSON yedek alma ve geri yükleme araçları farklı cihaza geçişi sağlar. Takip paneli mobilde taşmayan canlı seçimi ve iki sütunlu kayıt sekmeleri sunar.
+- **Yönetici kataloğu:** Supabase Auth, e-posta bağlantılı giriş ve PostgreSQL Row Level Security ile tür kataloğunu yönet. Yönetici rolü yalnızca veritabanında tanımlı tek sahip e-postasına verilir.
+- **Fotoğraflı topluluk:** Onaylanmış fotoğraflar herkese açıktır; e-posta bağlantısıyla oturum açan üyeler fotoğraf paylaşabilir ve yorum yazabilir. E-posta ve hesap kimliği herkese açık API yanıtlarına verilmez; yalnızca takma ad yayımlanır. Bekleyen görseller özel depoda kalır, gönderi onaylanana kadar gösterilmez.
+- **Yerel fotoğraflı katalog:** Hayvanların fotoğrafları, kısa tanıtımları ve temel bakım bilgileri bu sitedeki kartlarda gösterilir. Kartı açarak ayrıntılı rehbere ulaşabilir, türleri arama ve kategori/zorluk filtreleriyle keşfedebilirsiniz.
+- **İki akışlı günlük haber arşivi:** Vercel Cron; Mongabay, Phys.org, BBC News Türkçe, DW Türkçe ve Hürriyet RSS akışlarını her gün alıp Supabase'e yazar. İngilizce dünya haberleri Google Cloud Translation ile Türkçeye çevrilir; özgün başlık ve yayıncı bağlantısı korunur. Türkiye akışında doğa/hayvan haberleri öne çıkar, tarihli diğer yerel haberler de boşluğu önler. Arşiv 180 gün saklanır. Otomatik çeviri hatalı olabileceğinden kaynak habere bağlantı verilir.
 
 ### Veteriner sağlık merkezi
 - `veterinarian.html` acil belirtiler, koruyucu gözlem ve egzotik hayvan veterinerine hazırlanma konularında genel bilgilendirme sunar.
@@ -46,40 +46,46 @@ Statik sayfaları yerelde açabilirsin. Supabase kullanan yönetici paneli ve ç
 ### Arama motoru görünürlüğü
 
 - Ana sayfa ve tür kataloğunda başlık, açıklama ve sosyal önizleme etiketleri ile JSON-LD bulunur; yapılandırılmış verinin metni sayfada gerçekten görünen içerikle eşleşmelidir.
-- `robots.txt` ve `sitemap.xml` yalnızca yayımlanmış URL’lere işaret etmelidir. Şu an yapılandırılmış `https://terraexotica.vercel.app/` adresinin yayında olduğunu doğrula (kontrol sırasında ana sayfa 404 döndürdü); gerçek üretim alan adını belirleyip canonical, Open Graph URL'leri, yapılandırılmış veriler, robots ve sitemap'te birlikte güncelle. Alan adı çalışmadan Google'da indekslenme beklenemez.
-- `animals.html` içindeki iNaturalist araması sayfa açılınca yüklenir; bu sonuçlar tek tek indekslenebilir sayfalar olarak yayınlanmaz. Sitemap'e API sayfaları veya sorgu URL'leri ekleme. Yalnızca editoryal olarak araştırılmış 70 tür, bakım rehberi sayısına dahildir.
+- Yayındaki adres `https://exotic-pets-hub.vercel.app/` olarak doğrulandı; eski `terraexotica.vercel.app` adresi 404 döndürüyor. Canonical, Open Graph URL'leri, yapılandırılmış veriler, robots ve sitemap bu çalışan Vercel alan adını kullanmalıdır.
+- `animals.html` kataloğunda editoryal olarak hazırlanmış 77 tür, bakım rehberi sayısına dahildir. Tür bilgileri ve görseller yerel katalog kayıtlarından yüklenir.
 
 1. `index.html` dosyasını Google Chrome, Microsoft Edge, Mozilla Firefox veya dilediğiniz bir tarayıcıda çift tıklayarak açın.
 2. Veya VS Code kullanıyorsanız *Live Server* eklentisiyle çalıştırabilirsiniz.
 
 ### Supabase kurulumu
 
-1. Supabase'de proje oluştur. SQL Editor'da `supabase-schema.sql` dosyasının tamamını çalıştır. Bu; katalog tabloları, admin izin listesi, topluluk tabloları, RLS ve yalnızca onaylanan fotoğrafların okunabildiği özel `community-media` deposunu kurar; `eskinyunus5@gmail.com` ilk yönetici kaydıdır.
+1. Supabase'de proje oluştur. SQL Editor'da `supabase-schema.sql` dosyasının tamamını çalıştır. Bu; katalog ve haber arşivi tablolarını, tek sahip hesabı denetimini, topluluk tablolarını, sütun düzeyinde veri erişimini, RLS ve yalnızca onaylanan fotoğrafların okunabildiği özel `community-media` deposunu kurar. Yönetici hesabı `eskinyunus5@gmail.com` olarak sabitlenmiştir; eski `admin_allowlist` tablosu varsa kaldırılır. Şema değişikliği mevcut gönderi/yorum takma adlarını profillerden yeni herkese açık görünen alanlara aktarır; çalıştırmadan önce Supabase yedeği al. Eski topluluk fotoğraf yollarında kullanıcı UUID'si bulunduğu için SQL bu yolları algılarsa açık hata vererek durur; varsa bu görselleri Supabase Storage API ile yeniden adlandırıp gönderi `image_path` değerlerini güncellemeden şemayı çalıştırma.
 2. Supabase Project Settings → API'den Project URL ile **publishable/anon** anahtarını al. `catalog-config.js` içindeki `url` ve `publishableKey` alanlarına yerleştir. `service_role` veya secret anahtarını istemci koduna hiçbir zaman ekleme.
-3. Supabase Authentication'da Email sağlayıcısını etkinleştir. Topluluk için e-posta OTP ile kullanıcı kaydı açık olmalıdır; bu kullanıcılar yalnızca yayımlanmış topluluk içeriğini görebilir ve kendi gönderilerini moderasyona yollar. Yönetici yetkisi ayrıca `admin_allowlist` ve RLS ile sınırlandırılır. Owner hesabını Dashboard üzerinden davet et veya oluştur.
-4. Siteyi HTTPS üzerinden yayınla. Supabase Redirect URLs'e `admin.html` ve `community.html` dönüş adreslerini ekle; dosya URL'leri e-posta kimlik doğrulaması için uygun değildir. Üretimde e-posta SMTP ve rate-limit ayarlarını yapılandır.
+3. Supabase Authentication'da Email sağlayıcısını etkinleştir. Topluluk için e-posta OTP ile kullanıcı kaydı açık olmalıdır; bu kullanıcılar yalnızca yayımlanmış topluluk içeriğini görebilir ve kendi gönderilerini moderasyona yollar. Yönetici girişi yeni kullanıcı oluşturmaz (`shouldCreateUser: false`); yönetici yetkisi RLS içinde yalnızca `eskinyunus5@gmail.com` e-postasına verilir. Bu e-posta Supabase Auth → Users içinde bulunmalı ve doğrulanmış olmalıdır.
+4. Siteyi HTTPS üzerinden yayınla. Supabase Authentication → URL Configuration alanındaki Site URL'yi üretim alan adına, Redirect URLs'i `admin.html` ve `community.html` dönüş adreslerine ayarla. E-posta bağlantısını giriş isteğinin yapıldığı bilgisayardaki aynı tarayıcıda aç; Supabase oturumu bu cihazın tarayıcısına kaydedilir. Dosya URL'leri e-posta kimlik doğrulaması için uygun değildir. Üretimde e-posta SMTP ve rate-limit ayarlarını yapılandır.
 5. `admin.html` sayfasında owner e-postasıyla giriş yap. **Mevcut türleri veritabanına aktar** düğmesi başlangıç kataloğunu Supabase'e kopyalar. Sonraki tür ekleme, düzenleme ve silme işlemleri veritabanına yazılır. Aynı panelde topluluk gönderilerini ve yorumlarını onayla/reddet.
-6. Ek yöneticileri Supabase Dashboard'da önce Auth → Users alanından davet et; sonra SQL Editor'da `insert into public.admin_allowlist (email) values (lower('kisi@example.com'));` çalıştır. İzin listesi tarayıcıdan okunamaz veya düzenlenemez.
 
-Yönetici girişi veritabanı RLS politikalarıyla da sınırlandırılır; arayüzdeki giriş kontrolü tek başına güvenlik sınırı değildir. Topluluk içeriği kısa uzunluk sınırları, temel kaba dil filtresi, saatte en fazla 5 gönderi/15 yorum, fotoğraf yükleme limiti ve zorunlu yönetici onayından geçer. Fotoğraflar yüklenirken konum gibi EXIF üst verileri kaldırılır. İçerik denetimi kesin değildir; kullanıcı bildirimleri ve düzenli moderasyon gerekir. Katalog JSON verisi istemciden yalnızca admin RLS yetkisiyle yazılır. Tür listesi sonlu olmadığından yeni türleri yönetici panelinden ekle.
+### Vercel haber otomasyonu
+
+1. Google Cloud Console'da Cloud Translation API'yi etkinleştir ve faturalandırma/kota ayarlarını yap. Vercel Project → Settings → Environment Variables alanında `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, uzun/rastgele `CRON_SECRET` ve `GOOGLE_TRANSLATE_API_KEY` değerlerini Production ortamına ekle. Google anahtarını Translation API ile sınırla. `SUPABASE_SERVICE_ROLE_KEY`, `CRON_SECRET` ve Google anahtarı yalnızca Vercel sunucu fonksiyonlarında kullanılmalı; `catalog-config.js` veya başka tarayıcı dosyalarına koyma.
+2. Güncellenmiş `supabase-schema.sql` dosyasını Supabase SQL Editor'da çalıştır. Vercel'e yeniden deploy et; `vercel.json` her gün 03:00 UTC için `/api/cron/news` işini tanımlar. Haber ekranı ortak Supabase arşivini `/api/news` üzerinden okur.
+3. İlk arşivi beklemeden doldurmak için `CRON_SECRET` ortam değişkenini ayarladıktan sonra PowerShell'de `Invoke-RestMethod -Uri "https://<üretim-alan-adın>/api/cron/news" -Headers @{ Authorization = "Bearer $env:CRON_SECRET" }` çalıştır. Vercel Cron sonraki günlerde otomatik devam eder.
+Yönetici girişi veritabanı RLS politikalarıyla da sınırlandırılır; arayüzdeki giriş kontrolü tek başına güvenlik sınırı değildir. Yönetici hesabını değiştirmek istersen `supabase-schema.sql` içindeki `is_terra_admin()` fonksiyonunda e-posta sabitini güncelle ve şemayı yeniden çalıştır; ikinci bir yönetici ekleme mekanizması yoktur. Topluluk içeriği kısa uzunluk sınırları, temel kaba dil filtresi, saatte en fazla 5 gönderi/15 yorum, fotoğraf yükleme limiti ve zorunlu yönetici onayından geçer. Fotoğraflar yüklenirken konum gibi EXIF üst verileri kaldırılır; fotoğraf yollarında hesap UUID'si bulunmaz. İçerik denetimi kesin değildir; kullanıcı bildirimleri ve düzenli moderasyon gerekir. Katalog JSON verisi istemciden yalnızca admin RLS yetkisiyle yazılır. Tür listesi sonlu olmadığından yeni türleri yönetici panelinden ekle.
 
 ---
 
 ## 📁 Dosya Yapısı
 
 - `index.html`: Ana sayfa, öne çıkan türler, haber akışı, günlük takip paneli ve modallar.
-- `news.html`: Dünyadan güncel ve Türkiye'den tarihli haberler için ayrı akış ve tarayıcı tabanlı arşiv sayfası.
-- `animals.html`: Arama, kategori ve bakım seviyesi filtreleri olan tam tür kataloğu; tarantula, yılan, akrep ve böcek türleri için ayrı hızlı filtreler sunar.
-- `taxonomy.js`: iNaturalist API üzerinden taksonomik tür araması; yalnızca CC0/CC BY/CC BY-SA fotoğrafları atıf ve lisans bağlantısıyla gösterilir.
-- `community.html`, `community.js`: E-posta ile giriş, fotoğraflı soru gönderimi, yayımlanmış akış ve moderasyon bekleyen kendi içeriklerinin durumu.
-- `news.js`: İki haber akışı, RSS ayrıştırma, günlük ziyaret kontrolü ve tarayıcıya özel arşivleme.
+- `news.html`: Dünyadan güncel ve Türkiye gündeminden tarihli haberler için ayrı akış ve Supabase merkezi arşiv sayfası.
+- `api/cron/news.js`, `api/news.js`: Vercel günlük RSS eşitleme/Google çeviri işi ve herkese açık salt-okunur haber arşivi uç noktası.
+- `news-sources.js`: Tarayıcı RSS yedek akışı ve Vercel zamanlayıcısının ortak kaynak listesi.
+- `animals.html`: Arama, kategori ve bakım seviyesi filtreleri olan tam tür kataloğu.
+- `community.html`, `community.js`: E-posta ile giriş/kayıt, bilgisayardan veya telefondan fotoğraflı soru gönderimi, yayımlanmış akış ve moderasyon bekleyen kendi içeriklerinin durumu. Fotoğraf seçicisi dosya/görüntü seçer (zorunlu kamera açmaz); görüntü verisi yeniden kodlanarak EXIF üst verileri temizlenir.
+- `privacy.html`: Topluluk, yerel takip verileri ve harici servisler hakkında kullanıcıya açık gizlilik özeti; talepler için yayımlanan iletişim e-postası.
+- `news.js`: Merkezi haber API'si, tarayıcı önbelleği ve sunucu arşivi bulunmadığında doğrudan RSS yedeği.
 - `veterinarian.html`: Güvenilir kaynak bağlantılı, genel veteriner sağlık ve acil yönlendirme merkezi.
-- `admin.html`: İzin listesine bağlı Supabase yönetici girişi, katalog düzenleyicisi ve topluluk moderasyonu.
+- `admin.html`: Tek sahip hesabına bağlı Supabase yönetici girişi, katalog düzenleyicisi ve topluluk moderasyonu.
 - `admin.js`, `catalog-db.js`: Yönetici oturumu/katalog CRUD, moderasyon ve genel katalog veritabanı entegrasyonu.
 - `catalog-config.js`: Supabase URL ve public/publishable key ayar yeri; secret anahtarlar buraya konmamalıdır.
-- `supabase-schema.sql`: PostgreSQL katalog/topluluk tabloları, izin listesi, RLS politikaları, moderasyon ve özel depolama şeması.
+- `supabase-schema.sql`: PostgreSQL katalog/topluluk tabloları, tek sahip yetkilendirmesi, topluluk için sütun düzeyinde izinler ve RLS, moderasyon ve özel depolama şeması. Public istemciler gönderi sahibinin UUID/e-posta alanlarını okuyamaz; yalnızca moderasyondan geçmiş içerik ve takma ad görünür.
 - `style.css`: Egzotik orman/teraryum karanlık modu, cam efektleri (glassmorphism), neon rozetler ve animasyonlar.
-- `data.js`, `additional-species.js`: Kaynak/ bakım kartı derinliği farklı olan 70 editoryal tür rehberi ve hazır başlangıç hobici demo kayıtları.
+- `data.js`, `additional-species.js`: Kaynak/bakım kartı derinliği farklı olan 77 editoryal tür rehberi ve hazır başlangıç hobici demo kayıtları.
 - `app.js`: Filtreleme, arama, veri depolama (CRUD), interaktif grafikler ve bildirim sistemi.
 - `assets/species/`: Tür adıyla eşleştirilmiş yerel fotoğraflar; sanatçı ve lisans bilgileri her tür kartında gösterilir.
 - Tür rehberinde olmayan hayvanları takip formundan kendi tür adınla ekleyebilirsin. Bu özel adlar ve hayvan kayıtları yalnızca o tarayıcıda saklanır; bakım değerleri uydurulmaz.

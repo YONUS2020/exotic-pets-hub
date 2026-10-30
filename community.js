@@ -1,6 +1,7 @@
 const communityElements = {
   setup: document.getElementById('communitySetupNotice'),
   auth: document.getElementById('communityAuthPanel'),
+  loginCta: document.getElementById('communityLoginCta'),
   loginForm: document.getElementById('communityLoginForm'),
   email: document.getElementById('communityEmail'),
   members: document.getElementById('communityMemberPanel'),
@@ -12,6 +13,7 @@ const communityElements = {
   question: document.getElementById('communityQuestion'),
   questionCount: document.getElementById('communityQuestionCount'),
   photo: document.getElementById('communityPhoto'),
+  photoName: document.getElementById('communityPhotoName'),
   submit: document.getElementById('communityPostSubmit'),
   ownQueue: document.getElementById('communityOwnQueue'),
   status: document.getElementById('communityStatus'),
@@ -20,13 +22,40 @@ const communityElements = {
 
 const COMMUNITY_BUCKET = 'community-media';
 const COMMUNITY_IMAGE_LIMIT = 8 * 1024 * 1024;
+const COMMUNITY_AUTH_REDIRECT_URL = 'https://exoticpetshub.com.tr/community';
 const COMMUNITY_BAD_WORDS = /\b(?:amk|aq|oc|orospu|sik|yarrak|pic|ibne|amcik|serefsiz|gerizekali|salak|aptal|kahpe|surtuk|fuck|shit|bitch|asshole|cunt|dick|bastard|motherfucker)\b/i;
 let communityClient = null;
 let activeCommunityUser = null;
+let communityAuthQueue = Promise.resolve();
 
 function setCommunityStatus(message, isError = false) {
   communityElements.status.textContent = message;
   communityElements.status.className = `text-sm ${isError ? 'text-rose-300' : 'text-slate-300'}`;
+}
+
+function getCommunityAuthErrorMessage(error) {
+  const message = error instanceof Error ? error.message : String(error);
+  if (/rate limit exceeded/i.test(message)) {
+    return 'Bu e-posta için giriş bağlantısı gönderme sınırına ulaşıldı. Yeni bağlantı istemeden önce biraz bekle; önceki e-postandaki en son bağlantıyı da kontrol et.';
+  }
+  return message;
+}
+
+function showCommunityInitializationError(error) {
+  const message = error instanceof Error
+    ? error.message
+    : error && typeof error === 'object' && typeof error.message === 'string'
+      ? error.message
+      : String(error);
+  if (/author_display_name.*(does not exist|schema cache)|column community_posts\.author_display_name does not exist/i.test(message)) {
+    communityElements.auth.hidden = true;
+    communityElements.setup.hidden = false;
+    communityElements.setup.querySelector('h2').textContent = 'Topluluk veritabanı güncellemesi gerekli';
+    communityElements.setup.querySelector('p').textContent = 'Supabase Dashboard → SQL Editor bölümünde projedeki supabase-schema.sql dosyasının tamamını çalıştırın. İşlem tamamlanınca sayfayı yenileyin; mevcut eski tablolar için eksik kolonlar otomatik eklenir.';
+    setCommunityStatus('Topluluk veritabanı güncel değil. Önce supabase-schema.sql dosyasını çalıştırmalısın.', true);
+    return;
+  }
+  setCommunityStatus(`Topluluk başlatılamadı: ${message}`, true);
 }
 
 function normalizeCommunityText(text) {
@@ -55,9 +84,20 @@ function formatCommunityDate(value) {
   return Number.isNaN(date.valueOf()) ? 'Tarih bilgisi yok' : date.toLocaleString('tr-TR');
 }
 
+function clearAuthCallbackParameters() {
+  const callbackUrl = new URL(window.location.href);
+  const hasCode = callbackUrl.searchParams.has('code');
+  const hasError = callbackUrl.searchParams.has('error') || callbackUrl.searchParams.has('error_description');
+  const hasAuthToken = /(?:^|&)(?:access_token|refresh_token|token_type)=/.test(callbackUrl.hash.slice(1));
+  if (!hasCode && !hasError && !hasAuthToken) return;
+  ['code', 'error', 'error_code', 'error_description'].forEach(key => callbackUrl.searchParams.delete(key));
+  if (hasAuthToken) callbackUrl.hash = '';
+  window.history.replaceState(window.history.state, '', `${callbackUrl.pathname}${callbackUrl.search}${callbackUrl.hash}`);
+}
+
 async function verifyImageFile(file) {
-  if (!file || !['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-    throw new Error('JPG, PNG veya WebP biçiminde bir fotoğraf seç.');
+  if (!file) {
+    throw new Error('Fotoğraf seçilmedi. Bilgisayarındaki bir JPG, PNG veya WebP dosyasını seç.');
   }
   if (file.size < 12 || file.size > COMMUNITY_IMAGE_LIMIT) {
     throw new Error('Fotoğraf 12 bayttan büyük ve 8 MB veya daha küçük olmalıdır.');
@@ -67,15 +107,14 @@ async function verifyImageFile(file) {
   const isJpeg = bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff;
   const isWebp = String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF'
     && String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP';
-  const typeMatchesSignature = (isPng && file.type === 'image/png')
-    || (isJpeg && file.type === 'image/jpeg')
-    || (isWebp && file.type === 'image/webp');
-  if (!typeMatchesSignature) {
-    throw new Error('Dosyanın gerçek biçimi desteklenen bir fotoğraf değil.');
+  const detectedType = isPng ? 'image/png' : isJpeg ? 'image/jpeg' : isWebp ? 'image/webp' : '';
+  if (!detectedType) {
+    throw new Error('JPG, PNG veya WebP biçiminde bir fotoğraf seç.');
   }
+  return detectedType;
 }
 
-async function sanitizeCommunityImage(file) {
+async function sanitizeCommunityImage(file, inputType) {
   const bitmap = await createImageBitmap(file);
   const scale = Math.min(1, 2560 / Math.max(bitmap.width, bitmap.height));
   const canvas = document.createElement('canvas');
@@ -89,12 +128,12 @@ async function sanitizeCommunityImage(file) {
   context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
   bitmap.close();
 
-  const outputType = file.type === 'image/png' ? 'image/png' : 'image/webp';
-  const blob = await new Promise((resolve, reject) => {
-    canvas.toBlob(result => result
-      ? resolve(result)
-      : reject(new Error('Fotoğraf yeniden kodlanamadı.')), outputType, 0.88);
-  });
+  const outputType = inputType === 'image/png' ? 'image/png' : 'image/jpeg';
+  let blob = await new Promise(resolve => canvas.toBlob(resolve, outputType, 0.88));
+  if (!blob && outputType !== 'image/jpeg') {
+    blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.88));
+  }
+  if (!blob) throw new Error('Fotoğraf yeniden kodlanamadı. Başka bir görüntü biçimi deneyin.');
   if (blob.size > COMMUNITY_IMAGE_LIMIT) {
     throw new Error('İşlenmiş fotoğraf 8 MB sınırını aşıyor; daha küçük bir fotoğraf seç.');
   }
@@ -114,14 +153,20 @@ async function loadCommunityProfile() {
   communityElements.displayName.value = data?.display_name || '';
 }
 
+async function saveCommunityProfile(displayName) {
+  const { error } = await communityClient
+    .from('community_profiles')
+    .upsert({
+      user_id: activeCommunityUser.id,
+      display_name: displayName,
+      updated_at: new Date().toISOString()
+    });
+  if (error) throw error;
+}
+
 async function loadOwnCommunityQueue() {
   const { data, error } = await communityClient
-    .from('community_posts')
-    .select('id, question, species_name, status, created_at')
-    .eq('author_id', activeCommunityUser.id)
-    .in('status', ['pending', 'rejected'])
-    .order('created_at', { ascending: false })
-    .limit(10);
+    .rpc('get_my_community_post_queue');
   if (error) throw error;
 
   communityElements.ownQueue.replaceChildren();
@@ -139,7 +184,7 @@ async function renderCommunityFeed() {
   communityElements.feed.replaceChildren();
   const { data: posts, error } = await communityClient
     .from('community_posts')
-    .select('id, question, species_name, image_path, created_at, author_id, community_profiles(display_name)')
+    .select('id, question, species_name, image_path, created_at, author_display_name')
     .eq('status', 'published')
     .order('created_at', { ascending: false })
     .limit(20);
@@ -159,7 +204,7 @@ async function renderCommunityFeed() {
   const [commentResult, imageResult] = await Promise.all([
     communityClient
       .from('community_comments')
-      .select('id, post_id, body, created_at, community_profiles(display_name)')
+      .select('id, post_id, body, created_at, author_display_name')
       .in('post_id', postIds)
       .eq('status', 'published')
       .order('created_at'),
@@ -197,7 +242,7 @@ async function renderCommunityFeed() {
     const meta = makeCommunityElement(
       'p',
       'text-xs text-slate-400',
-      `${post.community_profiles?.display_name || 'Topluluk üyesi'} · ${formatCommunityDate(post.created_at)}`
+      `${post.author_display_name || 'Topluluk üyesi'} · ${formatCommunityDate(post.created_at)}`
     );
     body.append(title, meta);
     if (post.species_name) body.append(makeCommunityElement('p', 'text-sm text-emerald-200', post.species_name));
@@ -208,7 +253,7 @@ async function renderCommunityFeed() {
     if (!postComments.length) comments.append(makeCommunityElement('p', 'text-xs text-slate-500', 'Henüz onaylanmış yorum yok.'));
     for (const comment of postComments) {
       const commentCard = makeCommunityElement('p', 'break-words rounded-lg bg-slate-950/60 p-3 text-sm text-slate-300');
-      const author = makeCommunityElement('span', 'mr-2 font-semibold text-emerald-200', comment.community_profiles?.display_name || 'Topluluk üyesi');
+      const author = makeCommunityElement('span', 'mr-2 font-semibold text-emerald-200', comment.author_display_name || 'Topluluk üyesi');
       commentCard.append(author, document.createTextNode(comment.body));
       comments.append(commentCard);
     }
@@ -242,14 +287,31 @@ async function renderCommunityFeed() {
 }
 
 async function showCommunityUser(user) {
+  const previousUserId = activeCommunityUser?.id || null;
   activeCommunityUser = user || null;
   communityElements.auth.hidden = Boolean(user);
   communityElements.members.hidden = !user;
+  communityElements.loginCta.querySelector('span').textContent = user
+    ? 'Paylaşım paneline git'
+    : 'Giriş yap / fotoğraf paylaş';
+  communityElements.loginCta.href = user ? '#communityMemberPanel' : '#communityAuthPanel';
   if (user) {
     communityElements.signedInLabel.textContent = 'Giriş yapıldı · e-posta gizlidir';
+    if (previousUserId !== user.id) setCommunityStatus('Giriş başarılı. Bu sayfa artık bilgisayarındaki oturumla güncellendi.');
     await Promise.all([loadCommunityProfile(), loadOwnCommunityQueue()]);
+  } else {
+    communityElements.ownQueue.replaceChildren();
+    communityElements.displayName.value = '';
   }
   await renderCommunityFeed();
+}
+
+function queueCommunityUserUpdate(user) {
+  communityAuthQueue = communityAuthQueue
+    .then(() => showCommunityUser(user))
+    .catch(error => {
+      setCommunityStatus(`Topluluk oturumu güncellenemedi: ${error.message}`, true);
+    });
 }
 
 async function submitCommunityPost(event) {
@@ -265,20 +327,12 @@ async function submitCommunityPost(event) {
     validateCommunityText(displayName);
     validateCommunityText(question);
     if (speciesName) validateCommunityText(speciesName);
-    await verifyImageFile(file);
-    const safeImage = await sanitizeCommunityImage(file);
+    const inputType = await verifyImageFile(file);
+    const safeImage = await sanitizeCommunityImage(file, inputType);
+    await saveCommunityProfile(displayName);
 
-    const { error: profileError } = await communityClient
-      .from('community_profiles')
-      .upsert({
-        user_id: activeCommunityUser.id,
-        display_name: displayName,
-        updated_at: new Date().toISOString()
-      });
-    if (profileError) throw profileError;
-
-    const extension = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[safeImage.type];
-    const imagePath = `community/${activeCommunityUser.id}/${crypto.randomUUID()}.${extension}`;
+    const extension = { 'image/jpeg': 'jpg', 'image/png': 'png' }[safeImage.type];
+    const imagePath = `community/${crypto.randomUUID()}.${extension}`;
     const { error: uploadError } = await communityClient.storage
       .from(COMMUNITY_BUCKET)
       .upload(imagePath, safeImage, { contentType: safeImage.type, cacheControl: '3600', upsert: false });
@@ -288,6 +342,7 @@ async function submitCommunityPost(event) {
       .from('community_posts')
       .insert({
         author_id: activeCommunityUser.id,
+        author_display_name: displayName,
         question,
         species_name: speciesName || null,
         image_path: imagePath
@@ -300,6 +355,7 @@ async function submitCommunityPost(event) {
 
     communityElements.postForm.reset();
     communityElements.questionCount.textContent = '0';
+    communityElements.photoName.textContent = 'Henüz fotoğraf seçilmedi.';
     communityElements.displayName.value = displayName;
     await loadOwnCommunityQueue();
     setCommunityStatus('Gönderin alındı. Yönetici onayından sonra herkese görünür olacak.');
@@ -320,11 +376,18 @@ async function submitCommunityComment(event) {
   try {
     const body = textarea.value.trim();
     validateCommunityText(body);
+    const displayName = communityElements.displayName.value.trim();
+    validateCommunityText(displayName);
+    if (displayName.length < 2 || displayName.length > 32) {
+      throw new Error('Yorum yapmadan önce takma adını 2–32 karakter arasında belirle.');
+    }
+    await saveCommunityProfile(displayName);
     const { error } = await communityClient
       .from('community_comments')
       .insert({
         post_id: form.dataset.commentPostId,
         author_id: activeCommunityUser.id,
+        author_display_name: displayName,
         body
       });
     if (error) throw error;
@@ -347,38 +410,46 @@ async function initializeCommunity() {
   communityElements.auth.hidden = false;
   communityElements.loginForm.addEventListener('submit', async event => {
     event.preventDefault();
+    const submit = communityElements.loginForm.querySelector('button[type="submit"], button:not([type])');
+    submit.disabled = true;
     setCommunityStatus('Giriş bağlantısı gönderiliyor...');
-    const { error } = await communityClient.auth.signInWithOtp({
-      email: communityElements.email.value.trim(),
-      options: {
-        shouldCreateUser: true,
-        emailRedirectTo: new URL('community.html', window.location.href).href
-      }
-    });
-    if (error) {
-      setCommunityStatus(`Giriş bağlantısı gönderilemedi: ${error.message}`, true);
-      return;
+    try {
+      const { error } = await communityClient.auth.signInWithOtp({
+        email: communityElements.email.value.trim().toLowerCase(),
+        options: {
+          shouldCreateUser: true,
+          emailRedirectTo: COMMUNITY_AUTH_REDIRECT_URL
+        }
+      });
+      if (error) throw error;
+      setCommunityStatus('Giriş bağlantısını e-postana gönderdik. Linki telefondan veya bilgisayardan açabilirsin; ExoticPetsHub topluluk sayfası açılacak.');
+    } catch (error) {
+      setCommunityStatus(`Giriş bağlantısı gönderilemedi: ${getCommunityAuthErrorMessage(error)}`, true);
+    } finally {
+      submit.disabled = false;
     }
-    setCommunityStatus('E-posta kutuna giriş bağlantısı gönderdik. Bağlantı seni bu topluluk sayfasına geri getirir.');
   });
 
   communityElements.question.addEventListener('input', () => {
     communityElements.questionCount.textContent = String(communityElements.question.value.length);
   });
+  communityElements.photo.addEventListener('change', () => {
+    const file = communityElements.photo.files[0];
+    communityElements.photoName.textContent = file
+      ? `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`
+      : 'Henüz fotoğraf seçilmedi.';
+  });
   communityElements.postForm.addEventListener('submit', submitCommunityPost);
   communityElements.feed.addEventListener('submit', submitCommunityComment);
   communityElements.signOut.addEventListener('click', async () => {
-    const { error } = await communityClient.auth.signOut();
-    if (error) {
+    try {
+      const { error } = await communityClient.auth.signOut();
+      if (error) throw error;
+      await showCommunityUser(null);
+      setCommunityStatus('Oturum kapatıldı.');
+    } catch (error) {
       setCommunityStatus(`Çıkış yapılamadı: ${error.message}`, true);
-      return;
     }
-    activeCommunityUser = null;
-    communityElements.members.hidden = true;
-    communityElements.auth.hidden = false;
-    communityElements.ownQueue.replaceChildren();
-    await renderCommunityFeed();
-    setCommunityStatus('Oturum kapatıldı.');
   });
 
   const { data, error } = await communityClient.auth.getSession();
@@ -386,16 +457,32 @@ async function initializeCommunity() {
     setCommunityStatus(`Oturum doğrulanamadı: ${error.message}`, true);
     return;
   }
+  clearAuthCallbackParameters();
   await showCommunityUser(data.session?.user || null);
   communityClient.auth.onAuthStateChange((_event, session) => {
-    void showCommunityUser(session?.user || null).catch(error => {
-      setCommunityStatus(`Topluluk verileri yüklenemedi: ${error.message}`, true);
+    window.setTimeout(() => queueCommunityUserUpdate(session?.user || null), 0);
+  });
+  window.addEventListener('pageshow', () => {
+    void communityClient.auth.getSession().then(({ data: sessionData, error: sessionError }) => {
+      if (sessionError) throw sessionError;
+      queueCommunityUserUpdate(sessionData.session?.user || null);
+    }).catch(error => {
+      setCommunityStatus(`E-posta giriş oturumu yenilenemedi: ${error.message}`, true);
+    });
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible') return;
+    void communityClient.auth.getSession().then(({ data: sessionData, error: sessionError }) => {
+      if (sessionError) throw sessionError;
+      queueCommunityUserUpdate(sessionData.session?.user || null);
+    }).catch(error => {
+      setCommunityStatus(`E-posta giriş oturumu yenilenemedi: ${error.message}`, true);
     });
   });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   void initializeCommunity().catch(error => {
-    setCommunityStatus(`Topluluk başlatılamadı: ${error.message}`, true);
+    showCommunityInitializationError(error);
   });
 });

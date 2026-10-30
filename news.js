@@ -1,30 +1,5 @@
-const TERRA_NEWS_SOURCES = [
-  {
-    name: 'BBC News Türkçe',
-    url: 'https://feeds.bbci.co.uk/turkce/rss.xml',
-    language: 'tr',
-    groups: ['world', 'turkey']
-  },
-  {
-    name: 'DW Türkçe',
-    url: 'https://rss.dw.com/xml/rss-tur-all',
-    language: 'tr',
-    groups: ['world', 'turkey']
-  },
-  {
-    name: 'Mongabay',
-    url: 'https://news.mongabay.com/feed/',
-    language: 'en',
-    groups: ['world']
-  },
-  {
-    name: 'Phys.org Biology',
-    url: 'https://phys.org/rss-feed/biology-news/',
-    language: 'en',
-    groups: ['world']
-  }
-];
-const TERRA_NEWS_CACHE_KEY = 'terra_news_archive_v3';
+const TERRA_NEWS_SOURCES = window.TERRA_NEWS_SOURCES;
+const TERRA_NEWS_CACHE_KEY = 'terra_news_archive_v5';
 const TERRA_NEWS_CACHE_DURATION = 24 * 60 * 60 * 1000;
 const TERRA_NEWS_MAX_AGE = 180 * 24 * 60 * 60 * 1000;
 const TERRA_NEWS_RECENT_AGE = 30 * 24 * 60 * 60 * 1000;
@@ -81,7 +56,8 @@ function readNewsCache() {
     return {
       fetchedAt: cache.fetchedAt,
       worldItems: validNewsItems(cache.worldItems),
-      turkeyItems: validNewsItems(cache.turkeyItems)
+      turkeyItems: validNewsItems(cache.turkeyItems),
+      fromServer: cache.fromServer === true
     };
   } catch (error) {
     console.warn('Haber arşivi okunamadı:', error.message);
@@ -120,10 +96,33 @@ function renderNews(items, container) {
     const summary = document.createElement('p');
     summary.className = 'mt-3 flex-1 text-sm leading-relaxed text-slate-300';
     summary.textContent = item.summary || 'Haberi kaynağında okuyun.';
+    const translationNote = document.createElement('p');
+    translationNote.className = 'mt-2 text-xs text-amber-200';
+    let originalDetails = null;
+    if (item.translated && item.originalTitle) {
+      translationNote.textContent = `Google Cloud Translation · makine çevirisi${item.originalLanguage ? ` (${item.originalLanguage.toLocaleUpperCase('tr-TR')} → TR)` : ''}`;
+      originalDetails = document.createElement('details');
+      originalDetails.className = 'mt-2 text-xs text-slate-400';
+      const originalSummary = document.createElement('summary');
+      originalSummary.className = 'cursor-pointer text-emerald-300';
+      originalSummary.textContent = 'Özgün başlık ve özet';
+      const originalTitle = document.createElement('p');
+      originalTitle.className = 'mt-2 font-semibold text-slate-300';
+      originalTitle.textContent = item.originalTitle;
+      const originalDescription = document.createElement('p');
+      originalDescription.className = 'mt-1';
+      originalDescription.textContent = item.originalSummary;
+      originalDetails.append(originalSummary, originalTitle, originalDescription);
+    } else if (item.originalLanguage === 'en' || item.language === 'en') {
+      translationNote.textContent = 'İngilizce kaynak · çeviri kullanılamıyor';
+    }
     const meta = document.createElement('p');
     meta.className = 'mt-4 text-xs text-slate-500';
     meta.textContent = `${item.publishedAt ? new Date(item.publishedAt).toLocaleDateString('tr-TR') : 'Tarih belirtilmemiş'} · Kaynak habere git`;
-    card.append(source, title, summary, meta);
+    card.append(source, title);
+    if (translationNote.textContent) card.append(translationNote);
+    if (originalDetails) card.append(originalDetails);
+    card.append(summary, meta);
     container.append(card);
   }
 }
@@ -158,11 +157,13 @@ function parseNewsFeed(xml, source) {
     const rawDate = item.querySelector('pubDate')?.textContent
       || item.querySelector('date')?.textContent
       || item.querySelector('published')?.textContent;
+    const category = cleanNewsText(item.querySelector('category')?.textContent, 80);
     const timestamp = rawDate ? Date.parse(rawDate) : NaN;
     const publishedAt = Number.isFinite(timestamp) ? new Date(timestamp).toISOString() : '';
     return {
       source: source.name,
       language: source.language,
+      category,
       title,
       summary: description,
       link,
@@ -170,7 +171,7 @@ function parseNewsFeed(xml, source) {
       timestamp: Number.isFinite(timestamp) ? timestamp : 0
     };
   }).filter(item => item.title && item.link
-    && TERRA_NEWS_RELEVANCE.test(`${item.title} ${item.summary}`.toLocaleLowerCase('tr-TR')));
+    && (source.includeAll || TERRA_NEWS_RELEVANCE.test(`${item.title} ${item.summary}`.toLocaleLowerCase('tr-TR'))));
 }
 
 async function fetchNewsSource(source) {
@@ -188,23 +189,57 @@ async function fetchNewsSource(source) {
   }
 }
 
-function mergeNewsItems(existingItems, incomingItems, cutoff) {
+function mergeNewsItems(existingItems, incomingItems, cutoff, requireRelevance = true) {
   const unique = new Map();
   for (const item of [...existingItems, ...incomingItems]) {
     if (item.timestamp && item.timestamp < cutoff) continue;
-    if (!TERRA_NEWS_RELEVANCE.test(`${item.title} ${item.summary}`.toLocaleLowerCase('tr-TR'))) continue;
+    if (requireRelevance && !TERRA_NEWS_RELEVANCE.test(`${item.title} ${item.summary}`.toLocaleLowerCase('tr-TR'))) continue;
     const key = item.link.toLowerCase();
     if (!unique.has(key)) unique.set(key, item);
   }
   return Array.from(unique.values())
     .sort((a, b) => {
+      const relevanceOrder = Number(TERRA_NEWS_RELEVANCE.test(`${b.title} ${b.summary}`.toLocaleLowerCase('tr-TR')))
+        - Number(TERRA_NEWS_RELEVANCE.test(`${a.title} ${a.summary}`.toLocaleLowerCase('tr-TR')));
+      if (relevanceOrder) return relevanceOrder;
       const languageOrder = Number(a.language !== 'tr') - Number(b.language !== 'tr');
       return languageOrder || b.timestamp - a.timestamp;
     })
     .slice(0, TERRA_NEWS_ARCHIVE_LIMIT);
 }
 
-async function fetchLatestNews(cache) {
+async function fetchServerNews() {
+  const response = await fetch('/api/news', { cache: 'no-store' });
+  if (!response.ok) throw new Error(`Merkezi haber arşivi HTTP ${response.status} yanıtı verdi.`);
+  const archive = await response.json();
+  if (!archive || !Number.isFinite(archive.fetchedAt) || archive.fetchedAt <= 0
+    || !Array.isArray(archive.worldItems) || !Array.isArray(archive.turkeyItems)
+    || (!archive.worldItems.length && !archive.turkeyItems.length)) {
+    throw new Error('Merkezi haber arşivi henüz doldurulmamış.');
+  }
+  const now = Date.now();
+  return {
+    worldItems: mergeNewsItems(
+      [],
+      validNewsItems(archive.worldItems),
+      now - TERRA_NEWS_RECENT_AGE
+    ),
+    turkeyItems: mergeNewsItems(
+      [],
+      validNewsItems(archive.turkeyItems),
+      now - TERRA_NEWS_MAX_AGE,
+      false
+    ),
+    fetchedAt: archive.fetchedAt,
+    errors: [],
+    fromServer: true,
+    translationEnabled: archive.translationEnabled === true,
+    translatedEnglishCount: Number(archive.translatedEnglishCount) || 0,
+    untranslatedEnglishCount: Number(archive.untranslatedEnglishCount) || 0
+  };
+}
+
+async function fetchLatestNewsFromFeeds(cache) {
   const results = await Promise.allSettled(TERRA_NEWS_SOURCES.map(fetchNewsSource));
   const incomingWorld = [];
   const incomingTurkey = [];
@@ -218,7 +253,9 @@ async function fetchLatestNews(cache) {
     result.value.forEach(item => {
       if (source.groups.includes('world')) incomingWorld.push(item);
       if (source.groups.includes('turkey') && item.language === 'tr'
-        && TERRA_NEWS_TURKEY.test(`${item.title} ${item.summary}`.toLocaleLowerCase('tr-TR'))) {
+        && (source.includeAll
+          ? !/(^|\s)(dünya|world)(\s|$)/i.test(item.category)
+          : TERRA_NEWS_TURKEY.test(`${item.title} ${item.summary}`.toLocaleLowerCase('tr-TR')))) {
         incomingTurkey.push(item);
       }
     });
@@ -233,12 +270,23 @@ async function fetchLatestNews(cache) {
   const turkeyItems = mergeNewsItems(
     cache?.turkeyItems || [],
     incomingTurkey,
-    now - TERRA_NEWS_MAX_AGE
+    now - TERRA_NEWS_MAX_AGE,
+    false
   );
   if (!results.some(result => result.status === 'fulfilled')) {
     throw new Error(errors.join(' · ') || 'Haber kaynaklarına erişilemedi.');
   }
-  return { worldItems, turkeyItems, errors };
+  return { worldItems, turkeyItems, errors, fromServer: false };
+}
+
+async function fetchLatestNews(cache) {
+  try {
+    return await fetchServerNews();
+  } catch (archiveError) {
+    const fallback = await fetchLatestNewsFromFeeds(cache);
+    fallback.archiveError = archiveError.message;
+    return fallback;
+  }
 }
 
 async function refreshTerraNews(force = false) {
@@ -247,7 +295,10 @@ async function refreshTerraNews(force = false) {
   if (!force && cache && now - cache.fetchedAt < TERRA_NEWS_CACHE_DURATION) {
     renderNewsFeeds(cache.worldItems, cache.turkeyItems);
     latestNewsRefresh = cache.fetchedAt;
-    setNewsStatus(`Akışlar bu tarayıcıda saklanıyor; son kontrol ${new Date(cache.fetchedAt).toLocaleString('tr-TR')}. Her gün siteyi ziyaret ettiğinde kaynaklar yeniden kontrol edilir.`);
+    const cacheNote = cache.fromServer
+      ? 'Merkezi akış Vercel zamanlamasıyla her gün yenilenir.'
+      : 'Bu yedek akış yalnızca bu tarayıcıya aittir.';
+    setNewsStatus(`Haber arşivi bu tarayıcıda önbellekli · ${new Date(cache.fetchedAt).toLocaleString('tr-TR')}. ${cacheNote}`);
     return;
   }
 
@@ -257,13 +308,14 @@ async function refreshTerraNews(force = false) {
   try {
     const result = await fetchLatestNews(cache);
     renderNewsFeeds(result.worldItems, result.turkeyItems);
-    latestNewsRefresh = now;
+    latestNewsRefresh = result.fetchedAt || now;
     let cacheWarning = '';
     try {
       localStorage.setItem(TERRA_NEWS_CACHE_KEY, JSON.stringify({
-        fetchedAt: now,
+        fetchedAt: result.fetchedAt || now,
         worldItems: result.worldItems,
-        turkeyItems: result.turkeyItems
+        turkeyItems: result.turkeyItems,
+        fromServer: result.fromServer
       }));
     } catch (error) {
       console.warn('Haber arşivi kaydedilemedi:', error.message);
@@ -272,7 +324,21 @@ async function refreshTerraNews(force = false) {
     const sourceNote = result.errors.length
       ? ` Bazı kaynaklar yanıt vermedi: ${result.errors.join(' · ')}`
       : '';
-    setNewsStatus(`Günlük kontrol tamamlandı · ${new Date(now).toLocaleString('tr-TR')}. Türkiye arşivi bu tarayıcıda biriktirilir; merkezi sunucu arşivi değildir.${sourceNote}${cacheWarning}`, Boolean(result.errors.length || cacheWarning));
+    let archiveNote = ` Merkezi arşiv kullanılamıyor (${result.archiveError}). Tarayıcı bu oturumda RSS kaynaklarını doğrudan kontrol etti; arşiv bu cihaza özeldir.`;
+    if (result.fromServer) {
+      archiveNote = ' Merkezi Vercel/Supabase arşivi; RSS kaynakları her gün otomatik güncellenir.';
+      if (!result.translationEnabled) {
+        archiveNote += ' Google Cloud Translation anahtarı tanımlı değil; İngilizce haberler özgün dilinde gösterilir.';
+      } else if (result.translatedEnglishCount) {
+        archiveNote += ` ${result.translatedEnglishCount} İngilizce haber Türkçeye çevrildi.`;
+        if (result.untranslatedEnglishCount) archiveNote += ` ${result.untranslatedEnglishCount} haber çevirilemedi ve özgün dilinde bırakıldı.`;
+      } else if (!result.untranslatedEnglishCount) {
+        archiveNote += ' Arşivde şu anda İngilizce haber bulunmuyor.';
+      } else {
+        archiveNote += ' İngilizce haberler henüz çevrilmedi; kaynak dilinde gösteriliyor.';
+      }
+    }
+    setNewsStatus(`Son arşiv kontrolü ${new Date(result.fetchedAt || now).toLocaleString('tr-TR')}.${archiveNote}${sourceNote}${cacheWarning}`, Boolean(result.errors.length || cacheWarning || !result.fromServer));
   } catch (error) {
     if (cache?.worldItems.length || cache?.turkeyItems.length) {
       renderNewsFeeds(cache.worldItems, cache.turkeyItems);

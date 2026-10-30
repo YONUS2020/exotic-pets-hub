@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#060e0a">
   <link rel="icon" type="image/svg+xml" href="assets/dragon.svg">
-  <title>Yaban Hayatı Haberleri | TerraExotica</title>
-  <meta name="description" content="Dünyadan güncel yaban hayatı haberleri ve Türkiye'den tarihli Türkçe doğa haberleri. Her haberin özgün kaynak bağlantısını keşfet.">
+  <title>Yaban Hayatı Haberleri | exoticpetshub</title>
+  <meta name="description" content="Dünyadan güncel yaban hayatı haberleri ve Türkiye gündeminden Türkçe, tarihli haberler. Her haberin özgün kaynak bağlantısını keşfet.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://terraexotica.vercel.app/news.html">
+  <link rel="canonical" href="https://exoticpetshub.com.tr/news">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="tr_TR">
-  <meta property="og:site_name" content="TerraExotica">
-  <meta property="og:title" content="Yaban Hayatı Haberleri | TerraExotica">
-  <meta property="og:description" content="Dünyadan güncel doğa haberleri ve Türkiye'den tarihli Türkçe haberler.">
-  <meta property="og:url" content="https://terraexotica.vercel.app/news.html">
+  <meta property="og:site_name" content="exoticpetshub">
+  <meta property="og:title" content="Yaban Hayatı Haberleri | exoticpetshub">
+  <meta property="og:description" content="Dünyadan güncel doğa haberleri ve Türkiye gündeminden tarihli Türkçe haberler.">
+  <meta property="og:url" content="https://exoticpetshub.com.tr/news">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
@@ -22,12 +22,12 @@
 <body class="bg-terrarium text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
   <header class="sticky top-0 z-40 border-b border-emerald-900/30 bg-slate-950/90 backdrop-blur-md">
     <div class="mx-auto flex min-h-20 max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-      <a href="index.html" class="flex items-center gap-3" aria-label="TerraExotica ana sayfa">
+      <a href="index.html" class="flex items-center gap-3" aria-label="exoticpetshub ana sayfa">
         <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-800 shadow-lg">
           <img src="assets/dragon.svg" alt="" class="h-7 w-7 brightness-0 invert">
         </span>
         <span>
-          <span class="block text-xl font-bold tracking-wider text-gradient-emerald">TERRA EXOTICA</span>
+          <span class="block text-xl font-bold tracking-wider text-gradient-emerald">ExoticPetsHub</span>
           <span class="block text-xs uppercase tracking-widest text-emerald-400/80">Haber arşivi</span>
         </span>
       </a>
@@ -48,7 +48,7 @@
       <div>
         <p class="text-sm font-bold uppercase tracking-widest text-emerald-300">Dünyadan ve Türkiye'den</p>
         <h1 class="mt-2 text-4xl font-extrabold text-white sm:text-5xl">Yaban hayatı haberleri</h1>
-        <p class="mt-3 max-w-3xl text-base leading-relaxed text-slate-300">Güncel dünya haberlerinde Türkçe yayınlara öncelik verilir. Türkiye akışında yalnızca Türkçe RSS haberleri ve yayın tarihleri gösterilir; daha eski haberler bu tarayıcıda arşivlenir.</p>
+        <p class="mt-3 max-w-3xl text-base leading-relaxed text-slate-300">Güncel dünya haberlerinde Türkçe yayınlara öncelik verilir. Türkiye gündeminde Hürriyet, BBC Türkçe ve DW Türkçe akışları kullanılır; doğa ve hayvan haberleri öne çıkar, her kartın tarihi gösterilir.</p>
       </div>
       <button id="refreshNewsButton" type="button" class="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-emerald-700/60 px-4 py-2.5 text-sm font-semibold text-emerald-200 hover:bg-emerald-950/50">
         <i class="fa-solid fa-rotate" aria-hidden="true"></i> Haberleri yenile
@@ -61,17 +61,18 @@
         <div id="worldNewsFeed" data-news-limit="100" class="grid gap-4 sm:grid-cols-2" aria-live="polite"></div>
       </section>
       <section aria-labelledby="turkeyNewsHeading">
-        <h2 id="turkeyNewsHeading" class="mb-4 text-2xl font-bold text-white">Türkiye'den haberler <span class="text-base font-normal text-slate-400">· Türkçe ve tarihli</span></h2>
+        <h2 id="turkeyNewsHeading" class="mb-4 text-2xl font-bold text-white">Türkiye gündeminden <span class="text-base font-normal text-slate-400">· Türkçe, tarihli · doğa öncelikli</span></h2>
         <div id="turkeyNewsFeed" data-news-limit="250" class="grid gap-4 sm:grid-cols-2" aria-live="polite"></div>
       </section>
     </div>
     <div id="newsSourceLinks" class="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-slate-400"></div>
-    <p class="mt-6 max-w-4xl text-xs leading-relaxed text-slate-500">Haber başlıkları, kısa özetler, tarihler ve bağlantılar özgün RSS yayınlarından alınır. Akışlar otomatik çevrilmez. Günlük yenileme bu sayfayı ziyaret ettiğinde yapılır; biriken arşiv yalnızca bu tarayıcıda saklanır, herkese açık merkezi sunucu arşivi değildir.</p>
+    <p class="mt-6 max-w-4xl text-xs leading-relaxed text-slate-500">Haber başlıkları, kısa özetler, tarihler ve bağlantılar özgün RSS yayınlarından alınır. İngilizce dünya haberleri yapılandırıldığında Google Cloud Translation ile Türkçeye çevrilir; özgün başlık da kartta açılabilir ve kaynak bağlantısı korunur. Otomatik çeviri hatalı olabilir. Vercel zamanlanmış görevi akışları her gün alıp Supabase arşivine kaydeder; arşiv 180 gün saklanır.</p>
   </main>
 
   <footer class="border-t border-emerald-900/30 bg-slate-950/80 py-6 text-center text-xs text-slate-500">
-    <p>© TerraExotica · Haberlerin tüm hakları ve içerikleri özgün yayıncılarına aittir.</p>
+    <p>© exoticpetshub · Haberlerin tüm hakları ve içerikleri özgün yayıncılarına aittir.</p>
   </footer>
+  <script src="news-sources.js"></script>
   <script src="news.js"></script>
 </body>
 </html>

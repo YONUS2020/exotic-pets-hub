@@ -155,12 +155,12 @@ async function refreshCommunityModeration() {
   const [postsResult, commentsResult] = await Promise.all([
     adminSpeciesClient
       .from('community_posts')
-      .select('id, question, species_name, image_path, created_at, community_profiles(display_name)')
+      .select('id, question, species_name, image_path, created_at, author_display_name')
       .eq('status', 'pending')
       .order('created_at'),
     adminSpeciesClient
       .from('community_comments')
-      .select('id, body, created_at, community_profiles(display_name), community_posts(question, species_name)')
+      .select('id, body, created_at, author_display_name, community_posts(question, species_name)')
       .eq('status', 'pending')
       .order('created_at')
   ]);
@@ -205,7 +205,7 @@ async function refreshCommunityModeration() {
     }
     const author = document.createElement('p');
     author.className = 'text-xs text-emerald-300';
-    author.textContent = `${post.community_profiles?.display_name || 'İsimsiz kullanıcı'} · ${new Date(post.created_at).toLocaleString('tr-TR')}`;
+    author.textContent = `${post.author_display_name || 'İsimsiz kullanıcı'} · ${new Date(post.created_at).toLocaleString('tr-TR')}`;
     const species = document.createElement('p');
     species.className = 'mt-1 text-xs text-slate-400';
     species.textContent = post.species_name || 'Tür belirtilmedi';
@@ -228,7 +228,7 @@ async function refreshCommunityModeration() {
     card.className = 'rounded-xl border border-slate-800 bg-slate-950/60 p-4';
     const author = document.createElement('p');
     author.className = 'text-xs text-emerald-300';
-    author.textContent = `${comment.community_profiles?.display_name || 'İsimsiz kullanıcı'} · ${new Date(comment.created_at).toLocaleString('tr-TR')}`;
+    author.textContent = `${comment.author_display_name || 'İsimsiz kullanıcı'} · ${new Date(comment.created_at).toLocaleString('tr-TR')}`;
     const context = document.createElement('p');
     context.className = 'mt-2 border-l-2 border-slate-700 pl-3 text-xs text-slate-400';
     context.textContent = `Gönderi: ${comment.community_posts?.question || 'Gönderi bulunamadı'}`;
@@ -250,14 +250,14 @@ async function authorizeAdmin(session) {
   const { data, error } = await adminSpeciesClient.rpc('is_terra_admin');
   if (error) {
     setAdminView('denied');
-    adminElements.denied.textContent = 'Yönetici yetkisi doğrulanamadı. Veritabanı kurulum adımlarını ve allowlist kaydını kontrol et.';
+    adminElements.denied.textContent = 'Yönetici yetkisi doğrulanamadı. Supabase veritabanı kurulumunu kontrol et.';
     showAdminStatus(error.message, true);
     return;
   }
 
   if (data !== true) {
     setAdminView('denied');
-    adminElements.denied.textContent = 'Bu hesap yönetim paneline izinli değil. Yönetici erişimi için izin listesine eklenmesi gerekir.';
+    adminElements.denied.textContent = 'Bu hesap yönetici hesabı değil. Yönetici erişimi yalnızca veritabanında tanımlı sahip hesabına açıktır.';
     await adminSpeciesClient.auth.signOut();
     return;
   }

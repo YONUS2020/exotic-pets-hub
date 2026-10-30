@@ -1,5 +1,5 @@
 /**
- * TerraExotica - Egzotik Hayvan Ansiklopedisi ve Hobici Takip Portalı
+ * exoticpetshub - Egzotik Hayvan Ansiklopedisi ve Hobici Takip Portalı
  * Ana Uygulama Mantığı (State, Filtreleme, CRUD, Chart.js, LocalStorage)
  */
 
@@ -14,6 +14,7 @@ const SPECIES_GROUPS = {
     category: 'invertebrate',
     ids: new Set([
       'red-knee-tarantula', 'chilean-rose-tarantula', 'curly-hair-tarantula',
+      'goliath-birdeater-tarantula', 'cobalt-blue-tarantula',
       'chaco-golden-knee', 'pink-toe-tarantula', 'indian-ornamental-tarantula',
       'zebra-knee-tarantula', 'mexican-fireleg-tarantula', 'brazilian-whiteknee-tarantula',
       'greenbottle-blue-tarantula', 'salmon-pink-birdeater', 'brazilian-black-tarantula',
@@ -27,20 +28,23 @@ const SPECIES_GROUPS = {
     ids: new Set([
       'corn-snake', 'ball-python', 'milk-snake', 'common-boa', 'carpet-python',
       'hognose-snake', 'green-tree-python', 'childrens-python', 'bredls-python',
-      'dumerils-boa', 'kenyan-sand-boa', 'brazilian-rainbow-boa'
+      'dumerils-boa', 'kenyan-sand-boa', 'brazilian-rainbow-boa',
+      'california-kingsnake', 'gopher-snake', 'black-rat-snake'
     ])
   },
   scorpion: {
     category: 'invertebrate',
     ids: new Set([
-      'emperor-scorpion', 'asian-forest-scorpion', 'red-claw-scorpion', 'desert-hairy-scorpion'
+      'emperor-scorpion', 'asian-forest-scorpion', 'heterometrus-petersii',
+      'red-claw-scorpion', 'desert-hairy-scorpion', 'arizona-bark-scorpion'
     ])
   },
   insect: {
     category: 'invertebrate',
     ids: new Set([
       'orchid-mantis', 'blue-death-feigning-beetle',
-      'madagascar-hissing-cockroach', 'giant-prickly-stick-insect'
+      'madagascar-hissing-cockroach', 'giant-prickly-stick-insect',
+      'philippine-leaf-insect'
     ])
   }
 };
@@ -97,6 +101,19 @@ function safeExternalUrl(value) {
   }
 }
 
+function safeAvatarSource(value) {
+  if (typeof value === 'string' && /^data:image\/(?:jpeg|png|webp);base64,[a-z0-9+/=]+$/i.test(value)) {
+    return value.length <= 6 * 1024 * 1024 ? value : '';
+  }
+  const externalUrl = safeExternalUrl(value);
+  if (externalUrl) return externalUrl;
+
+  const localAsset = String(value || '').trim();
+  return /^assets\/(?:species\/)?[a-z0-9-]+\.(?:jpe?g|png|webp|svg)$/i.test(localAsset)
+    ? localAsset
+    : '';
+}
+
 // =========================================================================
 // 1. BAŞLATMA & VERİ YÖNETİMİ (LOCAL STORAGE)
 // =========================================================================
@@ -130,18 +147,30 @@ function initStorage() {
   if (savedPets) {
     try {
       pets = JSON.parse(savedPets);
+      if (!Array.isArray(pets)) throw new Error('Kaydedilmiş canlı listesi geçersiz.');
       feedingLogs = savedFeedings ? JSON.parse(savedFeedings) : [];
       sheddingLogs = savedSheddings ? JSON.parse(savedSheddings) : [];
       weightLogs = savedWeights ? JSON.parse(savedWeights) : [];
-      activePetId = savedActivePetId || (pets.length > 0 ? pets[0].id : null);
+      activePetId = pets.some(pet => pet.id === savedActivePetId)
+        ? savedActivePetId
+        : (pets.length > 0 ? pets[0].id : null);
     } catch (e) {
-      console.error('LocalStorage okuma hatası, varsayılan demo yükleniyor:', e);
-      loadDefaultSeedData();
+      console.error('Kaydedilmiş takip verileri okunamadı:', e);
+      pets = [];
+      feedingLogs = [];
+      sheddingLogs = [];
+      weightLogs = [];
+      activePetId = null;
+      showToast('Takip kayıtları okunamadı. Yedeğiniz varsa içe aktarın.', 'error');
     }
 
   } else {
-    // İlk açılış: hobicinin deneyimleyebilmesi için hazır demo verileriyle doldur
-    loadDefaultSeedData();
+    pets = [];
+    feedingLogs = [];
+    sheddingLogs = [];
+    weightLogs = [];
+    activePetId = null;
+    saveAllToStorage();
   }
 }
 
@@ -215,10 +244,14 @@ function exportData() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `terra-exotica-yedek-${getTodayKey()}.json`;
+  a.download = `exoticpetshub-yedek-${getTodayKey()}.json`;
+  a.rel = 'noopener';
+  a.style.display = 'none';
+  document.body.append(a);
   a.click();
+  a.remove();
   URL.revokeObjectURL(url);
-  showToast('Tüm verileriniz JSON dosyası olarak indirildi.', 'info');
+  showToast('Yedeğin güvenli dosya olarak indirildi. Kod ekranı açılmayacak.', 'info');
 }
 
 function importData(event) {
@@ -265,8 +298,10 @@ function importData(event) {
 function initSpeciesCounts() {
   const stat = document.getElementById('statSpeciesCount');
   const allCount = document.getElementById('count-all');
+  const careTotal = document.getElementById('careSpeciesTotal');
   if (stat) stat.innerText = EXOTIC_ANIMALS_DATA.length;
   if (allCount) allCount.innerText = EXOTIC_ANIMALS_DATA.length;
+  if (careTotal) careTotal.textContent = EXOTIC_ANIMALS_DATA.length.toLocaleString('tr-TR');
 
   const counts = {
     reptile: 0,
@@ -629,8 +664,8 @@ function openAnimalModal(animalId) {
   if (animal.difficultyLevel === 4) diffBadge = 'bg-purple-950 text-purple-400 border-purple-700';
 
   body.innerHTML = `
-    <div class="flex flex-col md:flex-row gap-6 mb-6">
-      <div class="md:w-1/2 relative rounded-2xl overflow-hidden border border-emerald-800/40 shadow-xl bg-slate-900 h-64 md:h-auto">
+    <div class="flex flex-col md:flex-row gap-4 sm:gap-6 mb-5 sm:mb-6">
+      <div class="md:w-1/2 relative rounded-2xl overflow-hidden border border-emerald-800/40 shadow-xl bg-slate-900 h-48 sm:h-64 md:h-auto">
         <img src="${animal.image}" alt="${escapeHtml(animal.name)}" class="w-full h-full ${animal.isUserDefined ? 'object-contain p-16' : 'object-cover'}" decoding="async">
         <div class="absolute top-3 left-3 flex gap-2">
           <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-black/80 text-emerald-300 border border-emerald-500/30">
@@ -676,7 +711,7 @@ function openAnimalModal(animalId) {
     </div>
 
     <!-- İklim & Ortam Tablosu -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 text-xs">
+    <div class="grid grid-cols-1 min-[375px]:grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-5 sm:mb-6 text-xs">
       <div class="p-3 rounded-2xl bg-slate-900/90 border border-slate-800 text-center">
         <span class="text-slate-400 block text-[10px] uppercase">Sıcak Alan / Baskı</span>
         <strong class="text-base text-rose-400 block mt-0.5">${escapeHtml(animal.tempHot)}</strong>
@@ -736,14 +771,14 @@ function openAnimalModal(animalId) {
           <i class="fa-solid fa-book-open"></i> Bakım Kaynağı ve Bilgilendirme
         </h4>
         <p class="text-sm text-slate-300 leading-relaxed">Bakım özeti hobi kaynağına dayanır; veteriner tanısı veya tedavisi değildir. Birey, gelişim evresi ve kurulum koşulları farklılık gösterebilir. Sağlık endişesinde egzotik hayvan veterinerine danışın.</p>
-        ${safeExternalUrl(animal.careSourceUrl) ? `<a class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 underline hover:text-emerald-200" href="${escapeHtml(safeExternalUrl(animal.careSourceUrl))}" target="_blank" rel="noopener noreferrer">${escapeHtml(animal.careSourceLabel || 'Tür bakım kaynağını aç')} <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>` : '<p class="mt-2 text-xs text-amber-200">Bu kayıt için doğrulanmış tür bakım bağlantısı henüz eklenmedi; bakım koşullarını varsaymayın.</p>'}
+        ${safeExternalUrl(animal.careSourceUrl) ? `<p class="mt-2 text-xs text-slate-400">Bilgi kaynağı: ${escapeHtml(animal.careSourceLabel || new URL(safeExternalUrl(animal.careSourceUrl)).hostname.replace(/^www\./, ''))}. Özet bu sayfada sunulur.</p>` : '<p class="mt-2 text-xs text-amber-200">Bu kayıt için doğrulanmış tür bakım kaynağı henüz eklenmedi; bakım koşullarını varsaymayın.</p>'}
       </div>
     </div>
 
     <!-- Alt Buton: Bu Canlıyı Takip Paneline Ekle -->
-    <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
+    <div class="mt-5 sm:mt-6 pt-4 border-t border-slate-800 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <span class="text-xs text-slate-400">Bu türe mi sahipsiniz?</span>
-      <button onclick="prefillAddPetModal('${animal.id}')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-bold text-xs uppercase tracking-wider shadow flex items-center gap-2">
+      <button onclick="prefillAddPetModal('${animal.id}')" class="min-h-11 w-full justify-center px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-bold text-xs uppercase tracking-wider shadow flex items-center gap-2 sm:w-auto sm:px-5">
         <i class="fa-solid fa-plus-circle"></i> Bu Hayvanı Takip Listeme Ekle
       </button>
     </div>
@@ -782,7 +817,12 @@ function renderPetsTabs() {
   if (!container) return;
 
   if (pets.length === 0) {
-    container.innerHTML = '<span class="text-xs text-slate-500 italic">Kayıtlı canlı bulunamadı.</span>';
+    container.innerHTML = `
+      <button type="button" onclick="openAddPetModal()" class="col-span-1 flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-emerald-700/60 bg-emerald-950/20 px-4 py-3 text-sm font-semibold text-emerald-200 hover:border-emerald-400">
+        <i class="fa-solid fa-plus" aria-hidden="true"></i> İlk canlımı ekle
+      </button>
+      <span class="col-span-1 self-center text-xs text-slate-400">Kayıtların bu tarayıcıda kalır; cihaz değiştirirken yedek al.</span>
+    `;
     return;
   }
 
@@ -794,24 +834,27 @@ function renderPetsTabs() {
 
     return `
       <button
+        type="button"
         data-pet-id="${escapeHtml(pet.id)}"
-        class="flex items-center gap-3 px-4 py-2.5 rounded-2xl border transition-all whitespace-nowrap ${activeClasses}"
+        aria-pressed="${isActive}"
+        aria-label="${escapeHtml(pet.name)} adlı ${escapeHtml(pet.speciesName)} canlıyı seç"
+        class="flex min-h-16 w-full min-w-0 items-center gap-3 rounded-2xl border p-3 text-left transition-all hover:border-emerald-500/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 sm:w-auto sm:p-4 ${activeClasses}"
       >
-        <img src="${escapeHtml(pet.avatar || 'https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=150&q=80')}" alt="" class="w-10 h-10 rounded-full object-cover border border-emerald-500/50">
-        <div class="text-left">
-          <div class="text-sm font-bold leading-tight">${escapeHtml(pet.name)}</div>
-          <div class="text-xs text-emerald-400/80">${escapeHtml(pet.speciesName)}</div>
+        <img src="${escapeHtml(pet.avatar || 'https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=150&q=80')}" alt="" class="h-11 w-11 shrink-0 rounded-full border border-emerald-500/50 object-cover">
+        <div class="min-w-0">
+          <div class="break-words text-sm font-bold leading-tight">${escapeHtml(pet.name)}</div>
+          <div class="break-words text-xs text-emerald-400/80">${escapeHtml(pet.speciesName)}</div>
         </div>
       </button>
     `;
-    container.querySelectorAll('[data-pet-id]').forEach(button => {
-      button.addEventListener('click', () => setActivePet(button.dataset.petId));
-    });
   }).join('') + `
-    <button onclick="openAddPetModal()" class="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl border border-dashed border-emerald-600/50 hover:border-emerald-400 bg-emerald-950/20 text-emerald-400 hover:text-emerald-300 text-xs font-semibold whitespace-nowrap transition-all">
+    <button type="button" onclick="openAddPetModal()" class="flex min-h-14 w-full min-w-0 items-center justify-center gap-2 rounded-2xl border border-dashed border-emerald-600/50 bg-emerald-950/20 px-3 py-2.5 text-sm font-semibold text-emerald-300 transition-all hover:border-emerald-400 hover:text-white sm:w-auto">
       <i class="fa-solid fa-plus"></i> Yeni Ekle
     </button>
   `;
+  container.querySelectorAll('[data-pet-id]').forEach(button => {
+    button.addEventListener('click', () => setActivePet(button.dataset.petId));
+  });
 }
 
 function setActivePet(petId) {
@@ -839,6 +882,8 @@ function renderActivePetDashboard() {
 
   // Künye Bilgileri
   document.getElementById('activePetName').innerText = pet.name;
+  const quickActionPetName = document.getElementById('quickActionPetName');
+  if (quickActionPetName) quickActionPetName.innerText = pet.name;
   document.getElementById('activePetSpecies').innerText = pet.speciesName;
   document.getElementById('activePetGender').innerText = pet.gender || 'Bilinmiyor';
   document.getElementById('activePetAvatar').src = pet.avatar || 'https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=300&q=80';
@@ -975,7 +1020,9 @@ function resetTodayChecklist() {
 
 function switchTrackerSubTab(subtabName) {
   document.querySelectorAll('.tracker-subtab').forEach(btn => {
-    if (btn.getAttribute('data-subtab') === subtabName) {
+    const isActive = btn.getAttribute('data-subtab') === subtabName;
+    btn.setAttribute('aria-pressed', String(isActive));
+    if (isActive) {
       btn.classList.add('bg-emerald-950', 'text-emerald-300', 'border-emerald-700');
       btn.classList.remove('bg-slate-900', 'text-slate-400', 'border-slate-800');
     } else {
@@ -1354,7 +1401,7 @@ function editCurrentPet() {
   document.getElementById('petInputBirthDate').value = pet.birthDate || '';
   document.getElementById('petInputWeight').value = pet.weight || '';
   document.getElementById('petInputEnclosure').value = pet.enclosureSize || '';
-  document.getElementById('petInputAvatar').value = pet.avatar || '';
+  document.getElementById('petInputAvatar').value = '';
   document.getElementById('petInputNotes').value = pet.notes || '';
 
   const modal = document.getElementById('petFormModal');
@@ -1370,16 +1417,33 @@ function closePetFormModal() {
 function onSpeciesSelectChange() {
   const speciesId = document.getElementById('petInputSpecies').value;
   updateCustomSpeciesFields();
-  const avatarInput = document.getElementById('petInputAvatar');
   if (!speciesId || speciesId === '__custom__') return;
-
-  const species = EXOTIC_ANIMALS_DATA.find(s => s.id === speciesId);
-  if (species && (!avatarInput.value || avatarInput.value.trim() === '')) {
-    avatarInput.value = species.image;
-  }
 }
 
-function handlePetFormSubmit(e) {
+async function readLocalPetImage(file) {
+  if (!file) return '';
+  if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+    throw new Error('Fotoğraf JPG, PNG veya WebP olmalıdır.');
+  }
+  if (file.size > 4 * 1024 * 1024) {
+    throw new Error('Fotoğraf en fazla 4 MB olabilir.');
+  }
+  const bitmap = await createImageBitmap(file);
+  bitmap.close();
+  return await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(new Error('Fotoğraf okunamadı. Başka bir dosya deneyin.'));
+    reader.readAsDataURL(file);
+  });
+}
+
+function setDateInputToToday(inputId) {
+  const input = document.getElementById(inputId);
+  if (input) input.value = getTodayKey();
+}
+
+async function handlePetFormSubmit(e) {
   e.preventDefault();
 
   const id = document.getElementById('petFormId').value;
@@ -1389,7 +1453,7 @@ function handlePetFormSubmit(e) {
   const birthDate = document.getElementById('petInputBirthDate').value;
   const weightVal = parseFloat(document.getElementById('petInputWeight').value) || null;
   const enclosure = document.getElementById('petInputEnclosure').value.trim();
-  let avatar = document.getElementById('petInputAvatar').value.trim();
+  const avatarFile = document.getElementById('petInputAvatar').files[0];
   const notes = document.getElementById('petInputNotes').value.trim();
 
   let species;
@@ -1417,8 +1481,12 @@ function handlePetFormSubmit(e) {
     return;
   }
 
-  if (!avatar) {
-    avatar = species.image;
+  let avatar = '';
+  try {
+    avatar = avatarFile ? await readLocalPetImage(avatarFile) : '';
+  } catch (error) {
+    showToast(error.message, 'error');
+    return;
   }
 
   if (id) {
@@ -1433,7 +1501,8 @@ function handlePetFormSubmit(e) {
       pet.birthDate = birthDate;
       pet.weight = weightVal;
       pet.enclosureSize = enclosure;
-      pet.avatar = avatar;
+      if (avatar) pet.avatar = avatar;
+      else if (!pet.avatar) pet.avatar = safeAvatarSource(species.image) || 'assets/dragon.svg';
       pet.notes = notes;
       showToast(`${pet.name} bilgileri güncellendi.`, 'success');
     }
@@ -1452,7 +1521,7 @@ function handlePetFormSubmit(e) {
       enclosureSize: enclosure,
       currentTemp: null,
       currentHumidity: null,
-      avatar,
+      avatar: avatar || safeAvatarSource(species.image) || 'assets/dragon.svg',
       notes
     };
     pets.push(newPet);
