@@ -21,6 +21,17 @@ function showAdminStatus(message, isError = false) {
   adminElements.status.className = `mx-auto mt-5 max-w-4xl text-sm ${isError ? 'text-rose-300' : 'text-slate-300'}`;
 }
 
+function getAdminAuthErrorMessage(error) {
+  const message = error && typeof error.message === 'string' ? error.message : String(error);
+  if (/signups not allowed for otp/i.test(message)) {
+    return 'Bu yönetici e-postası Supabase Authentication kullanıcılarında kayıtlı değil. Supabase Dashboard → Authentication → Users → Invite user bölümünden eskinyunus5@gmail.com adresini davet edin; sonra bu sayfadan tekrar giriş bağlantısı isteyin.';
+  }
+  if (/redirect.*(not allowed|blocked)|invalid.*redirect/i.test(message)) {
+    return 'Admin yönlendirme adresi Supabase’te izinli değil. Authentication → URL Configuration → Redirect URLs bölümüne https://exoticpetshub.com.tr/admin.html adresini ekleyin.';
+  }
+  return message;
+}
+
 function setAdminView(view) {
   adminElements.setup.classList.toggle('hidden', view !== 'setup');
   adminElements.login.classList.toggle('hidden', view !== 'login');
@@ -294,7 +305,7 @@ async function initializeAdminPanel() {
       }
     });
     if (error) {
-      showAdminStatus(`Giriş bağlantısı gönderilemedi: ${error.message}`, true);
+      showAdminStatus(`Giriş bağlantısı gönderilemedi: ${getAdminAuthErrorMessage(error)}`, true);
       return;
     }
     showAdminStatus('E-postana giriş bağlantısı gönderildi. Bağlantı bu siteye geri yönlendirir.');
