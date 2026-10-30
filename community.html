@@ -5,58 +5,136 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#060e0a">
   <link rel="icon" type="image/svg+xml" href="assets/dragon.svg">
-  <title>Egzotik Hobici Topluluğu & Teraryum Paylaşımları | exoticpetshub</title>
-  <meta name="description" content="Türkiye'nin dört bir yanından egzotik canlı hobicileriyle tanışın, teraryum kurulumlarınızı paylaşın, soru sorun ve canlı deneyimlerini keşfedin.">
+  <title>Egzotik Hayvan Topluluğu: Fotoğraf Paylaş, Soru Sor | ExoticPetsHub</title>
+  <meta name="description" content="Türkiye'deki egzotik hayvan hobicileriyle buluş: tarantula, gecko, yılan ve diğer canlıların fotoğraflarını paylaş, bakım sorularını sor, deneyimleri keşfet.">
   <meta name="author" content="ExoticPetsHub">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://exoticpetshub.com.tr/community">
+
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://exoticpetshub.com.tr/community">
   <meta property="og:title" content="Egzotik Hayvan Topluluğu | ExoticPetsHub">
-  <meta property="og:description" content="Egzotik hayvan fotoğraflarını paylaş, bakım sorularını sor ve ExoticPetsHub topluluğuyla tanış.">
+  <meta property="og:description" content="Egzotik hayvan hobicileriyle tanış, fotoğraflarını paylaş, bakım sorularını sor.">
   <meta property="og:image" content="https://exoticpetshub.com.tr/assets/og-image.png">
+  <meta property="og:locale" content="tr_TR">
   <meta property="og:site_name" content="ExoticPetsHub">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Egzotik Hayvan Topluluğu | ExoticPetsHub">
+  <meta name="twitter:description" content="Egzotik hayvan hobicileriyle tanış, fotoğraflarını paylaş, bakım sorularını sor.">
+  <meta name="twitter:image" content="https://exoticpetshub.com.tr/assets/og-image.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": "https://exoticpetshub.com.tr/community#page",
+        "url": "https://exoticpetshub.com.tr/community",
+        "name": "ExoticPetsHub Topluluğu",
+        "description": "Türkiye'deki egzotik hayvan hobicileri için fotoğraf paylaşımı ve soru-cevap topluluğu.",
+        "inLanguage": "tr-TR",
+        "isPartOf": { "@id": "https://exoticpetshub.com.tr/#website" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Ana sayfa", "item": "https://exoticpetshub.com.tr/" },
+          { "@type": "ListItem", "position": 2, "name": "Topluluk", "item": "https://exoticpetshub.com.tr/community" }
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://exoticpetshub.com.tr/#organization",
+        "name": "ExoticPetsHub",
+        "url": "https://exoticpetshub.com.tr/",
+        "sameAs": ["https://www.instagram.com/exoticpets.hub/"]
+      }
+    ]
+  }
+  </script>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-terrarium min-h-screen text-slate-100">
-  <header class="border-b border-emerald-900/40 bg-slate-950/90">
-    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4">
-      <a href="index.html" class="flex items-center gap-3 font-semibold text-emerald-200">
-        <img src="assets/dragon.svg" alt="" class="h-8 w-8">
-        <span>exoticpetshub <span class="text-slate-400">/ Topluluk</span></span>
+<body class="bg-terrarium min-h-screen flex flex-col text-slate-100 antialiased selection:bg-emerald-500 selection:text-white">
+  <header class="sticky top-0 z-40 border-b border-emerald-900/30 bg-slate-950/90 backdrop-blur-md">
+    <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <a href="index.html" class="flex items-center gap-3" aria-label="ExoticPetsHub ana sayfa">
+        <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-800 shadow-lg shadow-emerald-900/40">
+          <img src="assets/dragon.svg" alt="" class="h-7 w-7 brightness-0 invert">
+        </span>
+        <span>
+          <span class="block whitespace-nowrap text-lg font-bold tracking-wider font-cinzel text-gradient-emerald sm:text-2xl">ExoticPetsHub</span>
+          <span class="block text-xs uppercase tracking-widest text-emerald-400/80 font-medium">Topluluk</span>
+        </span>
       </a>
-      <nav class="flex flex-wrap items-center gap-4 text-sm" aria-label="Ana gezinme">
-        <a href="animals.html" class="text-slate-300 hover:text-emerald-300">Tür kataloğu</a>
-        <a href="veterinarian.html" class="text-slate-300 hover:text-emerald-300">Veteriner sağlık</a>
-        <a href="privacy.html" class="text-slate-300 hover:text-emerald-300">Gizlilik</a>
-        <a href="index.html" class="text-slate-300 hover:text-emerald-300">Ana sayfa</a>
-        <a href="https://www.instagram.com/exoticpets.hub/" target="_blank" rel="noopener me" class="text-pink-300 hover:text-pink-200"><i class="fa-brands fa-instagram" aria-hidden="true"></i> @exoticpets.hub</a>
+      <nav class="hidden items-center gap-6 text-sm font-semibold lg:flex" aria-label="Ana gezinme">
+        <a href="index.html" class="text-slate-300 hover:text-emerald-400 transition-colors">Ana sayfa</a>
+        <a href="animals.html" class="text-slate-300 hover:text-emerald-400 transition-colors">Hayvanlar</a>
+        <a href="community.html" class="text-emerald-300" aria-current="page">Topluluk</a>
+        <a href="news.html" class="text-slate-300 hover:text-emerald-400 transition-colors">Haberler</a>
+        <a href="veterinarian.html" class="text-slate-300 hover:text-rose-300 transition-colors">Veteriner Sağlığı</a>
+        <a href="https://www.instagram.com/exoticpets.hub/" target="_blank" rel="noopener me" aria-label="Instagram: exoticpets.hub" class="text-lg text-slate-300 hover:text-pink-400 transition-colors"><i class="fa-brands fa-instagram"></i></a>
       </nav>
+      <button id="communityMenuBtn" type="button" class="lg:hidden rounded-xl border border-emerald-800/40 bg-emerald-950/60 p-2.5 text-emerald-300" aria-label="Menüyü aç/kapat" aria-controls="communityMobileMenu" aria-expanded="false">
+        <i class="fa-solid fa-bars text-lg" aria-hidden="true"></i>
+      </button>
     </div>
+    <nav id="communityMobileMenu" class="hidden border-t border-emerald-900/40 bg-slate-950 px-4 py-3 space-y-1 lg:hidden" aria-label="Mobil gezinme">
+      <a href="index.html" class="block rounded-lg px-3 py-3 text-slate-200 hover:bg-emerald-950">Ana sayfa</a>
+      <a href="animals.html" class="block rounded-lg px-3 py-3 text-slate-200 hover:bg-emerald-950">Hayvanlar</a>
+      <a href="community.html" class="block rounded-lg px-3 py-3 text-emerald-300 hover:bg-emerald-950">Topluluk</a>
+      <a href="news.html" class="block rounded-lg px-3 py-3 text-slate-200 hover:bg-emerald-950">Haberler</a>
+      <a href="veterinarian.html" class="block rounded-lg px-3 py-3 text-slate-200 hover:bg-emerald-950">Veteriner Sağlığı</a>
+      <a href="https://www.instagram.com/exoticpets.hub/" target="_blank" rel="noopener me" class="block rounded-lg px-3 py-3 text-pink-300 hover:bg-emerald-950"><i class="fa-brands fa-instagram"></i> Instagram: @exoticpets.hub</a>
+    </nav>
   </header>
 
-  <main class="mx-auto max-w-5xl space-y-6 px-4 py-8 sm:py-12">
-    <section class="glass-panel rounded-3xl p-6 sm:p-8">
+  <main class="mx-auto w-full max-w-5xl flex-1 space-y-8 px-4 py-8 sm:py-12">
+    <section class="glass-panel rounded-3xl p-6 sm:p-10">
       <p class="text-sm font-bold uppercase tracking-widest text-emerald-300">Türkiye'deki egzotik hayvan meraklıları için</p>
-      <h1 class="mt-2 text-3xl font-extrabold text-white sm:text-4xl">Fotoğraf paylaş, kısa bir soru sor</h1>
-      <p class="mt-3 max-w-3xl text-base leading-relaxed text-slate-300">Onaylanmış hayvan fotoğraflarına göz at; fotoğraf paylaşmak ve yorum yapmak için e-posta ile giriş yap. Gönderiler yayınlanmadan önce incelenir. E-posta adresin paylaşılmaz; gerçek ad, adres veya konum gibi kişisel bilgileri gönderilere ekleme.</p>
-      <a id="communityLoginCta" href="#communityAuthPanel" class="mt-5 inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-5 py-3 font-bold text-white hover:bg-emerald-600">
-        <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
-        <span>Giriş yap / fotoğraf paylaş</span>
-      </a>
+      <h1 class="mt-2 text-3xl font-extrabold text-white sm:text-5xl">ExoticPetsHub Topluluğu</h1>
+      <p class="mt-4 max-w-3xl text-base leading-relaxed text-slate-300">Tarantula, gecko, yılan, akrep ve diğer egzotik canlıların fotoğraflarını paylaş, bakım sorularını sor, diğer hobicilerin deneyimlerinden öğren. Gönderiler yayınlanmadan önce incelenir. E-posta adresin paylaşılmaz; gerçek ad, adres veya konum gibi kişisel bilgileri gönderilere ekleme.</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a id="communityLoginCta" href="#communityAuthPanel" class="inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-5 py-3 font-bold text-white hover:bg-emerald-600">
+          <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+          <span>Giriş yap / fotoğraf paylaş</span>
+        </a>
+        <a href="https://www.instagram.com/exoticpets.hub/" target="_blank" rel="noopener me" class="inline-flex items-center gap-2 rounded-xl border border-pink-400/40 px-5 py-3 font-bold text-pink-200 hover:bg-pink-500/10">
+          <i class="fa-brands fa-instagram" aria-hidden="true"></i> Instagram: @exoticpets.hub
+        </a>
+      </div>
+    </section>
+
+    <section aria-labelledby="howItWorks" class="grid gap-4 sm:grid-cols-3">
+      <h2 id="howItWorks" class="sr-only">Nasıl çalışır?</h2>
+      <div class="glass-panel rounded-2xl p-5">
+        <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-900/60 text-emerald-300"><i class="fa-solid fa-envelope-circle-check" aria-hidden="true"></i></div>
+        <h3 class="font-bold text-white">1. E-postanla giriş yap</h3>
+        <p class="mt-1 text-sm text-slate-300">Şifre yok. E-postana gelen bağlantıya tıklaman yeterli.</p>
+      </div>
+      <div class="glass-panel rounded-2xl p-5">
+        <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-900/60 text-emerald-300"><i class="fa-solid fa-camera" aria-hidden="true"></i></div>
+        <h3 class="font-bold text-white">2. Fotoğrafını paylaş</h3>
+        <p class="mt-1 text-sm text-slate-300">Canlının fotoğrafını yükle, kısa sorunu veya notunu yaz.</p>
+      </div>
+      <div class="glass-panel rounded-2xl p-5">
+        <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-900/60 text-emerald-300"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
+        <h3 class="font-bold text-white">3. Onaydan sonra yayında</h3>
+        <p class="mt-1 text-sm text-slate-300">Gönderin incelenir; onaylanınca herkes görür ve yorum yapabilir.</p>
+      </div>
     </section>
 
     <section id="communitySetupNotice" class="glass-panel rounded-2xl border border-amber-700/40 p-5" hidden>
       <h2 class="text-lg font-bold text-amber-200">Topluluk henüz yapılandırılmadı</h2>
-      <p class="mt-2 text-sm text-slate-300">Bu özelliği açmak için Supabase projesini yapılandırın ve <code>supabase-schema.sql</code> dosyasını çalıştırın. Kurulum adımları <a href="README.md#supabase-kurulumu" class="text-emerald-300 underline">README'de</a>.</p>
+      <p class="mt-2 text-sm text-slate-300">Bu özelliği açmak için Supabase projesini yapılandırın ve <code>supabase-schema.sql</code> dosyasını çalıştırın. Kurulum adımları README'de.</p>
     </section>
 
     <section id="communityAuthPanel" class="glass-panel rounded-2xl p-5 sm:p-7" hidden>
       <h2 class="text-xl font-bold">Giriş yap veya ücretsiz katıl</h2>
-      <p class="mt-2 text-sm text-slate-300">E-postana gönderilen bağlantıyı bu bilgisayarda ve aynı tarayıcıda aç. Sayfa girişten sonra otomatik güncellenir; geri dönünce oturum da yenilenir. E-posta adresin herkese açık değildir; yalnızca onaylanan fotoğraf ve takma adın toplulukta görünür.</p>
+      <p class="mt-2 text-sm text-slate-300">E-postana gönderilen bağlantıyı bu cihazda ve aynı tarayıcıda aç. Sayfa girişten sonra otomatik güncellenir. E-posta adresin herkese açık değildir; yalnızca onaylanan fotoğraf ve takma adın toplulukta görünür.</p>
       <form id="communityLoginForm" class="mt-4 flex flex-col gap-3 sm:flex-row">
         <label for="communityEmail" class="sr-only">E-posta adresi</label>
         <input id="communityEmail" type="email" autocomplete="email" required maxlength="254" placeholder="ornek@eposta.com" class="min-w-0 flex-1 rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white">
@@ -102,12 +180,13 @@
               <input id="communityPhoto" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" required class="community-file-input">
               <span class="community-file-name" id="communityPhotoName" aria-live="polite">Henüz fotoğraf seçilmedi.</span>
             </div>
+            <img id="communityPhotoPreview" alt="Seçilen fotoğraf önizlemesi" class="mt-3 hidden max-h-56 w-auto max-w-full rounded-xl border border-slate-700 object-contain">
           </div>
           <label class="flex items-start gap-3 text-sm text-slate-300">
             <input id="communityGuidelinesConsent" type="checkbox" required class="mt-1 accent-emerald-500">
-            <span>Fotoğrafın bana ait olduğunu veya paylaşma iznim bulunduğunu ve gönderinin moderasyon kurallarına uyduğunu onaylıyorum.</span>
+            <span>Fotoğrafın bana ait olduğunu veya paylaşma iznim bulunduğunu ve gönderinin topluluk kurallarına uyduğunu onaylıyorum.</span>
           </label>
-          <button id="communityPostSubmit" class="rounded-xl bg-emerald-700 px-5 py-3 font-bold text-white hover:bg-emerald-600">İncelemeye gönder</button>
+          <button id="communityPostSubmit" class="w-full rounded-xl bg-emerald-700 px-5 py-3 font-bold text-white hover:bg-emerald-600 sm:w-auto">İncelemeye gönder</button>
         </form>
         <div id="communityOwnQueue" class="mt-5 space-y-2" aria-live="polite"></div>
       </section>
@@ -115,18 +194,53 @@
 
     <p id="communityStatus" class="text-sm text-slate-300" role="status" aria-live="polite"></p>
 
-    <section class="space-y-4">
+    <section class="space-y-4" aria-labelledby="feedHeading">
       <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p class="text-sm font-bold uppercase tracking-widest text-emerald-300">Onaylanmış paylaşımlar</p>
-          <h2 class="text-2xl font-bold text-white">Topluluktan</h2>
+          <h2 id="feedHeading" class="text-2xl font-bold text-white">Topluluktan</h2>
         </div>
         <p class="text-xs text-slate-500">Yalnızca onaylanan fotoğraf ve yorumlar burada görünür.</p>
       </div>
       <div id="communityFeed" class="grid gap-5 md:grid-cols-2" aria-live="polite"></div>
+      <div class="text-center">
+        <button id="communityLoadMore" type="button" hidden class="rounded-xl border border-emerald-600/50 px-6 py-3 font-bold text-emerald-200 hover:bg-emerald-900/40">Daha fazla göster</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="rulesHeading" class="glass-panel rounded-2xl p-5 sm:p-7">
+      <h2 id="rulesHeading" class="text-xl font-bold text-white">Topluluk kuralları</h2>
+      <ul class="mt-4 grid gap-3 text-sm text-slate-300 sm:grid-cols-2">
+        <li class="flex gap-3"><i class="fa-solid fa-heart mt-1 text-emerald-400" aria-hidden="true"></i><span>Saygılı ol; hakaret, küfür ve nefret söylemi yasaktır.</span></li>
+        <li class="flex gap-3"><i class="fa-solid fa-user-shield mt-1 text-emerald-400" aria-hidden="true"></i><span>Gerçek ad, adres, telefon veya konum paylaşma.</span></li>
+        <li class="flex gap-3"><i class="fa-solid fa-image mt-1 text-emerald-400" aria-hidden="true"></i><span>Yalnızca kendi çektiğin ya da paylaşma iznin olan fotoğrafları yükle.</span></li>
+        <li class="flex gap-3"><i class="fa-solid fa-ban mt-1 text-emerald-400" aria-hidden="true"></i><span>Yasa dışı canlı ticareti, doğadan toplama ve CITES kapsamındaki türlerin belgesiz satışı yasaktır.</span></li>
+        <li class="flex gap-3 sm:col-span-2"><i class="fa-solid fa-user-doctor mt-1 text-emerald-400" aria-hidden="true"></i><span>Topluluk yorumları veteriner tavsiyesi değildir. Hastalık belirtilerinde egzotik hayvan veterinerine başvur. <a href="veterinarian.html" class="text-emerald-300 underline">Veteriner sağlık merkezi</a></span></li>
+      </ul>
     </section>
   </main>
 
+  <footer class="mt-auto border-t border-emerald-950 bg-black/70 py-8 text-sm text-slate-400">
+    <div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-4 text-center sm:flex-row sm:text-left">
+      <p>© 2026 ExoticPetsHub · Tek geliştirici tarafından geliştirildi.</p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="privacy.html" class="text-emerald-300 hover:text-white">Gizlilik</a>
+        <a href="https://www.instagram.com/exoticpets.hub/" target="_blank" rel="noopener me" class="text-pink-300 hover:text-white"><i class="fa-brands fa-instagram"></i> @exoticpets.hub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('communityMenuBtn');
+      var menu = document.getElementById('communityMobileMenu');
+      if (!btn || !menu) return;
+      btn.addEventListener('click', function () {
+        var open = menu.classList.toggle('hidden') === false;
+        btn.setAttribute('aria-expanded', String(open));
+      });
+    })();
+  </script>
   <script src="catalog-config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="catalog-db.js"></script>

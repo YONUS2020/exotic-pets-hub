@@ -17,8 +17,15 @@ const communityElements = {
   submit: document.getElementById('communityPostSubmit'),
   ownQueue: document.getElementById('communityOwnQueue'),
   status: document.getElementById('communityStatus'),
-  feed: document.getElementById('communityFeed')
+  feed: document.getElementById('communityFeed'),
+  loadMore: document.getElementById('communityLoadMore'),
+  photoPreview: document.getElementById('communityPhotoPreview')
 };
+
+const COMMUNITY_PAGE_SIZE = 12;
+let communityFeedOffset = 0;
+let communityFeedLoading = false;
+let communityPhotoPreviewUrl = null;
 
 const COMMUNITY_BUCKET = 'community-media';
 const COMMUNITY_IMAGE_LIMIT = 8 * 1024 * 1024;
@@ -185,22 +192,41 @@ async function loadOwnCommunityQueue() {
   }
 }
 
-async function renderCommunityFeed() {
-  communityElements.feed.replaceChildren();
+async function renderCommunityFeed(append = false) {
+  if (communityFeedLoading) return;
+  communityFeedLoading = true;
+  if (communityElements.loadMore) communityElements.loadMore.disabled = true;
+  try {
+    await renderCommunityFeedPage(append);
+  } finally {
+    communityFeedLoading = false;
+    if (communityElements.loadMore) communityElements.loadMore.disabled = false;
+  }
+}
+
+async function renderCommunityFeedPage(append) {
+  if (!append) {
+    communityElements.feed.replaceChildren();
+    communityFeedOffset = 0;
+  }
   const { data: posts, error } = await communityClient
     .from('community_posts')
     .select('id, question, species_name, image_path, created_at, author_display_name')
     .eq('status', 'published')
     .order('created_at', { ascending: false })
-    .limit(20);
+    .range(communityFeedOffset, communityFeedOffset + COMMUNITY_PAGE_SIZE - 1);
   if (error) throw error;
+  communityFeedOffset += posts.length;
+  if (communityElements.loadMore) communityElements.loadMore.hidden = posts.length < COMMUNITY_PAGE_SIZE;
 
   if (!posts.length) {
-    communityElements.feed.append(makeCommunityElement(
-      'p',
-      'glass-panel rounded-2xl p-6 text-slate-300 md:col-span-2',
-      'Henüz onaylanmış paylaşım yok. İlk fotoğraflı soruyu sen paylaşabilirsin.'
-    ));
+    if (!append) {
+      communityElements.feed.append(makeCommunityElement(
+        'p',
+        'glass-panel rounded-2xl p-6 text-slate-300 md:col-span-2',
+        'Henüz onaylanmış paylaşım yok. İlk fotoğraflı soruyu sen paylaşabilirsin.'
+      ));
+    }
     return;
   }
 
@@ -443,7 +469,29 @@ async function initializeCommunity() {
     communityElements.photoName.textContent = file
       ? `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`
       : 'Henüz fotoğraf seçilmedi.';
+    if (communityPhotoPreviewUrl) {
+      URL.revokeObjectURL(communityPhotoPreviewUrl);
+      communityPhotoPreviewUrl = null;
+    }
+    const preview = communityElements.photoPreview;
+    if (preview) {
+      if (file && file.type.startsWith('image/')) {
+        communityPhotoPreviewUrl = URL.createObjectURL(file);
+        preview.src = communityPhotoPreviewUrl;
+        preview.classList.remove('hidden');
+      } else {
+        preview.removeAttribute('src');
+        preview.classList.add('hidden');
+      }
+    }
   });
+  if (communityElements.loadMore) {
+    communityElements.loadMore.addEventListener('click', () => {
+      void renderCommunityFeed(true).catch(error => {
+        setCommunityStatus(`Daha fazla paylaşım yüklenemedi: ${error.message}`, true);
+      });
+    });
+  }
   communityElements.postForm.addEventListener('submit', submitCommunityPost);
   communityElements.feed.addEventListener('submit', submitCommunityComment);
   communityElements.signOut.addEventListener('click', async () => {

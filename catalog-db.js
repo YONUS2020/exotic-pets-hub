@@ -43,10 +43,7 @@ async function loadPublishedSpeciesCatalog() {
     return false;
   }
 
-  const mergedCatalog = new Map(
-    (typeof TERRA_SPECIES_SEED === 'undefined' ? EXOTIC_ANIMALS_DATA : TERRA_SPECIES_SEED)
-      .map(animal => [animal.id, animal])
-  );
+  const mergedCatalog = new Map(EXOTIC_ANIMALS_DATA.map(animal => [animal.id, animal]));
   catalog.forEach(animal => mergedCatalog.set(animal.id, animal));
   EXOTIC_ANIMALS_DATA = Array.from(mergedCatalog.values());
   return true;

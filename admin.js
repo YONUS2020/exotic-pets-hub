@@ -52,8 +52,8 @@ function validateSpeciesRecord(record) {
       throw new Error(`${field} alanı boş olmayan metin olmalıdır.`);
     }
   }
-  if (!['reptile', 'amphibian', 'invertebrate', 'mammal', 'aquatic'].includes(record.category)) {
-    throw new Error('category: reptile, amphibian, invertebrate, mammal veya aquatic olmalıdır.');
+  if (!['reptile', 'amphibian', 'invertebrate', 'mammal', 'aquatic', 'bird'].includes(record.category)) {
+    throw new Error('category: reptile, amphibian, invertebrate, mammal, aquatic veya bird olmalıdır.');
   }
   if (typeof record.image !== 'string' || !record.image.startsWith('assets/species/')) {
     throw new Error('image yolu assets/species/ ile başlamalıdır.');

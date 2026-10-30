@@ -1,5 +1,5 @@
 /**
- * ExoticPetsHub - Egzotik Hayvan Ansiklopedisi ve Hobici Takip Portalı
+ * exoticpetshub - Egzotik Hayvan Ansiklopedisi ve Hobici Takip Portalı
  * Ana Uygulama Mantığı (State, Filtreleme, CRUD, Chart.js, LocalStorage)
  */
 
@@ -102,6 +102,9 @@ function safeExternalUrl(value) {
 }
 
 function safeAvatarSource(value) {
+  if (typeof value === 'string' && /^data:image\/(?:jpeg|png|webp);base64,[a-z0-9+/=]+$/i.test(value)) {
+    return value.length <= 6 * 1024 * 1024 ? value : '';
+  }
   const externalUrl = safeExternalUrl(value);
   if (externalUrl) return externalUrl;
 
@@ -186,7 +189,7 @@ function loadSavedCustomSpecies() {
       typeof species.id === 'string' &&
       species.id.startsWith('custom-') &&
       typeof species.name === 'string' &&
-      ['reptile', 'amphibian', 'invertebrate', 'mammal', 'aquatic'].includes(species.category) &&
+      ['reptile', 'amphibian', 'invertebrate', 'mammal', 'aquatic', 'bird'].includes(species.category) &&
       !knownIds.has(species.id)
     );
     EXOTIC_ANIMALS_DATA = [...EXOTIC_ANIMALS_DATA, ...validSpecies];
@@ -243,7 +246,8 @@ function initSpeciesCounts() {
     amphibian: 0,
     invertebrate: 0,
     mammal: 0,
-    aquatic: 0
+    aquatic: 0,
+    bird: 0
   };
 
   EXOTIC_ANIMALS_DATA.forEach(a => {
@@ -275,6 +279,7 @@ function populateSpeciesSelectOptions() {
     ['invertebrate', 'Örümcekler, akrepler ve diğer eklem bacaklılar'],
     ['amphibian', 'İkiyaşamlılar'],
     ['mammal', 'Memeliler'],
+    ['bird', 'Kuşlar'],
     ['aquatic', 'Akuatik canlılar']
   ];
 
@@ -318,7 +323,8 @@ function getCategoryName(category) {
     amphibian: 'İkiyaşamlı',
     invertebrate: 'Eklem Bacaklı',
     mammal: 'Memeli',
-    aquatic: 'Akuatik canlı'
+    aquatic: 'Akuatik canlı',
+    bird: 'Kuş'
   }[category] || 'Diğer';
 }
 
@@ -507,7 +513,7 @@ function renderAnimalCard(animal) {
         <div class="relative h-48 w-full overflow-hidden bg-slate-900">
           <img 
             src="${animal.image}" 
-            alt="${escapeHtml(animal.name)}" 
+            alt="${escapeHtml(animal.name)}${animal.imageIsRepresentative ? ' · temsili görsel' : ''}"
             loading="lazy" 
             decoding="async"
             class="w-full h-full ${animal.isUserDefined ? 'object-contain p-12' : 'object-cover group-hover:scale-110'} transition-transform duration-500 ease-out"
@@ -567,7 +573,7 @@ function renderAnimalCard(animal) {
           <span>Detaylı Bakım Rehberi</span>
           <i class="fa-solid fa-arrow-right text-[10px]"></i>
         </button>
-        ${animal.isUserDefined ? '<p class="mt-2 text-center text-xs text-slate-500">Kişisel tür kaydı · görsel eklenmedi</p>' : `<div class="mt-2 flex items-center justify-center gap-1 truncate text-[10px] text-slate-500">
+        ${animal.isUserDefined ? '<p class="mt-2 text-center text-xs text-slate-500">Kişisel tür kaydı · görsel eklenmedi</p>' : animal.imageIsRepresentative ? '<p class="mt-2 text-center text-xs text-slate-500">Temsili kategori görseli · türe özel fotoğraf yakında</p>' : `<div class="mt-2 flex items-center justify-center gap-1 truncate text-[10px] text-slate-500">
           <a class="truncate hover:text-emerald-300" href="${animal.imageSource || 'https://commons.wikimedia.org/'}" target="_blank" rel="noopener noreferrer">
             Fotoğraf: ${escapeHtml(animal.imageCredit || 'Wikimedia Commons')}
           </a>
@@ -601,7 +607,7 @@ function openAnimalModal(animalId) {
   body.innerHTML = `
     <div class="flex flex-col md:flex-row gap-4 sm:gap-6 mb-5 sm:mb-6">
       <div class="md:w-1/2 relative rounded-2xl overflow-hidden border border-emerald-800/40 shadow-xl bg-slate-900 h-48 sm:h-64 md:h-auto">
-        <img src="${animal.image}" alt="${escapeHtml(animal.name)}" class="w-full h-full ${animal.isUserDefined ? 'object-contain p-16' : 'object-cover'}" decoding="async">
+        <img src="${animal.image}" alt="${escapeHtml(animal.name)}${animal.imageIsRepresentative ? ' · temsili görsel' : ''}" class="w-full h-full ${animal.isUserDefined ? 'object-contain p-16' : 'object-cover'}" decoding="async">
         <div class="absolute top-3 left-3 flex gap-2">
           <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-black/80 text-emerald-300 border border-emerald-500/30">
             ${escapeHtml(animal.categoryName)}
@@ -611,7 +617,7 @@ function openAnimalModal(animalId) {
           </span>
         </div>
       </div>
-      ${animal.isUserDefined ? '<p class="mb-5 text-sm text-slate-500">Kişisel tür kaydı · görsel eklenmedi</p>' : `<div class="mb-5 flex items-center gap-2 text-xs text-slate-500">
+      ${animal.isUserDefined ? '<p class="mb-5 text-sm text-slate-500">Kişisel tür kaydı · görsel eklenmedi</p>' : animal.imageIsRepresentative ? '<p class="mb-5 text-sm text-slate-500">Temsili kategori görseli · türe özel fotoğraf yakında</p>' : `<div class="mb-5 flex items-center gap-2 text-xs text-slate-500">
         <a class="hover:text-emerald-300" href="${animal.imageSource || 'https://commons.wikimedia.org/'}" target="_blank" rel="noopener noreferrer">
           Fotoğraf: ${escapeHtml(animal.imageCredit || 'Wikimedia Commons')}
         </a>
