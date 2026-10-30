@@ -15,6 +15,7 @@ const adminElements = {
 let adminSpeciesClient = null;
 let selectedSpeciesId = null;
 let moderatorUserId = null;
+const ADMIN_AUTH_REDIRECT_URL = 'https://exoticpetshub.com.tr/admin.html';
 
 function showAdminStatus(message, isError = false) {
   adminElements.status.textContent = message;
@@ -301,7 +302,7 @@ async function initializeAdminPanel() {
       email,
       options: {
         shouldCreateUser: false,
-        emailRedirectTo: new URL('admin.html', window.location.href).href
+        emailRedirectTo: ADMIN_AUTH_REDIRECT_URL
       }
     });
     if (error) {

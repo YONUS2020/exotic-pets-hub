@@ -12,6 +12,11 @@
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <meta name="theme-color" content="#064e3b">
   <link rel="canonical" href="https://exoticpetshub.com.tr/">
+  <script>
+    if (window.location.hash.includes('access_token=') || window.location.search.includes('code=')) {
+      window.location.replace('https://exoticpetshub.com.tr/admin.html' + window.location.search + window.location.hash);
+    }
+  </script>
 
   <!-- Open Graph / Facebook & WhatsApp Önizleme -->
   <meta property="og:type" content="website">
