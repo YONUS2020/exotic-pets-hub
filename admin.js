@@ -24,7 +24,7 @@ function showAdminStatus(message, isError = false) {
 function getAdminAuthErrorMessage(error) {
   const message = error && typeof error.message === 'string' ? error.message : String(error);
   if (/signups not allowed for otp/i.test(message)) {
-    return 'Bu yönetici e-postası Supabase Authentication kullanıcılarında kayıtlı değil. Supabase Dashboard → Authentication → Users → Invite user bölümünden eskinyunus5@gmail.com adresini davet edin; sonra bu sayfadan tekrar giriş bağlantısı isteyin.';
+    return 'Bu yönetici e-postası Supabase Authentication kullanıcılarında kayıtlı değil. Supabase Dashboard → Authentication → Users bölümünde Add user veya Create user seçeneğiyle yeskin85@gmail.com hesabını oluşturun; sonra bu sayfadan tekrar giriş bağlantısı isteyin.';
   }
   if (/redirect.*(not allowed|blocked)|invalid.*redirect/i.test(message)) {
     return 'Admin yönlendirme adresi Supabase’te izinli değil. Authentication → URL Configuration → Redirect URLs bölümüne https://exoticpetshub.com.tr/admin.html adresini ekleyin.';

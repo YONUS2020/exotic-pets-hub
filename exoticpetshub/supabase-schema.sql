@@ -5,7 +5,7 @@ stable
 security definer
 set search_path = ''
 as $$
-  select lower(trim(coalesce(auth.jwt() ->> 'email', ''))) = 'eskinyunus5@gmail.com';
+  select lower(trim(coalesce(auth.jwt() ->> 'email', ''))) = 'yeskin85@gmail.com';
 $$;
 
 revoke all on function public.is_terra_admin() from public, anon;
