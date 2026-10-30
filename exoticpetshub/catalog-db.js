@@ -13,6 +13,25 @@ function getTerraSupabaseClient() {
   return window.terraSupabaseClient;
 }
 
+function deduplicateSpeciesCatalog(speciesList) {
+  const byScientificName = new Map();
+  for (const species of speciesList) {
+    const key = String(species.scientificName || species.id).trim().toLocaleLowerCase('en-US');
+    const current = byScientificName.get(key);
+    if (!current || getSpeciesImagePriority(species) > getSpeciesImagePriority(current)) {
+      byScientificName.set(key, species);
+    }
+  }
+  return Array.from(byScientificName.values());
+}
+
+function getSpeciesImagePriority(species) {
+  if (species.isUserDefined) return 4;
+  if (species.image && !species.imageIsRepresentative && !species.image.includes('dragon.svg')) return 3;
+  if (species.imageSource) return 2;
+  return 1;
+}
+
 async function loadPublishedSpeciesCatalog() {
   const client = getTerraSupabaseClient();
   if (!client) return false;
@@ -43,8 +62,8 @@ async function loadPublishedSpeciesCatalog() {
     return false;
   }
 
-  const mergedCatalog = new Map(EXOTIC_ANIMALS_DATA.map(animal => [animal.id, animal]));
+  const mergedCatalog = new Map(deduplicateSpeciesCatalog(EXOTIC_ANIMALS_DATA).map(animal => [animal.id, animal]));
   catalog.forEach(animal => mergedCatalog.set(animal.id, animal));
-  EXOTIC_ANIMALS_DATA = Array.from(mergedCatalog.values());
+  EXOTIC_ANIMALS_DATA = deduplicateSpeciesCatalog(Array.from(mergedCatalog.values()));
   return true;
 }

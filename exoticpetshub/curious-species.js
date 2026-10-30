@@ -246,14 +246,7 @@ const CURIOUS_SPECIES_DATA = [
     bird: 'Kuş'
   };
   const difficulty = category === 'mammal' || category === 'aquatic' || category === 'bird' ? 'Orta' : 'Uzman';
-  const representativeImages = {
-    reptile: 'assets/species/crested-gecko.jpg',
-    amphibian: 'assets/species/pacman-frog.jpg',
-    invertebrate: 'assets/species/giant-african-millipede.jpg',
-    mammal: 'assets/species/african-pygmy-hedgehog.jpg',
-    aquatic: 'assets/species/pea-puffer.jpg',
-    bird: 'assets/dragon.svg'
-  };
+  const commonsImageUrl = `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(scientificName)}.jpg?width=640`;
   return {
     id: `curious-${id}`,
     name,
@@ -274,8 +267,9 @@ const CURIOUS_SPECIES_DATA = [
     uvbRequired: 'Tür ve yaşam alanına göre değişir',
     handling: 'Türün ihtiyaçlarını öğrenmeden elle tutmayın.',
     badgeColor: 'emerald',
-    image: representativeImages[category],
-    imageIsRepresentative: true,
+    image: commonsImageUrl,
+    imageSource: 'https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=' + encodeURIComponent(scientificName),
+    imageIsCommonsCandidate: true,
     shortDesc: `${name}, sıra dışı özellikleriyle merak uyandıran bir ${categoryNames[category].toLocaleLowerCase('tr-TR')} türüdür.`,
     careSummary: 'Sahiplenmeden önce türün yasal durumunu, yaşam alanı gereksinimlerini ve uzman bakım kaynaklarını doğrulayın.',
     dangerNotes: 'Yabani hayvanları doğadan almayın. Sağlık veya tedavi kararı için egzotik hayvan veterinerine başvurun.'

@@ -8,6 +8,8 @@ let currentCategoryFilter = 'all';
 let currentDifficultyFilter = 'all';
 let currentSearchQuery = '';
 let currentSpeciesGroupFilter = 'all';
+let catalogVisibleCount = 36;
+const CATALOG_PAGE_SIZE = 36;
 
 const SPECIES_GROUPS = {
   tarantula: {
@@ -120,6 +122,9 @@ function safeAvatarSource(value) {
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadPublishedSpeciesCatalog();
+  if (typeof deduplicateSpeciesCatalog === 'function') {
+    EXOTIC_ANIMALS_DATA = deduplicateSpeciesCatalog(EXOTIC_ANIMALS_DATA);
+  }
   loadSavedCustomSpecies();
   const hasPetTracker = Boolean(document.getElementById('activePetDashboard'));
 
@@ -387,6 +392,7 @@ function createCustomSpecies(name, scientificName, category) {
 function setCategoryFilter(category) {
   currentCategoryFilter = category;
   currentSpeciesGroupFilter = 'all';
+  catalogVisibleCount = CATALOG_PAGE_SIZE;
   document.querySelectorAll('.category-btn').forEach(btn => {
     if (btn.getAttribute('data-category') === category) {
       btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-500');
@@ -416,6 +422,7 @@ function updateSpeciesGroupButtons() {
 function setSpeciesGroupFilter(group) {
   currentSpeciesGroupFilter = SPECIES_GROUPS[group] ? group : 'all';
   currentCategoryFilter = SPECIES_GROUPS[currentSpeciesGroupFilter]?.category || 'all';
+  catalogVisibleCount = CATALOG_PAGE_SIZE;
 
   document.querySelectorAll('.category-btn').forEach(button => {
     const isActive = button.dataset.category === currentCategoryFilter;
@@ -432,6 +439,7 @@ function setSpeciesGroupFilter(group) {
 
 function setDifficultyFilter(diff) {
   currentDifficultyFilter = diff;
+  catalogVisibleCount = CATALOG_PAGE_SIZE;
   document.querySelectorAll('.diff-btn').forEach(btn => {
     if (btn.getAttribute('data-diff') === diff) {
       btn.classList.add('border-emerald-500/40', 'bg-emerald-950/60', 'text-emerald-300');
@@ -448,6 +456,7 @@ function resetFilters() {
   currentCategoryFilter = 'all';
   currentDifficultyFilter = 'all';
   currentSearchQuery = '';
+  catalogVisibleCount = CATALOG_PAGE_SIZE;
   document.getElementById('searchInput').value = '';
   setCategoryFilter('all');
   setDifficultyFilter('all');
@@ -457,6 +466,7 @@ function resetFilters() {
 function renderEncyclopedia() {
   const grid = document.getElementById('animalGrid');
   const noResults = document.getElementById('noResults');
+  const loadMore = document.getElementById('loadMoreSpecies');
   if (!grid) return;
 
   const query = currentSearchQuery.toLowerCase().trim();
@@ -479,11 +489,17 @@ function renderEncyclopedia() {
   if (filtered.length === 0) {
     grid.innerHTML = '';
     noResults.classList.remove('hidden');
+    if (loadMore) loadMore.hidden = true;
     return;
   }
 
   noResults.classList.add('hidden');
-  grid.innerHTML = filtered.map(animal => renderAnimalCard(animal)).join('');
+  const visible = filtered.slice(0, catalogVisibleCount);
+  grid.innerHTML = visible.map(animal => renderAnimalCard(animal)).join('');
+  if (loadMore) {
+    loadMore.hidden = visible.length >= filtered.length;
+    loadMore.textContent = `${filtered.length - visible.length} tür daha göster`;
+  }
 }
 
 function renderFeaturedAnimals() {
@@ -513,7 +529,8 @@ function renderAnimalCard(animal) {
         <div class="relative h-48 w-full overflow-hidden bg-slate-900">
           <img 
             src="${animal.image}" 
-            alt="${escapeHtml(animal.name)}${animal.imageIsRepresentative ? ' · temsili görsel' : ''}"
+            alt="${escapeHtml(animal.name)}${animal.imageIsCommonsCandidate ? ' · Wikimedia Commons fotoğrafı' : ''}"
+            onerror="this.onerror=null;this.src='assets/dragon.svg';this.alt='ExoticPetsHub temsil görseli';"
             loading="lazy" 
             decoding="async"
             class="w-full h-full ${animal.isUserDefined ? 'object-contain p-12' : 'object-cover group-hover:scale-110'} transition-transform duration-500 ease-out"
@@ -573,7 +590,9 @@ function renderAnimalCard(animal) {
           <span>Detaylı Bakım Rehberi</span>
           <i class="fa-solid fa-arrow-right text-[10px]"></i>
         </button>
-        ${animal.isUserDefined ? '<p class="mt-2 text-center text-xs text-slate-500">Kişisel tür kaydı · görsel eklenmedi</p>' : animal.imageIsRepresentative ? '<p class="mt-2 text-center text-xs text-slate-500">Temsili kategori görseli · türe özel fotoğraf yakında</p>' : `<div class="mt-2 flex items-center justify-center gap-1 truncate text-[10px] text-slate-500">
+        ${animal.isUserDefined ? '<p class="mt-2 text-center text-xs text-slate-500">Kişisel tür kaydı · görsel eklenmedi</p>' : animal.imageIsCommonsCandidate ? `<div class="mt-2 flex items-center justify-center gap-1 truncate text-[10px] text-slate-500">
+          <a class="truncate hover:text-emerald-300" href="${animal.imageSource}" target="_blank" rel="noopener noreferrer">Wikimedia Commons fotoğrafı</a>
+        </div>` : animal.imageIsRepresentative ? '<p class="mt-2 text-center text-xs text-slate-500">Temsili kategori görseli · türe özel fotoğraf yakında</p>' : `<div class="mt-2 flex items-center justify-center gap-1 truncate text-[10px] text-slate-500">
           <a class="truncate hover:text-emerald-300" href="${animal.imageSource || 'https://commons.wikimedia.org/'}" target="_blank" rel="noopener noreferrer">
             Fotoğraf: ${escapeHtml(animal.imageCredit || 'Wikimedia Commons')}
           </a>
@@ -607,7 +626,7 @@ function openAnimalModal(animalId) {
   body.innerHTML = `
     <div class="flex flex-col md:flex-row gap-4 sm:gap-6 mb-5 sm:mb-6">
       <div class="md:w-1/2 relative rounded-2xl overflow-hidden border border-emerald-800/40 shadow-xl bg-slate-900 h-48 sm:h-64 md:h-auto">
-        <img src="${animal.image}" alt="${escapeHtml(animal.name)}${animal.imageIsRepresentative ? ' · temsili görsel' : ''}" class="w-full h-full ${animal.isUserDefined ? 'object-contain p-16' : 'object-cover'}" decoding="async">
+        <img src="${animal.image}" alt="${escapeHtml(animal.name)}${animal.imageIsCommonsCandidate ? ' · Wikimedia Commons fotoğrafı' : ''}" onerror="this.onerror=null;this.src='assets/dragon.svg';this.alt='ExoticPetsHub temsil görseli';" class="w-full h-full ${animal.isUserDefined ? 'object-contain p-16' : 'object-cover'}" decoding="async">
         <div class="absolute top-3 left-3 flex gap-2">
           <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-black/80 text-emerald-300 border border-emerald-500/30">
             ${escapeHtml(animal.categoryName)}
@@ -617,7 +636,7 @@ function openAnimalModal(animalId) {
           </span>
         </div>
       </div>
-      ${animal.isUserDefined ? '<p class="mb-5 text-sm text-slate-500">Kişisel tür kaydı · görsel eklenmedi</p>' : animal.imageIsRepresentative ? '<p class="mb-5 text-sm text-slate-500">Temsili kategori görseli · türe özel fotoğraf yakında</p>' : `<div class="mb-5 flex items-center gap-2 text-xs text-slate-500">
+      ${animal.isUserDefined ? '<p class="mb-5 text-sm text-slate-500">Kişisel tür kaydı · görsel eklenmedi</p>' : animal.imageIsCommonsCandidate ? '<p class="mb-5 text-sm text-slate-500">Wikimedia Commons fotoğrafı · kaynak sayfasından lisansı kontrol et</p>' : animal.imageIsRepresentative ? '<p class="mb-5 text-sm text-slate-500">Temsili kategori görseli · türe özel fotoğraf yakında</p>' : `<div class="mb-5 flex items-center gap-2 text-xs text-slate-500">
         <a class="hover:text-emerald-300" href="${animal.imageSource || 'https://commons.wikimedia.org/'}" target="_blank" rel="noopener noreferrer">
           Fotoğraf: ${escapeHtml(animal.imageCredit || 'Wikimedia Commons')}
         </a>
@@ -1527,6 +1546,14 @@ function setupEventListeners() {
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       currentSearchQuery = e.target.value;
+      catalogVisibleCount = CATALOG_PAGE_SIZE;
+      renderEncyclopedia();
+    });
+  }
+  const loadMoreSpecies = document.getElementById('loadMoreSpecies');
+  if (loadMoreSpecies) {
+    loadMoreSpecies.addEventListener('click', () => {
+      catalogVisibleCount += CATALOG_PAGE_SIZE;
       renderEncyclopedia();
     });
   }
