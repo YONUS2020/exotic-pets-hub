@@ -1350,7 +1350,56 @@ const ADDITIONAL_SPECIES_DATA = [
     careSummary: 'İyi havalandırılan, kaçışı önlenmiş bir yaşam alanı; taze ve ilaçsız uygun yapraklar ile güvenli tırmanma yüzeyleri sağlayın. Sıcaklık, nem ve yem bitkilerini türe özgü kaynakla doğrulayın.',
     dangerNotes: 'Hassas gövde ve bacakları kolay yaralanabilir; elle temas ve ani hareketten kaçının.',
     badgeColor: 'emerald'
-  }
+  },
+  ...[
+    ['brachypelma-boehmei', 'Meksika Ateş Bacaklı Tarantulası', 'Brachypelma boehmei', 'Orta', 'invertebrate'],
+    ['brachypelma-smithi', 'Meksika Kırmızı Diz Tarantulası', 'Brachypelma smithi', 'Başlangıç', 'invertebrate'],
+    ['tliltocatl-vagans', 'Kızıl Kıçlı Tarantula', 'Tliltocatl vagans', 'Başlangıç', 'invertebrate'],
+    ['avicularia-avicularia', 'Güney Amerika Pembe Parmaklı Tarantula', 'Avicularia avicularia', 'Orta', 'invertebrate'],
+    ['monocentropus-balfouri', 'Socotra Mavi Babun Tarantulası', 'Monocentropus balfouri', 'Uzman', 'invertebrate'],
+    ['haplopelma-lividum', 'Kobalt Mavi Tarantula', 'Cyriopagopus lividum', 'Uzman', 'invertebrate'],
+    ['theraphosa-blondi', 'Goliath Kuş Yiyen Tarantula', 'Theraphosa blondi', 'Uzman', 'invertebrate'],
+    ['aphonopelma-chalcodes', 'Arizona Sarışın Tarantulası', 'Aphonopelma chalcodes', 'Başlangıç', 'invertebrate'],
+    ['pandinus-cavimanus', 'Kızıl Pençeli Akrep', 'Pandinus cavimanus', 'Orta', 'invertebrate'],
+    ['androctonus-australis', 'Sarı Şişman Kuyruklu Akrep', 'Androctonus australis', 'Uzman', 'invertebrate'],
+    ['pandinus-vialis', 'Tanzanya Orman Akrebi', 'Pandinus vialis', 'Orta', 'invertebrate'],
+    ['scolopendra-cingulata', 'Akdeniz Çıyanı', 'Scolopendra cingulata', 'Orta', 'invertebrate'],
+    ['scolopendra-heros', 'Teksas Kızıl Başlı Çıyanı', 'Scolopendra heros', 'Uzman', 'invertebrate'],
+    ['ethmostigmus-rubric', 'Gökkuşağı Çıyanı', 'Ethmostigmus rubripes', 'Uzman', 'invertebrate'],
+    ['morelia-spilota', 'Halı Pitonu', 'Morelia spilota', 'Orta', 'reptile'],
+    ['lampropeltis-getula', 'Kral Yılanı', 'Lampropeltis getula', 'Orta', 'reptile'],
+    ['boa-constrictor', 'Boa Yılanı', 'Boa constrictor', 'Orta', 'reptile'],
+    ['diadophis-punctatus', 'Halka Boyunlu Yılan', 'Diadophis punctatus', 'Uzman', 'reptile'],
+    ['morelia-viridis', 'Yeşil Ağaç Pitonu', 'Morelia viridis', 'Uzman', 'reptile'],
+    ['poecilia-reticulata', 'Lepistes', 'Poecilia reticulata', 'Başlangıç', 'aquatic'],
+    ['paracheirodon-innesi', 'Neon Tetra', 'Paracheirodon innesi', 'Başlangıç', 'aquatic'],
+    ['pterophyllum-scalare', 'Melek Balığı', 'Pterophyllum scalare', 'Orta', 'aquatic'],
+    ['astronotus-ocellatus', 'Oscar Balığı', 'Astronotus ocellatus', 'Orta', 'aquatic'],
+    ['carassius-auratus-fancy', 'Teleskop Japon Balığı', 'Carassius auratus', 'Başlangıç', 'aquatic'],
+    ['trichogaster-lalius', 'Cüce Gurami', 'Trichogaster lalius', 'Başlangıç', 'aquatic'],
+    ['sciurus-vulgaris', 'Kızıl Sincap', 'Sciurus vulgaris', 'İleri', 'mammal'],
+    ['petaurista-alborufus', 'Kızıl Beyaz Uçan Sincap', 'Petaurista alborufus', 'İleri', 'mammal'],
+    ['felis-catus', 'Ev Kedisi', 'Felis catus', 'Başlangıç', 'mammal'],
+    ['canis-lupus-familiaris', 'Ev Köpeği', 'Canis lupus familiaris', 'Başlangıç', 'mammal'],
+    ['oryctolagus-cuniculus', 'Evcil Tavşan', 'Oryctolagus cuniculus', 'Başlangıç', 'mammal'],
+    ['cavia-porcellus', 'Gine Domuzu', 'Cavia porcellus', 'Başlangıç', 'mammal'],
+    ['aurelia-aurita', 'Ay Denizanası', 'Aurelia aurita', 'Uzman', 'aquatic'],
+    ['aquila-chrysaetos', 'Kaya Kartalı', 'Aquila chrysaetos', 'Uzman', 'bird'],
+    ['bubo-bubo', 'Puhu Kuşu', 'Bubo bubo', 'Uzman', 'bird']
+  ].map(([id, name, scientificName, difficulty, category]) => ({
+    id, name, scientificName, category,
+    categoryName: category === 'reptile' ? 'Sürüngen' : category === 'mammal' ? 'Memeli' : category === 'aquatic' ? 'Akuatik canlı' : category === 'bird' ? 'Kuş' : 'Eklem Bacaklı',
+    difficulty, difficultyLevel: difficulty === 'Başlangıç' ? 1 : difficulty === 'Orta' ? 2 : difficulty === 'İleri' ? 3 : 4,
+    habitat: 'Türüne uygun doğal yaşam alanı', origin: 'Türüne göre değişir', lifespan: 'Türüne ve bireye göre değişir', adultSize: 'Türüne göre değişir',
+    tempHot: 'Türüne özgü güvenilir kaynaktan doğrulanmalı', tempCold: 'Türüne özgü güvenilir kaynaktan doğrulanmalı',
+    humidity: 'Türüne özgü bakım kaynağına göre ayarlanmalı', dietType: 'Türüne uygun beslenme',
+    favoriteFood: 'Türüne uygun ve güvenli yem', uvbRequired: 'Tür ve yaşam alanına göre değişir',
+    handling: 'Türün ihtiyaçlarını öğrenmeden elle tutmayın.', badgeColor: 'emerald',
+    image: 'assets/dragon.svg',
+    shortDesc: `${name} için temel tür ve bakım bilgileri.`,
+    careSummary: 'Sıcaklık, nem, alan, beslenme ve mevzuat koşullarını tür uzmanı veya egzotik hayvan veterineriyle doğrulayın.',
+    dangerNotes: 'Her canlıyı güvenli, türe uygun yaşam alanında tutun; yabani hayvanları doğadan almayın.'
+  }))
 ];
 
 ADDITIONAL_SPECIES_DATA.forEach(species => {
