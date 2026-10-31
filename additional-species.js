@@ -1571,6 +1571,46 @@ ADDITIONAL_SPECIES_DATA.push(...EXTRA_EXOTIC_SPECIES);
 
 EXOTIC_ANIMALS_DATA = [...EXOTIC_ANIMALS_DATA, ...ADDITIONAL_SPECIES_DATA];
 
+const TARANTULA_IMAGE_OVERRIDES = {
+  'Brachypelma hamorii': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Brachypelma_Hamorii_Spiderling_2025.jpg/960px-Brachypelma_Hamorii_Spiderling_2025.jpg',
+  'Brachypelma boehmei': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/Brachypelma_klaasi_2009_G05.jpg/960px-Brachypelma_klaasi_2009_G05.jpg',
+  'Tliltocatl albopilosus': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Curlyhair_tarantula_%28Tliltocatl_albopilosus%29%2C_Entomica.jpg/960px-Curlyhair_tarantula_%28Tliltocatl_albopilosus%29%2C_Entomica.jpg',
+  'Tliltocatl vagans': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Brachypelma_vagans_p1.jpg/960px-Brachypelma_vagans_p1.jpg',
+  'Aphonopelma chalcodes': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Aphonopelma_chalcodes.jpg/960px-Aphonopelma_chalcodes.jpg',
+  'Grammostola pulchra': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Grammostola_pulchra_%28aka%29.jpg/960px-Grammostola_pulchra_%28aka%29.jpg',
+  'Grammostola pulchripes': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Grammostola_pulchripes_top_view.jpg/960px-Grammostola_pulchripes_top_view.jpg',
+  'Caribena versicolor': 'https://upload.wikimedia.org/wikipedia/commons/3/33/Caribena_versicolor_1.jpg',
+  'Acanthoscurria geniculata': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/%28Pet%29_Brazilian_whiteknee_tarantula_%28Theraphosidae%2C_Acanthoscurria_geniculata%29_%2836668450563%29.jpg/960px-%28Pet%29_Brazilian_whiteknee_tarantula_%28Theraphosidae%2C_Acanthoscurria_geniculata%29_%2836668450563%29.jpg',
+  'Nhandu chromatus': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/Brazilian_red_and_white_tarantula_%28Nhandu_chromatus%29%2C_Entomica.jpg/960px-Brazilian_red_and_white_tarantula_%28Nhandu_chromatus%29%2C_Entomica.jpg',
+  'Nhandu tripepii': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/Spiders_Genova_-_Nhandu_tripepii_%28vulpinus%29_3.jpg/960px-Spiders_Genova_-_Nhandu_tripepii_%28vulpinus%29_3.jpg',
+  'Pamphobeteus antinous': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Pamphobeteus_antinous_Pocock.JPG/960px-Pamphobeteus_antinous_Pocock.JPG',
+  'Lasiodora parahybana': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Lasiodora_parahybana_2009_G03.jpg/960px-Lasiodora_parahybana_2009_G03.jpg',
+  'Megaphobema robustum': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Megaphobema_robustum_2.jpg/960px-Megaphobema_robustum_2.jpg',
+  'Vitalius chromatus': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/Nhandu-chromatus-male.jpg/960px-Nhandu-chromatus-male.jpg',
+  'Cyriopagopus schmidti': 'https://upload.wikimedia.org/wikipedia/commons/6/6a/Haplopelma_schmidti_in_a_tank.jpg',
+  'Cyriopagopus lividus': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/96/FemaleH.lividum.JPG/960px-FemaleH.lividum.JPG',
+  'Psalmopoeus irminia': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Psalmopoeus_irminia_0041.jpg/960px-Psalmopoeus_irminia_0041.jpg',
+  'Psalmopoeus cambridgei': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Trinidad_Chevron_Tarantula_%28Psalmopoeus_cambridgei%29.jpg/960px-Trinidad_Chevron_Tarantula_%28Psalmopoeus_cambridgei%29.jpg',
+  'Poecilotheria metallica': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Poecilotheria_metallica.JPG/960px-Poecilotheria_metallica.JPG',
+  'Poecilotheria regalis': 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Female_Poecilotheria_regalis%2C_ventral_shot.jpg',
+  'Poecilotheria fasciata': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Poecilotheria_fasciata_%28Lemon_Legged_Tiger_Spider%29_endemic_to_Sri_Lanka.jpg/960px-Poecilotheria_fasciata_%28Lemon_Legged_Tiger_Spider%29_endemic_to_Sri_Lanka.jpg',
+  'Poecilotheria rufilata': 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Poecilotheria_rufilata.jpg/960px-Poecilotheria_rufilata.jpg',
+  'Poecilotheria ornata': 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Poecilotheria_ornata_-_female_-_top_view.jpg',
+  'Stromatopelma calceatum': 'https://upload.wikimedia.org/wikipedia/commons/3/36/Stromatopelma_calceatum_22509655.jpg'
+};
+
+EXOTIC_ANIMALS_DATA.forEach(species => {
+  const imageUrl = TARANTULA_IMAGE_OVERRIDES[species.scientificName];
+  if (!imageUrl) return;
+  species.image = imageUrl;
+  species.imageIsRepresentative = false;
+  species.imageSource = `https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=${encodeURIComponent(species.scientificName)}`;
+  species.imageCredit = 'Wikimedia Commons';
+  species.imageLicense = 'Lisans bilgisi kaynak sayfasında yer alır';
+  species.imageLicenseUrl = species.imageSource;
+  delete species.imageWarning;
+});
+
 const TERRA_VERIFIED_CARE_SOURCES = {
   'leopard-gecko': 'https://reptifiles.com/leopard-gecko-care/',
   'bearded-dragon': 'https://reptifiles.com/bearded-dragon-care/',
