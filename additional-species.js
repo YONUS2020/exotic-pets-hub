@@ -1416,8 +1416,6 @@ ADDITIONAL_SPECIES_DATA.forEach(species => {
   species.careSummary = species.careSummary || 'Bakım ısıları, nem, beslenme ve yaşam alanı ölçüleri burada genellenmemiştir. Sahiplenmeden önce türe özgü güvenilir bir bakım kaynağını ve egzotik hayvan veterinerini doğrulayın.';
 });
 
-EXOTIC_ANIMALS_DATA = [...EXOTIC_ANIMALS_DATA, ...ADDITIONAL_SPECIES_DATA];
-
 const TARANTULA_EXPANSION = [
   ['brachypelma-hamorii', 'Meksika Kırmızı Diz Tarantulası', 'Brachypelma hamorii', 'Başlangıç', 'mexican-red-knee-tarantula.jpg'],
   ['brachypelma-boehmei-expanded', 'Meksika Ateş Bacaklı Tarantulası', 'Brachypelma boehmei', 'Orta', 'mexican-fireleg-tarantula.jpg'],
@@ -1503,6 +1501,75 @@ const TARANTULA_EXPANSION = [
 }));
 
 ADDITIONAL_SPECIES_DATA.push(...TARANTULA_EXPANSION);
+
+const EXTRA_EXOTIC_SPECIES = [
+  ['pandinus-cavimanus-expanded', 'Kızıl Pençeli Akrep', 'Pandinus cavimanus', 'Orta', 'red-claw-scorpion.jpg', 'invertebrate'],
+  ['heterometrus-petersii-expanded', 'Çin Orman Akrebi', 'Heterometrus petersii', 'Orta', 'heterometrus-petersii.jpg', 'invertebrate'],
+  ['emperor-scorpion-expanded', 'İmparator Akrep', 'Pandinus imperator', 'Başlangıç', 'emperor-scorpion.jpg', 'invertebrate'],
+  ['arizona-bark-scorpion-expanded', 'Arizona Kabuk Akrebi', 'Centruroides sculpturatus', 'Uzman', 'arizona-bark-scorpion.jpg', 'invertebrate'],
+  ['desert-hairy-scorpion-expanded', 'Çöl Kıllı Akrebi', 'Hadrurus arizonensis', 'Orta', 'desert-hairy-scorpion.jpg', 'invertebrate'],
+  ['asian-forest-scorpion-expanded', 'Asya Orman Akrebi', 'Heterometrus spinifer', 'Orta', 'asian-forest-scorpion.jpg', 'invertebrate'],
+  ['red-claw-scorpion-expanded', 'Tanzanya Kızıl Pençeli Akrebi', 'Pandinus dictator', 'Orta', 'red-claw-scorpion.jpg', 'invertebrate'],
+  ['arizona-blonde-scorpion-expanded', 'Arizona Sarı Akrebi', 'Paruroctonus utahensis', 'Uzman', 'arizona-bark-scorpion.jpg', 'invertebrate'],
+  ['ball-python-expanded', 'Top Pitonu', 'Python regius', 'Başlangıç', 'ball-python.jpg', 'reptile'],
+  ['king-snake-expanded', 'Kaliforniya Kral Yılanı', 'Lampropeltis californiae', 'Orta', 'california-kingsnake.jpg', 'reptile'],
+  ['milk-snake-expanded', 'Süt Yılanı', 'Lampropeltis triangulum', 'Orta', 'milk-snake.jpg', 'reptile'],
+  ['black-rat-snake-expanded', 'Siyah Sıçan Yılanı', 'Pantherophis obsoletus', 'Orta', 'black-rat-snake.jpg', 'reptile'],
+  ['gopher-snake-expanded', 'Gopher Yılanı', 'Pituophis catenifer', 'Başlangıç', 'gopher-snake.jpg', 'reptile'],
+  ['hognose-snake-expanded', 'Batı Hognose Yılanı', 'Heterodon nasicus', 'Başlangıç', 'hognose-snake.jpg', 'reptile'],
+  ['kenyan-sand-boa-expanded', 'Kenya Kum Boası', 'Eryx colubrinus', 'Başlangıç', 'kenyan-sand-boa.jpg', 'reptile'],
+  ['dumerils-boa-expanded', 'Dumeril Boası', 'Acrantophis dumerili', 'Orta', 'dumerils-boa.jpg', 'reptile'],
+  ['common-boa-expanded', 'Boa Konstriktör', 'Boa constrictor', 'Orta', 'common-boa.jpg', 'reptile'],
+  ['carpet-python-expanded', 'Halı Pitonu', 'Morelia spilota', 'Orta', 'carpet-python.jpg', 'reptile'],
+  ['green-tree-python-expanded', 'Yeşil Ağaç Pitonu', 'Morelia viridis', 'Uzman', 'green-tree-python.jpg', 'reptile'],
+  ['tiger-centipede-expanded', 'Kaplan Çıyanı', 'Scolopendra polymorpha', 'Uzman', 'tiger-centipede.jpg', 'invertebrate'],
+  ['giant-centipede-expanded', 'Dev Çıyan', 'Scolopendra gigantea', 'Uzman', 'giant-centipede.jpg', 'invertebrate'],
+  ['giant-amazonian-centipede-expanded', 'Amazon Dev Çıyanı', 'Scolopendra gigantea', 'Uzman', 'giant-amazonian-centipede.jpg', 'invertebrate'],
+  ['giant-desert-centipede-expanded', 'Dev Çöl Çıyanı', 'Scolopendra heros', 'Uzman', 'giant-desert-centipede.jpg', 'invertebrate'],
+  ['desert-centipede-expanded', 'Çöl Çıyanı', 'Scolopendra polymorpha', 'Uzman', 'desert-hairy-scorpion.jpg', 'invertebrate'],
+  ['chilean-centipede-expanded', 'Şili Çıyanı', 'Scolopendra subspinipes', 'Uzman', 'giant-centipede.jpg', 'invertebrate'],
+  ['asian-giant-centipede-expanded', 'Asya Dev Çıyanı', 'Scolopendra subspinipes dehaani', 'Uzman', 'giant-centipede.jpg', 'invertebrate'],
+  ['blue-legged-centipede-expanded', 'Mavi Bacaklı Çıyan', 'Scolopendra viridis', 'Uzman', 'tiger-centipede.jpg', 'invertebrate'],
+  ['red-headed-centipede-expanded', 'Kızıl Başlı Çıyan', 'Scolopendra heros', 'Uzman', 'tiger-centipede.jpg', 'invertebrate'],
+  ['giant-peruvian-centipede-expanded', 'Peru Dev Çıyanı', 'Scolopendra gigantea', 'Uzman', 'giant-amazonian-centipede.jpg', 'invertebrate']
+].map(([id, name, scientificName, difficulty, imageFile, category]) => ({
+  id,
+  name,
+  scientificName,
+  category,
+  categoryName: category === 'reptile' ? 'Sürüngen' : 'Eklem Bacaklı',
+  difficulty,
+  difficultyLevel: difficulty === 'Başlangıç' ? 1 : difficulty === 'Orta' ? 2 : 4,
+  habitat: 'Türüne özgü doğal yaşam alanı',
+  origin: 'Türüne göre değişir',
+  lifespan: 'Cinsiyete ve bireye göre değişir',
+  adultSize: 'Türüne ve bireye göre değişir',
+  tempHot: 'Türüne özgü güvenilir bakım kaynağından doğrulanmalı',
+  tempCold: 'Ani sıcaklık değişimlerinden korunmalı',
+  humidity: 'Türün habitatına göre ayarlanmalı; iyi havalandırma şart',
+  dietType: category === 'reptile' ? 'Etçil' : 'Böcekçil',
+  favoriteFood: category === 'reptile' ? 'Türüne uygun, güvenli ve çözündürülmüş yem' : 'Uygun boyda güvenli üretimden böcekler',
+  uvbRequired: category === 'reptile' ? 'Türüne göre; güvenilir bakım kaynağından doğrulayın' : 'Genellikle zorunlu değil',
+  handling: 'Gereksiz elle temastan kaçının; hızlı veya savunmacı türleri tutmayın.',
+  badgeColor: difficulty === 'Uzman' ? 'rose' : 'emerald',
+  image: `assets/species/${imageFile}`,
+  imageIsRepresentative: true,
+  imageSource: `https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=${encodeURIComponent(scientificName)}`,
+  imageCredit: 'Temsili fotoğraf; tür fotoğrafı için Wikimedia Commons araması',
+  imageLicense: 'Kaynak bağlantısındaki lisansa göre doğrulanmalı',
+  imageLicenseUrl: `https://commons.wikimedia.org/wiki/Special:MediaSearch?type=image&search=${encodeURIComponent(scientificName)}`,
+  imageWarning: 'Bu kartta aynı gruptan temsili fotoğraf kullanılmıştır; fotoğraf tür teşhisi için kullanılmamalıdır.',
+  shortDesc: `${scientificName} için temel tür ve bakım bilgisi.`,
+  careSummary: 'Yaşam alanı, sıcaklık, nem, beslenme ve güvenlik koşullarını türe özgü güncel kaynakla doğrulayın.',
+  dangerNotes: category === 'reptile'
+    ? 'Canlı yem ve güvenli taşıma kurallarına uyun; sahiplenmeden önce türün yasal durumunu doğrulayın.'
+    : 'Savunma davranışı ve zehir riskleri nedeniyle elle tutmayın; çocuklardan uzak, kaçışa dayanıklı kurulum kullanın.',
+  careSourceUrl: `https://www.google.com/search?q=${encodeURIComponent(`${scientificName} care guide`)}`
+}));
+
+ADDITIONAL_SPECIES_DATA.push(...EXTRA_EXOTIC_SPECIES);
+
+EXOTIC_ANIMALS_DATA = [...EXOTIC_ANIMALS_DATA, ...ADDITIONAL_SPECIES_DATA];
 
 const TERRA_VERIFIED_CARE_SOURCES = {
   'leopard-gecko': 'https://reptifiles.com/leopard-gecko-care/',
