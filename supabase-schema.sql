@@ -422,10 +422,14 @@ with check (
 );
 
 drop policy if exists "Authors remove their own pending posts" on public.community_posts;
-create policy "Authors remove their own pending posts"
+drop policy if exists "Owner removes community posts" on public.community_posts;
+create policy "Owner removes community posts"
 on public.community_posts for delete
 to authenticated
-using (author_id = (select auth.uid()) and status = 'pending');
+using (
+  public.is_terra_admin()
+  or (author_id = (select auth.uid()) and status = 'pending')
+);
 
 drop policy if exists "Read published comments and own moderation queue" on public.community_comments;
 create policy "Read published comments and own moderation queue"
@@ -475,10 +479,14 @@ with check (
 );
 
 drop policy if exists "Authors remove their own pending comments" on public.community_comments;
-create policy "Authors remove their own pending comments"
+drop policy if exists "Owner removes community comments" on public.community_comments;
+create policy "Owner removes community comments"
 on public.community_comments for delete
 to authenticated
-using (author_id = (select auth.uid()) and status = 'pending');
+using (
+  public.is_terra_admin()
+  or (author_id = (select auth.uid()) and status = 'pending')
+);
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('community-media', 'community-media', false, 8388608, array['image/jpeg', 'image/png', 'image/webp'])

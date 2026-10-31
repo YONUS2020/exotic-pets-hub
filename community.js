@@ -33,6 +33,7 @@ const COMMUNITY_AUTH_REDIRECT_URL = 'https://exoticpetshub.com.tr/community';
 const COMMUNITY_BAD_WORDS = /\b(?:amk|aq|oc|orospu|sik|yarrak|pic|ibne|amcik|serefsiz|gerizekali|salak|aptal|kahpe|surtuk|fuck|shit|bitch|asshole|cunt|dick|bastard|motherfucker)\b/i;
 let communityClient = null;
 let activeCommunityUser = null;
+let isCommunityAdmin = false;
 let communityAuthQueue = Promise.resolve();
 
 function setCommunityStatus(message, isError = false) {
@@ -283,9 +284,10 @@ async function renderCommunityFeedPage(append) {
     const postComments = commentsByPost.get(post.id) || [];
     if (!postComments.length) comments.append(makeCommunityElement('p', 'text-xs text-slate-500', 'Henüz onaylanmış yorum yok.'));
     for (const comment of postComments) {
-      const commentCard = makeCommunityElement('p', 'break-words rounded-lg bg-slate-950/60 p-3 text-sm text-slate-300');
+      const commentCard = makeCommunityElement('div', 'break-words rounded-lg bg-slate-950/60 p-3 text-sm text-slate-300');
       const author = makeCommunityElement('span', 'mr-2 font-semibold text-emerald-200', comment.author_display_name || 'Topluluk üyesi');
       commentCard.append(author, document.createTextNode(comment.body));
+      if (isCommunityAdmin) commentCard.append(createAdminDeleteButton('comment', comment.id));
       comments.append(commentCard);
     }
 
@@ -311,9 +313,46 @@ async function renderCommunityFeedPage(append) {
       loginLink.addEventListener('click', () => communityElements.email.focus());
       comments.append(loginLink);
     }
+    if (isCommunityAdmin) body.append(createAdminDeleteButton('post', post.id));
     body.append(comments);
     card.append(body);
     communityElements.feed.append(card);
+  }
+
+  function createAdminDeleteButton(type, id) {
+    const button = makeCommunityElement(
+      'button',
+      'mt-2 rounded-lg border border-rose-800 px-3 py-1.5 text-xs font-semibold text-rose-200 hover:bg-rose-950',
+      type === 'post' ? 'Paylaşımı kaldır' : 'Yorumu kaldır'
+    );
+    button.type = 'button';
+    button.addEventListener('click', async () => {
+      if (!window.confirm(`${type === 'post' ? 'Bu paylaşımı' : 'Bu yorumu'} kaldırmak istediğine emin misin?`)) return;
+      button.disabled = true;
+      const table = type === 'post' ? 'community_posts' : 'community_comments';
+      const { data, error } = await communityClient
+        .from(table)
+        .delete()
+        .eq('id', id)
+        .select(type === 'post' ? 'id, image_path' : 'id')
+        .maybeSingle();
+      if (error) {
+        button.disabled = false;
+        setCommunityStatus(`İçerik kaldırılamadı: ${error.message}`, true);
+        return;
+      }
+      if (type === 'post' && data?.image_path) {
+        const { error: storageError } = await communityClient.storage
+          .from(COMMUNITY_BUCKET)
+          .remove([data.image_path]);
+        if (storageError) {
+          setCommunityStatus(`Paylaşım kaldırıldı ancak fotoğraf temizlenemedi: ${storageError.message}`, true);
+        }
+      }
+      await renderCommunityFeed();
+      setCommunityStatus(`${type === 'post' ? 'Paylaşım' : 'Yorum'} kaldırıldı.`);
+    });
+    return button;
   }
 }
 
@@ -369,7 +408,7 @@ async function submitCommunityPost(event) {
       .upload(imagePath, safeImage, { contentType: safeImage.type, cacheControl: '3600', upsert: false });
     if (uploadError) throw uploadError;
 
-    const { error: postError } = await communityClient
+    const { data: post, error: postError } = await communityClient
       .from('community_posts')
       .insert({
         author_id: activeCommunityUser.id,
@@ -377,19 +416,36 @@ async function submitCommunityPost(event) {
         question,
         species_name: speciesName || null,
         image_path: imagePath
-      });
+      })
+      .select('id')
+      .single();
     if (postError) {
       const { error: cleanupError } = await communityClient.storage.from(COMMUNITY_BUCKET).remove([imagePath]);
       if (cleanupError) throw new Error(`Gönderi kaydedilemedi: ${postError.message}. Fotoğraf temizliği de başarısız: ${cleanupError.message}`);
       throw postError;
     }
 
+    let notificationFailed = false;
+    const { data: sessionData } = await communityClient.auth.getSession();
+    const notificationResponse = await fetch('/api/notify-community', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${sessionData.session?.access_token || ''}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ postId: post.id })
+    });
+    if (!notificationResponse.ok) notificationFailed = true;
+
     communityElements.postForm.reset();
     communityElements.questionCount.textContent = '0';
     communityElements.photoName.textContent = 'Henüz fotoğraf seçilmedi.';
     communityElements.displayName.value = displayName;
     await loadOwnCommunityQueue();
-    setCommunityStatus('Gönderin alındı. Yönetici onayından sonra herkese görünür olacak.');
+    setCommunityStatus(notificationFailed
+      ? 'Gönderin alındı; ancak yönetici bildirim e-postası yapılandırılmamış veya gönderilemedi.'
+      : 'Gönderin alındı. Yöneticiye bildirim gönderildi; onaydan sonra herkese görünür olacak.',
+      notificationFailed);
   } catch (error) {
     setCommunityStatus(`Gönderi paylaşılmadı: ${error.message}`, true);
   } finally {
@@ -511,6 +567,11 @@ async function initializeCommunity() {
     return;
   }
   clearAuthCallbackParameters();
+  if (data.session) {
+    const { data: adminResult, error: adminError } = await communityClient.rpc('is_terra_admin');
+    if (adminError) throw adminError;
+    isCommunityAdmin = adminResult === true;
+  }
   await showCommunityUser(data.session?.user || null);
   communityClient.auth.onAuthStateChange((_event, session) => {
     window.setTimeout(() => queueCommunityUserUpdate(session?.user || null), 0);
