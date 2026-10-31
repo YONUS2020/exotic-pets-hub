@@ -27,6 +27,15 @@ function getAdminAuthErrorMessage(error) {
   if (/signups not allowed for otp/i.test(message)) {
     return 'Bu yönetici e-postası Supabase Authentication kullanıcılarında kayıtlı değil. Supabase Dashboard → Authentication → Users bölümünde Add user veya Create user seçeneğiyle yeskin85@gmail.com hesabını oluşturun; sonra bu sayfadan tekrar giriş bağlantısı isteyin.';
   }
+  if (/invalid login credentials/i.test(message)) {
+    return 'E-posta veya parola hatalı. Supabase Dashboard → Authentication → Users bölümünde yönetici hesabına parola tanımlayın.';
+  }
+  if (/email rate limit exceeded/i.test(message)) {
+    return 'E-posta kotası doldu. Tek kullanımlık bağlantı istemek yerine Supabase yönetici hesabına parola tanımlayıp Parola ile giriş yap seçeneğini kullanın.';
+  }
+  if (/email provider.*disabled|provider.*not enabled/i.test(message)) {
+    return 'Supabase Authentication → Providers → Email bölümünde e-posta sağlayıcısını etkinleştirin.';
+  }
   if (/redirect.*(not allowed|blocked)|invalid.*redirect/i.test(message)) {
     return 'Admin yönlendirme adresi Supabase’te izinli değil. Authentication → URL Configuration → Redirect URLs bölümüne https://exoticpetshub.com.tr/admin.html adresini ekleyin.';
   }
@@ -36,6 +45,7 @@ function getAdminAuthErrorMessage(error) {
 function setAdminView(view) {
   adminElements.setup.classList.toggle('hidden', view !== 'setup');
   adminElements.login.classList.toggle('hidden', view !== 'login');
+  document.getElementById('passwordResetPanel').classList.toggle('hidden', view !== 'password-reset');
   adminElements.denied.classList.toggle('hidden', view !== 'denied');
   adminElements.panel.classList.toggle('hidden', view !== 'panel');
 }
@@ -132,7 +142,7 @@ async function moderateCommunityItem(id, table, status) {
     .update(updates)
     .eq('id', id)
     .eq('status', 'pending')
-    .select('id, image_path')
+    .select(table === 'community_posts' ? 'id, image_path' : 'id')
     .maybeSingle();
   if (error) {
     showAdminStatus(`Topluluk içeriği güncellenemedi: ${error.message}`, true);
@@ -293,11 +303,47 @@ async function initializeAdminPanel() {
     return;
   }
 
+  const callbackUrl = new URL(window.location.href);
+  const isPasswordRecovery = window.location.hash.includes('access_token=')
+    || callbackUrl.searchParams.has('code')
+    || callbackUrl.searchParams.get('type') === 'recovery';
+  adminSpeciesClient.auth.onAuthStateChange(event => {
+    if (event === 'PASSWORD_RECOVERY') {
+      setAdminView('password-reset');
+      showAdminStatus('Yeni yönetici parolanı belirle.');
+    }
+  });
+
   setAdminView('login');
+  if (isPasswordRecovery) {
+    setAdminView('password-reset');
+  }
   document.getElementById('loginForm').addEventListener('submit', async event => {
     event.preventDefault();
-    showAdminStatus('Giriş bağlantısı gönderiliyor...');
     const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    if (!password) {
+      showAdminStatus('Parola alanını doldur veya aşağıdaki e-posta bağlantısı seçeneğini kullan.', true);
+      return;
+    }
+    showAdminStatus('Giriş yapılıyor...');
+    const { error } = await adminSpeciesClient.auth.signInWithPassword({ email, password });
+    if (error) {
+      showAdminStatus(`Giriş yapılamadı: ${getAdminAuthErrorMessage(error)}`, true);
+      return;
+    }
+    await authorizeAdmin((await adminSpeciesClient.auth.getSession()).data.session);
+  });
+
+  document.getElementById('sendLoginLinkButton').addEventListener('click', async event => {
+    const button = event.currentTarget;
+    const email = document.getElementById('loginEmail').value.trim();
+    if (!email) {
+      showAdminStatus('Önce e-posta adresini yaz.', true);
+      return;
+    }
+    button.disabled = true;
+    showAdminStatus('Giriş bağlantısı gönderiliyor...');
     const { error } = await adminSpeciesClient.auth.signInWithOtp({
       email,
       options: {
@@ -305,6 +351,7 @@ async function initializeAdminPanel() {
         emailRedirectTo: ADMIN_AUTH_REDIRECT_URL
       }
     });
+    button.disabled = false;
     if (error) {
       showAdminStatus(`Giriş bağlantısı gönderilemedi: ${getAdminAuthErrorMessage(error)}`, true);
       return;
@@ -312,11 +359,52 @@ async function initializeAdminPanel() {
     showAdminStatus('E-postana giriş bağlantısı gönderildi. Bağlantı bu siteye geri yönlendirir.');
   });
 
+  document.getElementById('passwordResetForm').addEventListener('submit', async event => {
+    event.preventDefault();
+    const password = document.getElementById('newAdminPassword').value;
+    const confirmation = document.getElementById('confirmAdminPassword').value;
+    if (password !== confirmation) {
+      showAdminStatus('Parolalar eşleşmiyor.', true);
+      return;
+    }
+    showAdminStatus('Yeni parola kaydediliyor...');
+    const { error } = await adminSpeciesClient.auth.updateUser({ password });
+    if (error) {
+      showAdminStatus(`Parola kaydedilemedi: ${error.message}`, true);
+      return;
+    }
+    await adminSpeciesClient.auth.signOut();
+    window.history.replaceState(window.history.state, '', window.location.pathname);
+    setAdminView('login');
+    showAdminStatus('Parolan kaydedildi. Şimdi e-posta ve yeni parolanla giriş yapabilirsin.');
+  });
+
+  document.getElementById('resetPasswordButton').addEventListener('click', async event => {
+    const button = event.currentTarget;
+    const email = document.getElementById('loginEmail').value.trim();
+    if (!email) {
+      showAdminStatus('Önce e-posta adresini yaz.', true);
+      return;
+    }
+    button.disabled = true;
+    showAdminStatus('Parola sıfırlama e-postası gönderiliyor...');
+    const { error } = await adminSpeciesClient.auth.resetPasswordForEmail(email, {
+      redirectTo: ADMIN_AUTH_REDIRECT_URL
+    });
+    button.disabled = false;
+    if (error) {
+      showAdminStatus(`Parola sıfırlama e-postası gönderilemedi: ${getAdminAuthErrorMessage(error)}`, true);
+      return;
+    }
+    showAdminStatus('Sıfırlama e-postası gönderildi. Gelen bağlantıyı açıp yeni parolanı belirle.');
+  });
+
   const { data, error } = await adminSpeciesClient.auth.getSession();
   if (error) {
     showAdminStatus(`Oturum doğrulanamadı: ${error.message}`, true);
     return;
   }
+  if (isPasswordRecovery) return;
   await authorizeAdmin(data.session);
 
   adminElements.form.addEventListener('submit', async event => {

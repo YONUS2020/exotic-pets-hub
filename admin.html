@@ -32,11 +32,27 @@
 
     <section id="loginPanel" class="glass-panel mx-auto hidden max-w-xl rounded-3xl p-6 sm:p-8">
       <h1 class="text-2xl font-bold text-white">Yönetici girişi</h1>
-      <p class="mt-2 text-sm text-slate-300">Yalnızca Supabase Authentication kullanıcılarında kayıtlı sahip hesabı yönetici olabilir. E-postana tek kullanımlık giriş bağlantısı gönderilir.</p>
+      <p class="mt-2 text-sm text-slate-300">Yalnızca Supabase Authentication kullanıcılarında kayıtlı sahip hesabı yönetici olabilir. Acil erişim için parola ile giriş yapabilir veya e-posta bağlantısını alternatif olarak kullanabilirsin.</p>
       <form id="loginForm" class="mt-6 space-y-4">
         <label class="block text-sm font-semibold text-slate-200" for="loginEmail">E-posta</label>
         <input id="loginEmail" type="email" autocomplete="email" required class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white">
-        <button class="w-full rounded-xl bg-emerald-600 px-4 py-3 font-bold text-white hover:bg-emerald-500">Giriş bağlantısı gönder</button>
+        <label class="block text-sm font-semibold text-slate-200" for="loginPassword">Parola</label>
+        <input id="loginPassword" type="password" autocomplete="current-password" class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white" placeholder="Supabase yönetici parolan">
+        <button class="w-full rounded-xl bg-emerald-600 px-4 py-3 font-bold text-white hover:bg-emerald-500">Parola ile giriş yap</button>
+        <button id="resetPasswordButton" type="button" class="w-full rounded-xl border border-slate-700 px-4 py-3 font-semibold text-slate-200 hover:border-emerald-500">Parolamı sıfırla</button>
+        <button id="sendLoginLinkButton" type="button" class="w-full rounded-xl border border-emerald-700 px-4 py-3 font-semibold text-emerald-200 hover:bg-emerald-950/50">E-posta bağlantısı gönder</button>
+      </form>
+    </section>
+
+    <section id="passwordResetPanel" class="glass-panel mx-auto hidden max-w-xl rounded-3xl p-6 sm:p-8">
+      <h1 class="text-2xl font-bold text-white">Yeni yönetici parolası</h1>
+      <p class="mt-2 text-sm text-slate-300">E-postadaki bağlantı doğrulandı. Yeni parolanı belirle.</p>
+      <form id="passwordResetForm" class="mt-6 space-y-4">
+        <label class="block text-sm font-semibold text-slate-200" for="newAdminPassword">Yeni parola</label>
+        <input id="newAdminPassword" type="password" autocomplete="new-password" minlength="8" required class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white">
+        <label class="block text-sm font-semibold text-slate-200" for="confirmAdminPassword">Yeni parola (tekrar)</label>
+        <input id="confirmAdminPassword" type="password" autocomplete="new-password" minlength="8" required class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white">
+        <button class="w-full rounded-xl bg-emerald-600 px-4 py-3 font-bold text-white hover:bg-emerald-500">Parolayı kaydet</button>
       </form>
     </section>
 
