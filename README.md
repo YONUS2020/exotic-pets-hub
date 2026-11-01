@@ -10,6 +10,7 @@ Ana sayfada yüksek çözünürlüklü doğa videosu ve seçili türler; tam fil
 ### 1. Kapsamlı Egzotik Canlı Ansiklopedisi
 - **Tüm Egzotik Kategoriler:** Sürüngenler, İkiyaşamlılar, örümcekler, tarantulalar, akrepler, kırkayaklar, çıyanlar, böcekler, egzotik memeliler ve akuatik canlılar.
 - **Bakım rehberleri:** Editoryal tür rehberlerine ek olarak kullanıcı listesindeki 400 tür de kataloğa eklenir. Yeni kayıtlar Wikimedia Commons fotoğraf adaylarıyla gösterilir; bulunamayan görseller mevcut güvenli fallback görseline döner ve bakım değerleri doğrulama gerektiğini açıkça belirtir.
+- **Doğal yaşam ansiklopedisi:** Aslan, kaplan, timsah, fil, ayı, çeşitli sincaplar, kartallar, baykuşlar ve diğer yabani türler ayrı bir ansiklopedi paketiyle görsel adaylarıyla listelenir. Bu kayıtlar evcil hayvan önerisi değildir; koruma, gözlem ve tür bilgisi içindir.
 - **Canlı Kartları & Filtreleme:** Kategoriye, bakım zorluğuna (Başlangıç, Orta, İleri, Uzman) ve anlık arama kelimesine göre filtreleme.
 - **Detaylı Bakım Kartı (Modal):**
   - Bilimsel Ad & Doğal Habitat
