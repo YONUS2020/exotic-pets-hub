@@ -9,7 +9,7 @@ Ana sayfada yüksek çözünürlüklü doğa videosu ve seçili türler; tam fil
 
 ### 1. Kapsamlı Egzotik Canlı Ansiklopedisi
 - **Tüm Egzotik Kategoriler:** Sürüngenler, İkiyaşamlılar, örümcekler, tarantulalar, akrepler, kırkayaklar, çıyanlar, böcekler, egzotik memeliler ve akuatik canlılar.
-- **Bakım rehberleri:** 77 tür rehberi; tarantula, yılan, akrep ve böcek grupları genişletilmiştir. Türe özgü bakım kaynağı doğrulanmamış kayıtlarda bu eksik açıkça belirtilir; her görselin lisans atfı kartta gösterilir.
+- **Bakım rehberleri:** Editoryal tür rehberlerine ek olarak kullanıcı listesindeki 400 tür de kataloğa eklenir. Yeni kayıtlar Wikimedia Commons fotoğraf adaylarıyla gösterilir; bulunamayan görseller mevcut güvenli fallback görseline döner ve bakım değerleri doğrulama gerektiğini açıkça belirtir.
 - **Canlı Kartları & Filtreleme:** Kategoriye, bakım zorluğuna (Başlangıç, Orta, İleri, Uzman) ve anlık arama kelimesine göre filtreleme.
 - **Detaylı Bakım Kartı (Modal):**
   - Bilimsel Ad & Doğal Habitat
@@ -47,7 +47,7 @@ Statik sayfaları yerelde açabilirsin. Supabase kullanan yönetici paneli ve ç
 
 - Ana sayfa ve tür kataloğunda başlık, açıklama ve sosyal önizleme etiketleri ile JSON-LD bulunur; yapılandırılmış verinin metni sayfada gerçekten görünen içerikle eşleşmelidir.
 - Yayındaki adres `https://exotic-pets-hub.vercel.app/` olarak doğrulandı; eski `terraexotica.vercel.app` adresi 404 döndürüyor. Canonical, Open Graph URL'leri, yapılandırılmış veriler, robots ve sitemap bu çalışan Vercel alan adını kullanmalıdır.
-- `animals.html` kataloğunda editoryal olarak hazırlanmış 77 tür, bakım rehberi sayısına dahildir. Tür bilgileri ve görseller yerel katalog kayıtlarından yüklenir.
+- `animals.html` kataloğunda editoryal kayıtlar ile `requested-species.js` içindeki 400 kullanıcı listesi türü birlikte gösterilir. İsim veya bilimsel adı mevcut kayıtlarda bulunan türler tekrar eklenmez; yeni kayıtların görselleri Wikimedia Commons üzerinden aday olarak yüklenir.
 
 1. `index.html` dosyasını Google Chrome, Microsoft Edge, Mozilla Firefox veya dilediğiniz bir tarayıcıda çift tıklayarak açın.
 2. Veya VS Code kullanıyorsanız *Live Server* eklentisiyle çalıştırabilirsiniz.
@@ -85,7 +85,7 @@ Yönetici girişi veritabanı RLS politikalarıyla da sınırlandırılır; aray
 - `catalog-config.js`: Supabase URL ve public/publishable key ayar yeri; secret anahtarlar buraya konmamalıdır.
 - `supabase-schema.sql`: PostgreSQL katalog/topluluk tabloları, tek sahip yetkilendirmesi, topluluk için sütun düzeyinde izinler ve RLS, moderasyon ve özel depolama şeması. Public istemciler gönderi sahibinin UUID/e-posta alanlarını okuyamaz; yalnızca moderasyondan geçmiş içerik ve takma ad görünür.
 - `style.css`: Egzotik orman/teraryum karanlık modu, cam efektleri (glassmorphism), neon rozetler ve animasyonlar.
-- `data.js`, `additional-species.js`: Kaynak/bakım kartı derinliği farklı olan 77 editoryal tür rehberi ve hazır başlangıç hobici demo kayıtları.
+- `data.js`, `additional-species.js`, `extra-species.js`: Kaynak/bakım kartı derinliği farklı olan editoryal tür rehberleri ve hazır başlangıç hobici demo kayıtları. `requested-species.js`, kullanıcı tarafından sağlanan geniş tür listesindeki mevcut olmayan kayıtları ekler.
 - `app.js`: Filtreleme, arama, veri depolama (CRUD), interaktif grafikler ve bildirim sistemi.
 - `assets/species/`: Tür adıyla eşleştirilmiş yerel fotoğraflar; sanatçı ve lisans bilgileri her tür kartında gösterilir.
 - Tür rehberinde olmayan hayvanları takip formundan kendi tür adınla ekleyebilirsin. Bu özel adlar ve hayvan kayıtları yalnızca o tarayıcıda saklanır; bakım değerleri uydurulmaz.
